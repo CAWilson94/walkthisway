@@ -8,4 +8,7 @@
 
     <string name="fragstory">History Frag!</string>
     <string name="fragwalk">Walk Frag!</string>
+    <string name="fragtest">test Frag!</string>
+    <string name="fragstats">stats Frag!</string>
+
 </resources>

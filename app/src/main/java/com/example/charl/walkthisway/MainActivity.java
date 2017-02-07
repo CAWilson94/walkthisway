@@ -18,6 +18,7 @@ import android.view.MenuItem;
 
 
 import static com.example.charl.walkthisway.R.id.content_frame;
+import static com.example.charl.walkthisway.R.id.stats;
 import static com.example.charl.walkthisway.R.layout.fragment_history;
 
 public class MainActivity extends AppCompatActivity
@@ -108,6 +109,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.walk:
                 fragment = new walk();
+                break;
+            case stats:
+                fragment = new stats();
+                break;
+            case R.id.test:
+                fragment = new test();
                 break;
         }
         //replacing the fragment
