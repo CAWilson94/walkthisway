@@ -117,7 +117,12 @@ public class MainActivity extends AppCompatActivity
                 fragment = new test();
                 break;
         }
-        //replacing the fragment
+
+        /***
+         * Use this section to replace the content main with different fragments:
+         * remembering that any layouts in content_main will make all frags the
+         * the same format
+         */
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
