@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link test.OnFragmentInteractionListener} interface
+ * {@link test_fr.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link test#newInstance} factory method to
+ * Use the {@link test_fr#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class test extends Fragment {
+public class test_fr extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class test extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public test() {
+    public test_fr() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class test extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment test.
+     * @return A new instance of fragment test_fr.
      */
     // TODO: Rename and change types and number of parameters
-    public static test newInstance(String param1, String param2) {
-        test fragment = new test();
+    public static test_fr newInstance(String param1, String param2) {
+        test_fr fragment = new test_fr();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,7 +78,7 @@ public class test extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("test");
+        getActivity().setTitle("test_fr");
     }
 
     @Override

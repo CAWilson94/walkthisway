@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new stats();
                 break;
             case R.id.test:
-                fragment = new test();
+                fragment = new test_fr();
                 break;
         }
 

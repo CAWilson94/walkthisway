@@ -71,9 +71,6 @@ public class walk extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        // TODO: check this
-        viewPager = (ViewPager) viewPager.findViewById(R.id.view2);
-        viewPager.setAdapter(new CustomAdapter(getFragmentManager(),getActivity().getApplicationContext()));
     }
 
     @Override
@@ -118,38 +115,5 @@ public class walk extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private class CustomAdapter extends FragmentPagerAdapter {
 
-        private String fragments[] = {"frag1", "frag2", "frag3"};
-        public CustomAdapter(FragmentManager fragmentManager, Object applicationContext) {
-            super(fragmentManager);
-        }
-
-
-        @Override
-        /**
-         * Where we create our fragments
-         */
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    return new FragmentOne(); //TODO: change name of this frag
-                case 1:
-                    return new FragmentTwo(); //TODO: change name of this frag
-                case 2:
-                    return new FragmentThree(); //TODO: change name of this frag
-                default: return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.length;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragments[position];
-        }
-    }
 }
