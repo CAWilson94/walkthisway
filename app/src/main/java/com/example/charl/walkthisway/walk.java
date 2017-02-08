@@ -4,10 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTabHost;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import static android.R.attr.defaultHeight;
+import static android.R.attr.fragment;
 
 
 /**
@@ -19,6 +28,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class walk extends Fragment {
+    TabLayout tabLayout;
+    ViewPager viewPager;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,6 +71,9 @@ public class walk extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        // TODO: check this
+        viewPager = (ViewPager) viewPager.findViewById(R.id.view2);
+        viewPager.setAdapter(new CustomAdapter(getFragmentManager(),getActivity().getApplicationContext()));
     }
 
     @Override
@@ -101,5 +116,40 @@ public class walk extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private class CustomAdapter extends FragmentPagerAdapter {
+
+        private String fragments[] = {"frag1", "frag2", "frag3"};
+        public CustomAdapter(FragmentManager fragmentManager, Object applicationContext) {
+            super(fragmentManager);
+        }
+
+
+        @Override
+        /**
+         * Where we create our fragments
+         */
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0:
+                    return new FragmentOne(); //TODO: change name of this frag
+                case 1:
+                    return new FragmentTwo(); //TODO: change name of this frag
+                case 2:
+                    return new FragmentThree(); //TODO: change name of this frag
+                default: return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return fragments[position];
+        }
     }
 }
