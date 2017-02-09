@@ -12,16 +12,16 @@ import com.activeandroid.annotation.*;
 @Table(name = "Goals")
 public class GoalModel extends Model{
     @Column(name = "goal_name")
-    String goalName;
+    public String goalName;
 
     @Column(name = "steps_so_far")
-    int stepsSoFar;
+    public int stepsSoFar;
 
     @Column(name = "step_goal")
-    int stepGoal;
+    public int stepGoal;
 
     @Column(name = "active")
-    Boolean acitve;
+    public Boolean active;
 
 
 
