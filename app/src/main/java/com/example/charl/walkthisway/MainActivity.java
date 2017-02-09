@@ -17,6 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.activeandroid.ActiveAndroid;
+
+import models.GoalModel;
+
 import static com.example.charl.walkthisway.R.id.content_frame;
 import static com.example.charl.walkthisway.R.id.stats;
 import static com.example.charl.walkthisway.R.layout.fragment_history;
@@ -55,6 +59,16 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         displaySelectedScreen(R.id.walk);
+
+        // Active Android DataBase Create if not there already:
+        ActiveAndroid.initialize(this);
+
+        // DB test:
+        GoalModel gm = new GoalModel();
+        gm.goalName = "boop!";
+        gm.stepGoal = 100;
+        gm.stepsSoFar = 50;
+        gm.active = Boolean.TRUE;
     }
 
     @Override
