@@ -3,11 +3,22 @@
     package="com.example.charl.walkthisway">
 
     <application
+        android:name="com.activeandroid.app.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="WALK_THIS_WAY"
+            android:value="feeditems.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="MODELS"
+            android:value="com.androidnames.data.FeedItem" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
