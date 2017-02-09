@@ -89,8 +89,9 @@ public class walk extends Fragment {
         TabLayout tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.addFragment(new walk(), "walk");
-        adapter.addFragment(new history(), "history");
+        adapter.addFragment(new stats(), "Stats");
+        adapter.addFragment(new history(), "History");
+        adapter.addFragment(new test_fr(), "Test");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
