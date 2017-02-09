@@ -18,6 +18,9 @@ import android.view.MenuItem;
 
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.util.Log;
+
+import java.util.List;
 
 import models.GoalModel;
 
@@ -26,7 +29,7 @@ import static com.example.charl.walkthisway.R.id.stats;
 import static com.example.charl.walkthisway.R.layout.fragment_history;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +66,18 @@ public class MainActivity extends AppCompatActivity
         // Active Android DataBase Create if not there already:
         ActiveAndroid.initialize(this);
 
-        // DB test:
-        GoalModel gm = new GoalModel();
+        //DB test:
+
+      GoalModel gm = new GoalModel();
         gm.goalName = "boop!";
         gm.stepGoal = 100;
         gm.stepsSoFar = 50;
         gm.active = Boolean.TRUE;
+
+        gm.save();
+
+        List<GoalModel>storedGoalModels = GoalModel.getAllGoals();
+        Log.d("EA", "ALL DONE");
     }
 
     @Override
