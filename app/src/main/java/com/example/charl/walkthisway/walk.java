@@ -15,6 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.R.attr.defaultHeight;
 import static android.R.attr.fragment;
 
@@ -82,9 +85,16 @@ public class walk extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // TODO: http://stackoverflow.com/questions/40876603/tablayout-inside-fragment try this?
+        View v = inflater.inflate(R.layout.fragment_walk,container,false);
+        TabLayout tabLayout = (TabLayout) v.findViewById(R.id.tabs);
+        ViewPager viewPager = (ViewPager) v.findViewById(R.id.view);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        adapter.addFragment(new walk(), "walk");
+        adapter.addFragment(new history(), "history");
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_walk, container, false);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -117,4 +127,33 @@ public class walk extends Fragment {
     }
 
 
+    private class ViewPagerAdapter  extends FragmentPagerAdapter  {
+
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 }
