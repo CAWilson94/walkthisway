@@ -93,7 +93,7 @@ public class walk extends Fragment {
         View v = inflater.inflate(R.layout.fragment_walk,container,false);
         TabLayout tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new stats(), "Stats");
         adapter.addFragment(new history(), "History");
         adapter.addFragment(new test_fr(), "Test");
