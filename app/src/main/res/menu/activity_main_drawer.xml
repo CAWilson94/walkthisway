@@ -21,7 +21,7 @@
         <menu>
             <item
                 android:id="@+id/test"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@android:drawable/ic_menu_preferences"
                 android:title="test" />
         </menu>
     </item>
