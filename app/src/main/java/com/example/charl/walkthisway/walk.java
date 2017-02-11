@@ -105,7 +105,9 @@ public class walk extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //TODO: add in dialog fragment
+                FragmentManager fm = getFragmentManager();
+                addActivity dialogFragment = new addActivity ();
+                dialogFragment.show(fm, "Sample Fragment");
             }
         });
         return v;
