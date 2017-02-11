@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.charl.walkthisway.test_fr">
 
     <!-- TODO: Update blank fragment layout -->
@@ -20,21 +21,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <TextView
-                    android:text="BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP:
 
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:contentPadding="10dp">
 
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas convallis, leo ac placerat mattis, arcu dolor dictum purus, a rutrum erat erat id risus. Ut aliquam sem volutpat tellus auctor, in pulvinar lorem posuere. Ut porttitor maximus urna. Ut venenatis nunc ac posuere placerat. Integer fringilla neque vitae porta aliquam. Nunc pellentesque malesuada nisl, eget sodales leo rhoncus vulputate. Aliquam nec enim id mauris lobortis auctor. Pellentesque id volutpat neque. Aenean tristique est non molestie commodo. Etiam rutrum sem et est vestibulum, sit amet mattis orci imperdiet. Sed nec fermentum sem, sed feugiat lorem. Suspendisse porttitor velit eget lorem tempor, vel porttitor ex pulvinar. Duis tincidunt posuere luctus. Quisque viverra fringilla commodo.
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:id="@+id/progressBar" />
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
 
-Sed euismod vulputate dolor nec imperdiet. Quisque ultrices tellus a magna volutpat, sit amet placerat sem sodales. Nunc et auctor mi. Nam id scelerisque velit, volutpat imperdiet sem. Vestibulum tempus vitae nulla a elementum. Donec faucibus turpis vitae augue faucibus posuere vestibulum eu massa. Duis in mi est. Nulla varius lacus aliquam nibh malesuada, quis facilisis libero vehicula. Fusce et augue augue. Quisque at aliquet tellus, eget placerat libero.
-
-
-                    "
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    android:id="@+id/textView3" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
