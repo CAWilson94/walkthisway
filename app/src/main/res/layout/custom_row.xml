@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <LinearLayout
@@ -9,7 +11,7 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="1"
-        android:layout_height="60dp">
+        android:layout_height="80dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -27,8 +29,54 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="1"
-        android:layout_height="60dp">
+        android:layout_height="80dp">
 
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:weightSum="1">
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:id="@+id/textView5"
+                tools:text="<goalName> Progress"
+                android:textSize="10sp" />
+
+            <com.natasa.progressviews.LineProgressBar
+                android:id="@+id/line_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_alignTop="@+id/line_progress"
+                app:bar_width="15dp"
+                app:progress="55"
+                app:progress_color="@color/colorAccent"
+                app:progress_width="15dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/textView9"
+                    tools:text="numsteps / total"
+                    android:textSize="10sp"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -38,8 +86,33 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="1"
-        android:layout_height="60dp">
+        android:layout_height="80dp">
 
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            ></LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+            <CheckBox
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:id="@+id/checkBox2"
+                android:layout_width="53dp"
+                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                android:duplicateParentState="false"
+                android:checked="true"
+                android:layout_weight="1" />
+        </LinearLayout>
 
     </LinearLayout>
 
