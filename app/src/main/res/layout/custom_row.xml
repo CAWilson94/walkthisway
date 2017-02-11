@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
                 android:id="@+id/textView5"
-                tools:text="<goalName> Progress"
+                tools:text="goalName Progress"
                 android:textSize="10sp" />
 
             <com.natasa.progressviews.LineProgressBar

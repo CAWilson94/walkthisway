@@ -83,6 +83,7 @@ public class stats extends Fragment {
                 goals
         );
         // Tell the list view to use this adapter
+        listView.setFocusable(false); //Stop scroview focusing on list first: instead start at top of scrollview
         listView.setAdapter(listViewAdapter);
         return v;
     }
