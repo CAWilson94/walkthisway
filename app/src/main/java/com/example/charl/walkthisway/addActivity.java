@@ -3,6 +3,7 @@ package com.example.charl.walkthisway;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -67,22 +68,52 @@ public class addActivity extends DialogFragment {
         }
     }
 
+
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        getDialog().setTitle("Simple Dialog");
+//        // Container inflate
+//        View v = inflater.inflate(R.layout.fragment_add_activity, container, false);
+//        // Dismiss Button
+//        Button dismiss = (Button) v.findViewById(R.id.dismiss);
+//        dismiss.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dismiss();
+//            }
+//        });
+//        return v;
+//    }
+
+
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        getDialog().setTitle("Simple Dialog");
-        // Container inflate
-        View v = inflater.inflate(R.layout.fragment_add_activity, container, false);
-        // Dismiss Button
-        Button dismiss = (Button) v.findViewById(R.id.dismiss);
-        dismiss.setOnClickListener(new View.OnClickListener() {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Set layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        builder.setTitle("Simple Dialog");
+        builder.setMessage("Some message here");
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
                 dismiss();
             }
         });
-        return v;
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dismiss();
+            }
+        });
+
+        return builder.create();
     }
 
     @Override
