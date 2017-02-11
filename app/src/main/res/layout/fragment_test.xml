@@ -5,9 +5,37 @@
     tools:context="com.example.charl.walkthisway.test_fr">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/fragtest" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:text="BOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOP:
+
+
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas convallis, leo ac placerat mattis, arcu dolor dictum purus, a rutrum erat erat id risus. Ut aliquam sem volutpat tellus auctor, in pulvinar lorem posuere. Ut porttitor maximus urna. Ut venenatis nunc ac posuere placerat. Integer fringilla neque vitae porta aliquam. Nunc pellentesque malesuada nisl, eget sodales leo rhoncus vulputate. Aliquam nec enim id mauris lobortis auctor. Pellentesque id volutpat neque. Aenean tristique est non molestie commodo. Etiam rutrum sem et est vestibulum, sit amet mattis orci imperdiet. Sed nec fermentum sem, sed feugiat lorem. Suspendisse porttitor velit eget lorem tempor, vel porttitor ex pulvinar. Duis tincidunt posuere luctus. Quisque viverra fringilla commodo.
+
+Sed euismod vulputate dolor nec imperdiet. Quisque ultrices tellus a magna volutpat, sit amet placerat sem sodales. Nunc et auctor mi. Nam id scelerisque velit, volutpat imperdiet sem. Vestibulum tempus vitae nulla a elementum. Donec faucibus turpis vitae augue faucibus posuere vestibulum eu massa. Duis in mi est. Nulla varius lacus aliquam nibh malesuada, quis facilisis libero vehicula. Fusce et augue augue. Quisque at aliquet tellus, eget placerat libero.
+
+
+                    "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:id="@+id/textView3" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </FrameLayout>
