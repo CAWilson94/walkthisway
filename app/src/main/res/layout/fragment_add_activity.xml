@@ -11,19 +11,12 @@
         android:padding="10dp"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/image"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_input_add" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add in your step count!"
-            android:textSize="20dp" />
-
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:id="@+id/editText2" />
     </LinearLayout>
 
 </FrameLayout>

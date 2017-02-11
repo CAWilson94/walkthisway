@@ -91,9 +91,13 @@ public class addActivity extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        // TODO: change theme of overlay
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
+
+        builder.setTitle("Step Activity");
 
         builder.setView(inflater.inflate(R.layout.fragment_add_activity, null))
                 // Action Buttons
