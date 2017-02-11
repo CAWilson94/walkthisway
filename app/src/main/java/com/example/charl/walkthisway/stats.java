@@ -8,6 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
 
 
 /**
@@ -64,9 +68,23 @@ public class stats extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the layout before trying to find the view
+        View v = inflater.inflate(R.layout.fragment_stats, container, false);
 
-        return inflater.inflate(R.layout.fragment_stats, container, false);
+        // Change to db later on:
+        String[] goals = {"Goal One", "Goal Two", "Goal Three", "Goal Four", "Goal Five", "Goal Six", "Goal Seven", "Goal Eight",};
+        // Look within our view v for the list view:
+        ListView listView = (ListView) v.findViewById(R.id.list_goals);
+        // Tell the listview what it has to display
+        //TODO: can you use arrayadapter with the db fields?
+        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_expandable_list_item_1,
+                goals
+        );
+        // Tell the list view to use this adapter
+        listView.setAdapter(listViewAdapter);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
