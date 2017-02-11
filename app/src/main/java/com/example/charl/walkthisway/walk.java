@@ -94,10 +94,11 @@ public class walk extends Fragment {
         TabLayout tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new stats(), "Stats");
-        adapter.addFragment(new history(), "Goals");
+        adapter.addFragment(new history(), "Stats");
+        adapter.addFragment(new stats(), "Goals");
         adapter.addFragment(new test_fr(), "History");
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(1);
         tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
         //Floating action button time
