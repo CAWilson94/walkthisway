@@ -97,7 +97,9 @@ public class addActivity extends DialogFragment {
         // Set layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        builder.setTitle("Step Activity");
+        builder.setMessage("Input Steps");
+
+
 
         builder.setView(inflater.inflate(R.layout.fragment_add_activity, null))
                 // Action Buttons

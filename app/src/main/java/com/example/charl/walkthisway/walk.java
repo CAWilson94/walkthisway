@@ -108,7 +108,7 @@ public class walk extends Fragment {
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
                 addActivity dialogFragment = new addActivity ();
-                dialogFragment.show(fm, "Sample Fragment");
+                dialogFragment.show(fm, "Add Activity");
             }
         });
         return v;
