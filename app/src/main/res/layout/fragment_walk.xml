@@ -15,7 +15,7 @@
         android:layout_margin="@dimen/fab_margin"
         app:fabSize="auto"
         app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/addGoals"
+        android:id="@+id/add_activity_fab"
         android:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimary" />
 

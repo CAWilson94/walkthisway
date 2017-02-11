@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.button;
 import static android.R.attr.defaultHeight;
 import static android.R.attr.fragment;
 
@@ -77,15 +78,7 @@ public class walk extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-//        // Floating action button time!
-//        FloatingActionButton fab = (FloatingActionButton) viewPager.findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+
     }
 
     @Override
@@ -107,6 +100,15 @@ public class walk extends Fragment {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         // Inflate the layout for this fragment
+        //Floating action button time
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.add_activity_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
         return v;
     }
 
