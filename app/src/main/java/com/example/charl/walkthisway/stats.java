@@ -68,7 +68,7 @@ public class stats extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout before trying to find the view
+        // Inflate the custom_row before trying to find the view
         View v = inflater.inflate(R.layout.fragment_stats, container, false);
 
         // Change to db later on:

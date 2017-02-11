@@ -72,10 +72,10 @@ public class addActivity extends DialogFragment {
 //    @Override
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container,
 //                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
+//        // Inflate the custom_row for this fragment
 //        getDialog().setTitle("Simple Dialog");
 //        // Container inflate
-//        View v = inflater.inflate(R.layout.fragment_add_activity, container, false);
+//        View v = inflater.inflate(R.custom_row.fragment_add_activity, container, false);
 //        // Dismiss Button
 //        Button dismiss = (Button) v.findViewById(R.id.dismiss);
 //        dismiss.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class addActivity extends DialogFragment {
 
         // TODO: change theme of overlay
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Set layout inflater
+        // Set custom_row inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         builder.setMessage("Input Steps");

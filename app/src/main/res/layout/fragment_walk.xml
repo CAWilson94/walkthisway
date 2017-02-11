@@ -6,7 +6,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.charl.walkthisway.walk">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment custom_row -->
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

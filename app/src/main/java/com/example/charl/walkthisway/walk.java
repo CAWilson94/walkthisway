@@ -100,7 +100,7 @@ public class walk extends Fragment {
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
         tabLayout.setupWithViewPager(viewPager);
-        // Inflate the layout for this fragment
+        // Inflate the custom_row for this fragment
         //Floating action button time
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.add_activity_fab);
         fab.setOnClickListener(new View.OnClickListener() {

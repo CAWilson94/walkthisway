@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.charl.walkthisway.history">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment custom_row -->
 
     <LinearLayout
         android:orientation="vertical"
