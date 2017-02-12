@@ -18,7 +18,8 @@
             android:layout_gravity="center"
             android:text="Date"
             android:textAlignment="center"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:id="@+id/date_goal_added" />
 
 
     </LinearLayout>
@@ -43,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|top"
-                android:id="@+id/textView5"
+                android:id="@+id/goal_name"
                 tools:text="goalName Progress"
                 android:textSize="10sp" />
 
@@ -70,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:id="@+id/textView9"
+                    android:id="@+id/current_progress_added"
                     tools:text="numsteps / total"
                     android:textSize="10sp"
                     android:textAlignment="center" />
@@ -106,7 +107,7 @@
             <CheckBox
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|right"
-                android:id="@+id/checkBox2"
+                android:id="@+id/goal_complete"
                 android:layout_width="53dp"
                 style="@style/Widget.AppCompat.CompoundButton.CheckBox"
                 android:duplicateParentState="false"
