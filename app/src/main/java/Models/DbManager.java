@@ -2,6 +2,7 @@ package Models;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -90,5 +91,30 @@ public class DbManager extends SQLiteOpenHelper {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_NAME + " =\" " + goalName + "\";");
+    }
+
+    /**
+     * testing db has things in it
+     *
+     * @return
+     */
+    public String dbToString() {
+        String dbString = "";
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_GOALS + "WHERE 1"; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) { // Not positioned after last row: still some results to go
+            if (c.getString(c.getColumnIndex("goalname")) != null) {
+                dbString +=c.getString(c.getColumnIndex("goalname"));
+                dbString+= "\n";
+            }
+        }
+        db.close();
+        return dbToString();
     }
 }
