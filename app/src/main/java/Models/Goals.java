@@ -12,6 +12,12 @@ public class Goals {
     Boolean active;
     Boolean complete;
 
+    /**
+     * int myInt = (myBoolean) ? 1 : 0
+     *
+     * change the boolean to int for the DB
+     */
+
     public Goals() {
 
     }
