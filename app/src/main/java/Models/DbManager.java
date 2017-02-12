@@ -1,5 +1,6 @@
 package Models;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -59,5 +60,23 @@ public class DbManager extends SQLiteOpenHelper {
         // drop current table and create new one
         db.execSQL("DROP TABLE IF EXISTS" + TABLE_GOALS);
         onCreate(db);
+    }
+
+    /**
+     * Add row to table
+     *
+     * @param goal
+     */
+    public void addGoal(Goals goal) {
+        // Basically a list of values
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_GOAL_NAME, goal.getName());
+        values.put(COLUMN_ACTIVE, goal.getActive());
+        values.put(COLUMN_STEP_GOALS, goal.getStepTarget());
+        values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
+        values.put(COLUMN_GOAL_COMPLETE, goal.getComplete());
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert(TABLE_GOALS, null, values);
+        db.close();
     }
 }
