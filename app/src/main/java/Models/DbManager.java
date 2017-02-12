@@ -13,12 +13,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbManager extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2; //update version when database update
+    private static final int DATABASE_VERSION = 3; //update version when database update
     private static final String DATABASE_NAME = "walkthisway.db";
     public static final String TABLE_GOALS = "goals";
     public static final String TABLE_HISTORY = "history";
     // Names of your columns for Goals Table
-    public static final String COLUMN_GOAL_ID = "goal_id";
+    public static final String COLUMN_GOAL_ID = "_id";
     public static final String COLUMN_GOAL_NAME = "goal_name";
     public static final String COLUMN_ACTIVE = "is_active";
     public static final String COLUMN_CURRENT_STEPS = "current_steps";
@@ -119,5 +119,26 @@ public class DbManager extends SQLiteOpenHelper {
         }
         db.close();
         return dbString;
+    }
+
+    public Cursor getAllRows() {
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE 1"; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("goal_name")) != null) {
+
+            }
+            c.moveToNext();
+        }
+        db.close();
+
+        return c;
+
     }
 }

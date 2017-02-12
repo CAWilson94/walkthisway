@@ -2,11 +2,13 @@ package com.example.charl.walkthisway;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.natasa.progressviews.CircleSegmentBar;
 
 import java.util.List;
 
+import Models.DbManager;
 import layout.CreateNewGoal;
 
 
@@ -40,6 +43,7 @@ public class stats extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    DbManager db;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,20 +83,10 @@ public class stats extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the custom_row before trying to find the view
         View v = inflater.inflate(R.layout.fragment_stats, container, false);
-        // Change to db later on:
-        String[] goals = {"Goal One", "Goal Two", "Goal Three", "Goal Four", "Goal Five", "Goal Six", "Goal Seven", "Goal Eight",};
-        // Tell the listview what it has to display
-        //TODO: can you use arrayadapter with the db fields?
-        ListAdapter customAdapter = new CustomListAdapter(getActivity(), goals);
-        // Look within our view v for the list view:
-        ListView listView = (ListView) v.findViewById(R.id.list_goals);
         final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
-        // Tell the list view to use this adapter
-        listView.setFocusable(false); //Stop scroview focusing on list first: instead start at top of scrollview
-        listView.setAdapter(customAdapter);
-        // Make cardview clickable
-
         checkActiveGoalCard(cardView);
+
+        populateListView(v);
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,4 +141,21 @@ public class stats extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void populateListView(View v) {
+
+        db = new DbManager(getActivity(), null, null, 2);
+        Cursor cursor = db.getAllRows();
+        String[] fromFieldNames = new String[]{
+                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added}; // Placeholder
+
+        SimpleCursorAdapter myCursorAdapter;
+        // Set up the adapter
+        myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
+        ListView myList = (ListView) v.findViewById(R.id.list_goals);
+        myList.setAdapter(myCursorAdapter);
+    }
+
+
 }

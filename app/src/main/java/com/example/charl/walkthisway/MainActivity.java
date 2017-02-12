@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
 
         displaySelectedScreen(R.id.walk);
         db = new DbManager(this, null, null, 2); // let the dbmanager take care of params
+
     }
 
     @Override

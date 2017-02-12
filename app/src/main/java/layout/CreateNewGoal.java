@@ -158,4 +158,5 @@ public class CreateNewGoal extends DialogFragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
