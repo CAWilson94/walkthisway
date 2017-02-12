@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.example.charl.walkthisway.R;
 
+import Models.DbManager;
+import Models.Goals;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -37,7 +40,10 @@ public class CreateNewGoal extends DialogFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    // Custom Dialog fields
     View v;
+    EditText goalNameInput, stepsInput;
+    DbManager db;
 
     public CreateNewGoal() {
         // Required empty public constructor
@@ -77,7 +83,7 @@ public class CreateNewGoal extends DialogFragment {
 
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        v = inflater.inflate(R.layout.fragment_create_new_goal,null);
+        v = inflater.inflate(R.layout.fragment_create_new_goal, null);
 
         // TODO: change theme of overlay
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -90,7 +96,17 @@ public class CreateNewGoal extends DialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO: databaseshit add steps :D
+                        db = new DbManager(getActivity(), null, null, 2); // let the dbmanager take care of params
+                        goalNameInput = (EditText) v.findViewById(R.id.goal_form);
+                        stepsInput = (EditText) v.findViewById(R.id.goal_step_form);
+                        Goals goal = new Goals();
+                        goal.setName(goalNameInput.getText().toString());
+                        goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
+                        // now check toggle thingy
+                        goal.setActive(true);
+                        goal.setComplete(false);
+                        goal.setNumSteps(0);
+                        db.addGoal(goal);
                         dismiss();
                     }
                 })

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         displaySelectedScreen(R.id.walk);
-        db = new DbManager(this, null, null, 1); // let the dbmanager take care of params
+        db = new DbManager(this, null, null, 2); // let the dbmanager take care of params
     }
 
     @Override
