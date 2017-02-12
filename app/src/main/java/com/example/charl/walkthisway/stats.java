@@ -106,10 +106,13 @@ public class stats extends Fragment {
                 String test = "testing";
                 TextView text = (TextView) cardView.findViewById(R.id.textView3);
                 CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
+                String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
+               ;
 
                 if (text.getVisibility() == View.VISIBLE) {
                     text.setVisibility(View.INVISIBLE);
                 } else {
+                    text.setText(pleaseEnterGoal);
                     text.setVisibility(View.VISIBLE);
 
                 }
