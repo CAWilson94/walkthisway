@@ -39,12 +39,12 @@ public class DbManager extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // Create the goals table to store stuff in here
         String query = "CREATE TABLE IF NOT EXISTS " + TABLE_GOALS + "(" +
-                COLUMN_GOAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" +
-                COLUMN_GOAL_NAME + " TEXT " +
-                COLUMN_CURRENT_STEPS + " INTEGER " +
-                COLUMN_ACTIVE + " INTEGER " +
-                COLUMN_GOAL_COMPLETE + " INTEGER " +
-                COLUMN_STEP_GOALS + " INTEGER NOT NULL " +
+                COLUMN_GOAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_GOAL_NAME + " TEXT, " +
+                COLUMN_CURRENT_STEPS + " INTEGER, " +
+                //COLUMN_ACTIVE + " INTEGER " +
+                //COLUMN_GOAL_COMPLETE + " INTEGER " +
+                COLUMN_STEP_GOALS + " INTEGER NOT NULL" +
                 ")";
         db.execSQL(query);
     }
@@ -72,10 +72,10 @@ public class DbManager extends SQLiteOpenHelper {
         // Basically a list of values
         ContentValues values = new ContentValues();
         values.put(COLUMN_GOAL_NAME, goal.getName());
-        values.put(COLUMN_ACTIVE, goal.getActive());
+       // values.put(COLUMN_ACTIVE, goal.getActive());
         values.put(COLUMN_STEP_GOALS, goal.getStepTarget());
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
-        values.put(COLUMN_GOAL_COMPLETE, goal.getComplete());
+        //values.put(COLUMN_GOAL_COMPLETE, goal.getComplete());
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
@@ -102,19 +102,20 @@ public class DbManager extends SQLiteOpenHelper {
         String dbString = "";
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_GOALS + "WHERE 1"; // one means select every row ( every condition is met)
+        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE 1"; // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         Cursor c = db.rawQuery(query, null);
         // Move to first row in your results
         c.moveToFirst();
 
-        while (!c.isAfterLast()) { // Not positioned after last row: still some results to go
-            if (c.getString(c.getColumnIndex("goalname")) != null) {
-                dbString +=c.getString(c.getColumnIndex("goalname"));
-                dbString+= "\n";
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("goal_name")) != null) {
+                dbString += c.getString(c.getColumnIndex("goal_name"));
+                dbString += "\n";
             }
+            c.moveToNext();
         }
         db.close();
-        return dbToString();
+        return dbString;
     }
 }

@@ -17,12 +17,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import Models.DbManager;
+import Models.Goals;
+
 import static com.example.charl.walkthisway.R.id.content_frame;
 import static com.example.charl.walkthisway.R.id.stats;
 import static com.example.charl.walkthisway.R.layout.fragment_history;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+    DbManager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,15 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         displaySelectedScreen(R.id.walk);
+        db = new DbManager(this, null, null, 1); // let the dbmanager take care of params
+        Goals g1 = new Goals("boop", 100, 200);
+        Goals g3 = new Goals("boofffp", 100, 200);
+        Goals g2 = new Goals("bofffop", 100, 200);
+        db.addGoal(g1);
+        db.addGoal(g2);
+        db.addGoal(g3);
+
+
     }
 
     @Override

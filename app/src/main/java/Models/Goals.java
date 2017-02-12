@@ -22,6 +22,15 @@ public class Goals {
 
     }
 
+    public Goals(String name, int numSteps, int stepTarget) {
+
+        //this.active = active;
+        //this.complete = complete;
+        this.numSteps = numSteps;
+        this.stepTarget = stepTarget;
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
