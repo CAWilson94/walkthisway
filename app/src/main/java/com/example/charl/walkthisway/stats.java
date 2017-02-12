@@ -87,13 +87,6 @@ public class stats extends Fragment {
         // Look within our view v for the list view:
         ListView listView = (ListView) v.findViewById(R.id.list_goals);
         final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
-
-
-        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_expandable_list_item_1,
-                goals
-        );
         // Tell the list view to use this adapter
         listView.setFocusable(false); //Stop scroview focusing on list first: instead start at top of scrollview
         listView.setAdapter(customAdapter);

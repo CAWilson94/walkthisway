@@ -99,8 +99,6 @@ public class addActivity extends DialogFragment {
 
         builder.setMessage("Input Steps");
 
-
-
         builder.setView(inflater.inflate(R.layout.fragment_add_activity, null))
                 // Action Buttons
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -110,7 +108,6 @@ public class addActivity extends DialogFragment {
                         dismiss();
                     }
                 })
-
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

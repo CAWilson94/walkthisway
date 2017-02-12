@@ -1,5 +1,6 @@
 package layout;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.charl.walkthisway.R;
@@ -35,6 +37,7 @@ public class CreateNewGoal extends DialogFragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    View v;
 
     public CreateNewGoal() {
         // Required empty public constructor
@@ -72,15 +75,17 @@ public class CreateNewGoal extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        v = inflater.inflate(R.layout.fragment_create_new_goal,null);
+
         // TODO: change theme of overlay
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set custom_row inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-
 
         builder.setMessage("Input Goal Info");
 
-        builder.setView(inflater.inflate(R.layout.fragment_create_new_goal, null))
+        builder.setView(v)
                 // Action Buttons
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
@@ -96,6 +101,8 @@ public class CreateNewGoal extends DialogFragment {
                         dismiss();
                     }
                 });
+
+
         return builder.create();
     }
 
