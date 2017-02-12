@@ -20,6 +20,8 @@ import com.natasa.progressviews.CircleSegmentBar;
 
 import java.util.List;
 
+import layout.CreateNewGoal;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,7 +86,7 @@ public class stats extends Fragment {
         ListAdapter customAdapter = new CustomListAdapter(getActivity(), goals);
         // Look within our view v for the list view:
         ListView listView = (ListView) v.findViewById(R.id.list_goals);
-        CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
+        final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
 
 
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
@@ -102,10 +104,9 @@ public class stats extends Fragment {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                FragmentManager fm = getFragmentManager();
-//                addActivity dialogFragment = new addActivity(); // Placeholder
-//                dialogFragment.show(fm, "Change Active Goal");
+                FragmentManager fm = getFragmentManager();
+                CreateNewGoal newGoal = new CreateNewGoal();
+                newGoal.show(fm, "Add New Goal");
             }
         });
         return v;
