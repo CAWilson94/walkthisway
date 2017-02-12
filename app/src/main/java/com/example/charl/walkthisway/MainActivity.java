@@ -1,5 +1,6 @@
 package com.example.charl.walkthisway;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,14 +49,6 @@ public class MainActivity extends AppCompatActivity
 
         displaySelectedScreen(R.id.walk);
         db = new DbManager(this, null, null, 1); // let the dbmanager take care of params
-        Goals g1 = new Goals("boop", 100, 200);
-        Goals g3 = new Goals("boofffp", 100, 200);
-        Goals g2 = new Goals("bofffop", 100, 200);
-        db.addGoal(g1);
-        db.addGoal(g2);
-        db.addGoal(g3);
-
-
     }
 
     @Override

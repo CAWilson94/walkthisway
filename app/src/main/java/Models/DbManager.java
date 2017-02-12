@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbManager extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1; //update version when database update
+    private static final int DATABASE_VERSION = 2; //update version when database update
     private static final String DATABASE_NAME = "walkthisway.db";
     public static final String TABLE_GOALS = "goals";
     public static final String TABLE_HISTORY = "history";
@@ -59,7 +59,7 @@ public class DbManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // drop current table and create new one
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_GOALS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GOALS);
         onCreate(db);
     }
 
@@ -92,6 +92,8 @@ public class DbManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_NAME + " =\" " + goalName + "\";");
     }
+
+
 
     /**
      * testing db has things in it
