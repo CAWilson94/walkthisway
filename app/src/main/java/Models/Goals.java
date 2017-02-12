@@ -6,7 +6,13 @@ package Models;
 
 public class Goals {
 
-    public Goals(){
+    String name;
+    int numSteps;
+    int stepTarget;
+    Boolean active;
+    Boolean complete;
+
+    public Goals() {
 
     }
 
@@ -42,17 +48,13 @@ public class Goals {
         this.active = active;
     }
 
-    public Boolean getChecked() {
-        return checked;
+    public Boolean getComplete() {
+        return complete;
     }
 
-    public void setChecked(Boolean checked) {
-        this.checked = checked;
+    public void setComplete(Boolean complete) {
+        this.complete = complete;
     }
 
-    String name;
-    int numSteps;
-    int stepTarget;
-    Boolean active;
-    Boolean checked;
+
 }

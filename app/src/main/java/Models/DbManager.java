@@ -12,7 +12,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DbManager extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1; //update version when database update
-    private static final String DATABASE_NAME = "";
+    private static final String DATABASE_NAME = "walkthisway.db";
+    public static final String TABLE_GOALS = "goals";
+    public static final String TABLE_HISTORY = "history";
+    // Names of your columns for Goals Table
+    public static final String COLUMN_GOAL_NAME = "goal_name";
+    public static final String COLUMN_ACTIVE = "is_active";
+    public static final String COLUMN_CURRENT_STEPS = "current_steps";
+    public static final String COLUMN_STEP_GOALS = "step_goal";
+    public static final String COLUMN_GOAL_COMPLETE = "goal_complete";
 
 
     public DbManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
