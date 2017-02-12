@@ -40,7 +40,7 @@
 
 
                         <com.natasa.progressviews.CircleSegmentBar
-                            android:id="@+id/line_progressbar"
+                            android:id="@+id/circle_progress"
                             android:layout_width="157dp"
                             android:layout_height="145dp"
                             android:layout_alignParentRight="true"

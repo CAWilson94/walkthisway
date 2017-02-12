@@ -16,6 +16,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.natasa.progressviews.CircleSegmentBar;
+
 import java.util.List;
 
 
@@ -103,7 +105,25 @@ public class stats extends Fragment {
 //                dialogFragment.show(fm, "Change Active Goal");
                 String test = "testing";
                 TextView text = (TextView) cardView.findViewById(R.id.textView3);
-                text.setText(test);
+                CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
+
+                if (text.getVisibility() == View.VISIBLE) {
+                    text.setVisibility(View.INVISIBLE);
+                } else {
+                    text.setVisibility(View.VISIBLE);
+
+                }
+
+
+
+                if (csb.getVisibility() == View.VISIBLE) {
+                    csb.setVisibility(View.INVISIBLE);
+                } else {
+                    csb.setVisibility(View.VISIBLE);
+
+                }
+
+
             }
         });
         return v;
