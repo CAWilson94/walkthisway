@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -81,7 +82,9 @@ public class stats extends Fragment {
         ListAdapter customAdapter = new CustomListAdapter(getActivity(), goals);
         // Look within our view v for the list view:
         ListView listView = (ListView) v.findViewById(R.id.list_goals);
-        CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
+        final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
+
+
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_expandable_list_item_1,
@@ -94,9 +97,13 @@ public class stats extends Fragment {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                addActivity dialogFragment = new addActivity (); // Placeholder
-                dialogFragment.show(fm, "Change Active Goal");
+
+//                FragmentManager fm = getFragmentManager();
+//                addActivity dialogFragment = new addActivity(); // Placeholder
+//                dialogFragment.show(fm, "Change Active Goal");
+                String test = "testing";
+                TextView text = (TextView) cardView.findViewById(R.id.textView3);
+                text.setText(test);
             }
         });
         return v;
