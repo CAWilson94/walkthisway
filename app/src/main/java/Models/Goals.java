@@ -5,6 +5,11 @@ package Models;
  */
 
 public class Goals {
+
+    public Goals(){
+
+    }
+
     public String getName() {
         return name;
     }
