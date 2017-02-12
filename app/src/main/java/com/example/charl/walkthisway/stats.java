@@ -1,14 +1,18 @@
 package com.example.charl.walkthisway;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.List;
@@ -70,13 +74,14 @@ public class stats extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the custom_row before trying to find the view
         View v = inflater.inflate(R.layout.fragment_stats, container, false);
-
         // Change to db later on:
         String[] goals = {"Goal One", "Goal Two", "Goal Three", "Goal Four", "Goal Five", "Goal Six", "Goal Seven", "Goal Eight",};
-        // Look within our view v for the list view:
-        ListView listView = (ListView) v.findViewById(R.id.list_goals);
         // Tell the listview what it has to display
         //TODO: can you use arrayadapter with the db fields?
+        ListAdapter customAdapter = new CustomListAdapter(getActivity(), goals);
+        // Look within our view v for the list view:
+        ListView listView = (ListView) v.findViewById(R.id.list_goals);
+        CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_expandable_list_item_1,
@@ -84,7 +89,16 @@ public class stats extends Fragment {
         );
         // Tell the list view to use this adapter
         listView.setFocusable(false); //Stop scroview focusing on list first: instead start at top of scrollview
-        listView.setAdapter(listViewAdapter);
+        listView.setAdapter(customAdapter);
+        // Make cardview clickable
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getFragmentManager();
+                addActivity dialogFragment = new addActivity (); // Placeholder
+                dialogFragment.show(fm, "Change Active Goal");
+            }
+        });
         return v;
     }
 
