@@ -84,7 +84,7 @@ public class stats extends Fragment {
         ListAdapter customAdapter = new CustomListAdapter(getActivity(), goals);
         // Look within our view v for the list view:
         ListView listView = (ListView) v.findViewById(R.id.list_goals);
-        final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
+        CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
 
 
         ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
@@ -96,6 +96,9 @@ public class stats extends Fragment {
         listView.setFocusable(false); //Stop scroview focusing on list first: instead start at top of scrollview
         listView.setAdapter(customAdapter);
         // Make cardview clickable
+
+        checkActiveGoalCard(cardView);
+
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,30 +106,6 @@ public class stats extends Fragment {
 //                FragmentManager fm = getFragmentManager();
 //                addActivity dialogFragment = new addActivity(); // Placeholder
 //                dialogFragment.show(fm, "Change Active Goal");
-                String test = "testing";
-                TextView text = (TextView) cardView.findViewById(R.id.textView3);
-                CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
-                String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
-               ;
-
-                if (text.getVisibility() == View.VISIBLE) {
-                    text.setVisibility(View.INVISIBLE);
-                } else {
-                    text.setText(pleaseEnterGoal);
-                    text.setVisibility(View.VISIBLE);
-
-                }
-
-
-
-                if (csb.getVisibility() == View.VISIBLE) {
-                    csb.setVisibility(View.INVISIBLE);
-                } else {
-                    csb.setVisibility(View.VISIBLE);
-
-                }
-
-
             }
         });
         return v;
@@ -142,6 +121,16 @@ public class stats extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    public void checkActiveGoalCard(View cardView) {
+
+        String test = "testing";
+        TextView text = (TextView) cardView.findViewById(R.id.textView3);
+        CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
+        String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
+        text.setText(pleaseEnterGoal);
+        csb.setVisibility(View.INVISIBLE);
     }
 
     @Override
