@@ -71,7 +71,7 @@ public class history extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_history, container, false);
         TextView text = (TextView) v.findViewById(R.id.history_text);
-        dbMan = new DbManager(getActivity(), null, null, 1); // let the dbmanager take care of
+        dbMan = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of
         String test = dbMan.dbToString();
         text.setText(test);
         // Inflate the custom_row for this fragment

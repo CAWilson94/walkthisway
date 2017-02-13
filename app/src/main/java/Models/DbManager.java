@@ -13,12 +13,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbManager extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1; //update version when database update
+    public static final int DATABASE_VERSION = 3; //update version when database update
     private static final String DATABASE_NAME = "walkthisway.db";
     public static final String TABLE_GOALS = "goals";
     public static final String TABLE_HISTORY = "history";
     // Names of your columns for Goals Table
-    public static final String COLUMN_GOAL_ID = "goal_id";
+    public static final String COLUMN_GOAL_ID = "_id";
     public static final String COLUMN_GOAL_NAME = "goal_name";
     public static final String COLUMN_ACTIVE = "is_active";
     public static final String COLUMN_CURRENT_STEPS = "current_steps";
@@ -42,8 +42,8 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_GOAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_GOAL_NAME + " TEXT, " +
                 COLUMN_CURRENT_STEPS + " INTEGER, " +
-                //COLUMN_ACTIVE + " INTEGER " +
-                //COLUMN_GOAL_COMPLETE + " INTEGER " +
+                COLUMN_ACTIVE + " INTEGER DEFAULT 0, " +
+                COLUMN_GOAL_COMPLETE + " INTEGER DEFAULT 0, " +
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL" +
                 ")";
         db.execSQL(query);
@@ -59,7 +59,7 @@ public class DbManager extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // drop current table and create new one
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_GOALS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GOALS);
         onCreate(db);
     }
 
@@ -72,10 +72,10 @@ public class DbManager extends SQLiteOpenHelper {
         // Basically a list of values
         ContentValues values = new ContentValues();
         values.put(COLUMN_GOAL_NAME, goal.getName());
-       // values.put(COLUMN_ACTIVE, goal.getActive());
+        values.put(COLUMN_ACTIVE, (goal.getActive()) ? 1 : 0);
         values.put(COLUMN_STEP_GOALS, goal.getStepTarget());
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
-        //values.put(COLUMN_GOAL_COMPLETE, goal.getComplete());
+        values.put(COLUMN_GOAL_COMPLETE, (goal.getActive()) ? 1 : 0);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
@@ -92,6 +92,7 @@ public class DbManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_NAME + " =\" " + goalName + "\";");
     }
+
 
     /**
      * testing db has things in it
@@ -117,5 +118,26 @@ public class DbManager extends SQLiteOpenHelper {
         }
         db.close();
         return dbString;
+    }
+
+    public Cursor getAllRows() {
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_GOALS + " " + "WHERE 1"; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("goal_name")) != null) {
+
+            }
+            c.moveToNext();
+        }
+        db.close();
+
+        return c;
+
     }
 }

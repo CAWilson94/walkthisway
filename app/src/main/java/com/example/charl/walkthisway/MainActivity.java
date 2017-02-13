@@ -1,11 +1,20 @@
 package com.example.charl.walkthisway;
 
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 import Models.DbManager;
@@ -23,11 +33,13 @@ import Models.Goals;
 import static com.example.charl.walkthisway.R.id.content_frame;
 import static com.example.charl.walkthisway.R.id.stats;
 import static com.example.charl.walkthisway.R.layout.fragment_history;
+import static com.example.charl.walkthisway.R.layout.fragment_stats;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DbManager db;
+    stats stat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +59,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         displaySelectedScreen(R.id.walk);
-        db = new DbManager(this, null, null, 1); // let the dbmanager take care of params
-        Goals g1 = new Goals("boop", 100, 200);
-        Goals g3 = new Goals("boofffp", 100, 200);
-        Goals g2 = new Goals("bofffop", 100, 200);
-        db.addGoal(g1);
-        db.addGoal(g2);
-        db.addGoal(g3);
-
+        db = new DbManager(this, null, null, 2); // let the dbmanager take care of params
 
     }
 
@@ -134,4 +139,15 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
+    public void onGoalAdd() {
+        refreshListView();
+    }
+
+    private void refreshListView() {
+        stat.populateListView();
+
+    }
 }
+
+
+

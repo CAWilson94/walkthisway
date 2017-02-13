@@ -5,6 +5,7 @@ package Models;
  */
 
 public class Goals {
+    // extend dataset observable
 
     String name;
     int numSteps;
@@ -14,7 +15,7 @@ public class Goals {
 
     /**
      * int myInt = (myBoolean) ? 1 : 0
-     *
+     * <p>
      * change the boolean to int for the DB
      */
 
