@@ -72,7 +72,7 @@ public class history extends Fragment {
         View v = inflater.inflate(R.layout.fragment_history, container, false);
         TextView text = (TextView) v.findViewById(R.id.history_text);
         dbMan = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of
-        String test = dbMan.dbToString();
+        String test = dbMan.checkForActiveGoal().toString();
         text.setText(test);
         // Inflate the custom_row for this fragment
         return v;

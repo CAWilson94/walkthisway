@@ -100,6 +100,26 @@ public class DbManager extends SQLiteOpenHelper {
      * @return
      */
     public Boolean checkForActiveGoal() {
+        String dbString = "";
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1";
+        ; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("is_active")) != null) {
+                dbString += c.getString(c.getColumnIndex("is_active"));
+                dbString += "\n";
+                return true;
+            }
+            c.moveToNext();
+        }
+        db.close();
+
         return false;
     }
 
