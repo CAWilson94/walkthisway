@@ -23,6 +23,8 @@ import com.natasa.progressviews.CircleSegmentBar;
 
 import Models.DbManager;
 
+import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -153,6 +155,10 @@ public class stats extends Fragment {
         myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
         myCursorAdapter.changeCursor(db.getAllRows());
         myList.setAdapter(myCursorAdapter);
+        myList.setFocusable(false);
+        setListViewHeightBasedOnItems(myList);
+        //myCursorAdapter.notifyDataSetChanged();
+        //UIUtils.setListViewHeightBasedOnItems(myList);
         return v;
     }
 

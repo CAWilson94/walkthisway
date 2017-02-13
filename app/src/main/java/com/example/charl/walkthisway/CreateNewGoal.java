@@ -79,7 +79,6 @@ public class CreateNewGoal extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-
         LayoutInflater inflater = getActivity().getLayoutInflater();
         v = inflater.inflate(R.layout.fragment_create_new_goal, null);
 
@@ -112,6 +111,7 @@ public class CreateNewGoal extends DialogFragment {
                         //activity.onGoalAdd();
                         // mcallBack.updateList()
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
+
                         dismiss();
                     }
                 })
