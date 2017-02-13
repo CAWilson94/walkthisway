@@ -13,6 +13,7 @@ public class Goals {
     Boolean active;
     Boolean complete;
 
+
     /**
      * int myInt = (myBoolean) ? 1 : 0
      * <p>
@@ -23,10 +24,10 @@ public class Goals {
 
     }
 
-    public Goals(String name, int numSteps, int stepTarget) {
+    public Goals(String name, int numSteps, int stepTarget, Boolean complete, Boolean active) {
 
-        //this.active = active;
-        //this.complete = complete;
+        this.active = active;
+        this.complete = complete;
         this.numSteps = numSteps;
         this.stepTarget = stepTarget;
         this.name = name;
