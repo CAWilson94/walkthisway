@@ -1,6 +1,7 @@
 package com.example.charl.walkthisway;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,5 +42,9 @@ public class CustomListAdapter extends ArrayAdapter {
         return v;
     }
 
+    @Override
+    public void registerDataSetObserver(DataSetObserver observer) {
 
+        super.registerDataSetObserver(observer);
+    }
 }

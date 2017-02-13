@@ -1,12 +1,16 @@
 package com.example.charl.walkthisway;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -28,7 +32,7 @@ import Models.DbManager;
  * Use the {@link stats#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class stats extends Fragment implements CreateNewGoal.CreateNewGoalDialogListener {
+public class stats extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,10 +42,13 @@ public class stats extends Fragment implements CreateNewGoal.CreateNewGoalDialog
     private String mParam1;
     private String mParam2;
 
+    DbManager db = new DbManager(getActivity(), null, null, 3);
+
+    Cursor cursor;
+    SimpleCursorAdapter myCursorAdapter;
 
     View v;
-
-
+    Bundle args = new Bundle();
     private OnFragmentInteractionListener mListener;
 
     public stats() {
@@ -73,7 +80,7 @@ public class stats extends Fragment implements CreateNewGoal.CreateNewGoalDialog
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        DbManager db = new DbManager(getActivity(), null, null, 2);
+        db = new DbManager(getActivity(), null, null, 2);
     }
 
     @Override
@@ -85,17 +92,26 @@ public class stats extends Fragment implements CreateNewGoal.CreateNewGoalDialog
         final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
         checkActiveGoalCard(cardView);
 
-        populateListView(getActivity()); // populate list!
+        populateListView(); // populate list!
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
                 CreateNewGoal newGoal = new CreateNewGoal();
+                newGoal.setTargetFragment(stats.this, 0);
                 newGoal.show(fm, "Add New Goal");
             }
         });
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 0) {
+            populateListView();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -126,37 +142,19 @@ public class stats extends Fragment implements CreateNewGoal.CreateNewGoalDialog
         mListener = null;
     }
 
-    public void populateListView(Context context) {
+    public View populateListView() {
         ListView myList;
-        SimpleCursorAdapter myCursorAdapter;
-        DbManager db = new DbManager(context, null, null, 2);
-        Cursor cursor = db.getAllRows();
+        cursor = db.getAllRows();
         String[] fromFieldNames = new String[]{
                 DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS}; // Placeholder
         int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added}; // Placeholder
         // Set up the adapter
-        myCursorAdapter = new SimpleCursorAdapter(context, R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
-        myList = (ListView) v.findViewById(R.id.list_goals);
+        myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
+        myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
+        myCursorAdapter.changeCursor(db.getAllRows());
         myList.setAdapter(myCursorAdapter);
-
+        return v;
     }
-
-    public void displayCreateGoalResult(Boolean result) {
-        if (result == true) {
-            populateListView(getActivity());
-        }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
-    public void updateList() {
-        populateListView(getActivity());
-    }
-
 
     /**
      * This interface must be implemented by activities that contain this

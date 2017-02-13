@@ -4,7 +4,8 @@ package Models;
  * Created by Charlotte on 12/02/2017.
  */
 
-public class Goals {
+public class Goals{
+    // extend dataset observable
 
     String name;
     int numSteps;

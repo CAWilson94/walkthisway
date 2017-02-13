@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,11 +33,13 @@ import Models.Goals;
 import static com.example.charl.walkthisway.R.id.content_frame;
 import static com.example.charl.walkthisway.R.id.stats;
 import static com.example.charl.walkthisway.R.layout.fragment_history;
+import static com.example.charl.walkthisway.R.layout.fragment_stats;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DbManager db;
+    stats stat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +139,15 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
+    public void onGoalAdd() {
+        refreshListView();
+    }
 
+    private void refreshListView() {
+        stat.populateListView();
 
-
+    }
 }
+
+
+

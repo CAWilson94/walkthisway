@@ -1,5 +1,6 @@
 package com.example.charl.walkthisway;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -40,7 +41,7 @@ public class CreateNewGoal extends DialogFragment {
     // Custom Dialog fields
     View v;
     EditText goalNameInput, stepsInput;
-
+    Bundle bundle = new Bundle();
 
     public CreateNewGoal() {
         // Required empty public constructor
@@ -107,19 +108,19 @@ public class CreateNewGoal extends DialogFragment {
                         goal.setNumSteps(0);
                         db.addGoal(goal);
                         // Need to add update list somehow..
-                        mcallBack.updateList();
+                        //MainActivity activity = (MainActivity) getActivity();
+                        //activity.onGoalAdd();
+                        // mcallBack.updateList()
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
-
                     }
                 })
-
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dismiss();
                     }
                 });
-
         return builder.create();
     }
 
