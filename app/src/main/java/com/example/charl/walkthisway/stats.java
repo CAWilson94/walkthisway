@@ -16,7 +16,9 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.natasa.progressviews.CircleSegmentBar;
@@ -44,7 +46,7 @@ public class stats extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    DbManager db = new DbManager(getActivity(), null, null, 3);
+    DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
     Cursor cursor;
     SimpleCursorAdapter myCursorAdapter;
@@ -99,6 +101,7 @@ public class stats extends Fragment {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 FragmentManager fm = getFragmentManager();
                 CreateNewGoal newGoal = new CreateNewGoal();
                 newGoal.setTargetFragment(stats.this, 0);
@@ -148,8 +151,8 @@ public class stats extends Fragment {
         ListView myList;
         cursor = db.getAllRows();
         String[] fromFieldNames = new String[]{
-                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS}; // Placeholder
-        int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added}; // Placeholder
+                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
         myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity

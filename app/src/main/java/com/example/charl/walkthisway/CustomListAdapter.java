@@ -36,7 +36,7 @@ public class CustomListAdapter extends ArrayAdapter {
         TextView goalNameText = (TextView) v.findViewById(R.id.goal_name);
         TextView dateGoalAdded = (TextView) v.findViewById(R.id.date_goal_added);
         TextView currentProgressText = (TextView) v.findViewById(R.id.current_progress_added); //TODO: read docs online to see how to dynamically change
-        CheckBox goalComplete = (CheckBox) v.findViewById(R.id.goal_complete);
+        CheckBox goalComplete = (CheckBox) v.findViewById(R.id.goal_complete_check);
 
         goalNameText.setText(goalName); // Can change this to DB read hurrah!
         return v;

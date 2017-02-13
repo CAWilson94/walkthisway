@@ -94,7 +94,7 @@ public class CreateNewGoal extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DbManager db;
-                        db = new DbManager(getActivity(), null, null, 2); // let the dbmanager take care of params
+                        db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of params
 
                         goalNameInput = (EditText) v.findViewById(R.id.goal_form);
                         stepsInput = (EditText) v.findViewById(R.id.goal_step_form);

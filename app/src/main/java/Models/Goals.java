@@ -4,7 +4,7 @@ package Models;
  * Created by Charlotte on 12/02/2017.
  */
 
-public class Goals{
+public class Goals {
     // extend dataset observable
 
     String name;
@@ -15,7 +15,7 @@ public class Goals{
 
     /**
      * int myInt = (myBoolean) ? 1 : 0
-     *
+     * <p>
      * change the boolean to int for the DB
      */
 

@@ -76,7 +76,7 @@
                 android:text="Active Goal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch1"
+                android:id="@+id/switch_goal"
                 android:layout_weight="0.73"
                 android:checked="true" />
 

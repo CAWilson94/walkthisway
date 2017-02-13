@@ -103,7 +103,7 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/goal_complete"
+                android:id="@+id/goal_complete_check"
                 style="@style/Widget.AppCompat.CompoundButton.CheckBox"
                 android:layout_width="53dp"
                 android:layout_height="wrap_content"
