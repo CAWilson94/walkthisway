@@ -147,7 +147,7 @@ public class stats extends Fragment {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             text.setText(pleaseEnterGoal);
         } else {
-            text.setText("YAS");
+            text.setText(db.displayActiveName().toString());
         }
 
         //csb.setVisibility(View.INVISIBLE);
