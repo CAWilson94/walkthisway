@@ -160,12 +160,10 @@ public class stats extends Fragment {
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
         setListViewHeightBasedOnItems(myList);
-        //myCursorAdapter.notifyDataSetChanged();
-        //UIUtils.setListViewHeightBasedOnItems(myList);
         return v;
     }
 
-    public void makeActiveGoal(){
+    public void makeActiveGoal() {
 
     }
 

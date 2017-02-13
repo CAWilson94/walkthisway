@@ -93,6 +93,16 @@ public class DbManager extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_NAME + " =\" " + goalName + "\";");
     }
 
+    /**
+     * Checks the db for entries which have
+     * Active Goal set to 1: if active goal, return.
+     *
+     * @return
+     */
+    public Boolean checkForActiveGoal() {
+        return false;
+    }
+
 
     /**
      * testing db has things in it
