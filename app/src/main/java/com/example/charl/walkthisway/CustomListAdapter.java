@@ -40,4 +40,6 @@ public class CustomListAdapter extends ArrayAdapter {
         goalNameText.setText(goalName); // Can change this to DB read hurrah!
         return v;
     }
+
+
 }

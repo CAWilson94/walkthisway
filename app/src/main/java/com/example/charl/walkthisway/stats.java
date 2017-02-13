@@ -1,6 +1,5 @@
 package com.example.charl.walkthisway;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,17 +12,12 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.natasa.progressviews.CircleSegmentBar;
 
-import java.util.List;
-
 import Models.DbManager;
-import layout.CreateNewGoal;
 
 
 /**
@@ -34,7 +28,7 @@ import layout.CreateNewGoal;
  * Use the {@link stats#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class stats extends Fragment {
+public class stats extends Fragment implements CreateNewGoal.CreateNewGoalDialogListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -43,7 +37,10 @@ public class stats extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    DbManager db;
+
+
+    View v;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -76,17 +73,19 @@ public class stats extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        DbManager db = new DbManager(getActivity(), null, null, 2);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the custom_row before trying to find the view
-        View v = inflater.inflate(R.layout.fragment_stats, container, false);
+
+        v = inflater.inflate(R.layout.fragment_stats, container, false);
         final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
         checkActiveGoalCard(cardView);
 
-        populateListView(v);
+        populateListView(getActivity()); // populate list!
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +117,7 @@ public class stats extends Fragment {
         CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
         String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
         text.setText(pleaseEnterGoal);
-        csb.setVisibility(View.INVISIBLE);
+        //csb.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -126,6 +125,38 @@ public class stats extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    public void populateListView(Context context) {
+        ListView myList;
+        SimpleCursorAdapter myCursorAdapter;
+        DbManager db = new DbManager(context, null, null, 2);
+        Cursor cursor = db.getAllRows();
+        String[] fromFieldNames = new String[]{
+                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added}; // Placeholder
+        // Set up the adapter
+        myCursorAdapter = new SimpleCursorAdapter(context, R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
+        myList = (ListView) v.findViewById(R.id.list_goals);
+        myList.setAdapter(myCursorAdapter);
+
+    }
+
+    public void displayCreateGoalResult(Boolean result) {
+        if (result == true) {
+            populateListView(getActivity());
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void updateList() {
+        populateListView(getActivity());
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -140,21 +171,6 @@ public class stats extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void populateListView(View v) {
-
-        db = new DbManager(getActivity(), null, null, 2);
-        Cursor cursor = db.getAllRows();
-        String[] fromFieldNames = new String[]{
-                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS}; // Placeholder
-        int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added}; // Placeholder
-
-        SimpleCursorAdapter myCursorAdapter;
-        // Set up the adapter
-        myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
-        ListView myList = (ListView) v.findViewById(R.id.list_goals);
-        myList.setAdapter(myCursorAdapter);
     }
 
 

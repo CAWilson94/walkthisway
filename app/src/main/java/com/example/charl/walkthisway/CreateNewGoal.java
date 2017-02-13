@@ -1,30 +1,26 @@
-package layout;
+package com.example.charl.walkthisway;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import com.example.charl.walkthisway.R;
 
 import Models.DbManager;
 import Models.Goals;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CreateNewGoal.OnFragmentInteractionListener} interface
+ * Activities that contain this fragment must implement thee
  * to handle interaction events.
  * Use the {@link CreateNewGoal#newInstance} factory method to
  * create an instance of this fragment.
@@ -39,11 +35,12 @@ public class CreateNewGoal extends DialogFragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    CreateNewGoalDialogListener mcallBack;
+
     // Custom Dialog fields
     View v;
     EditText goalNameInput, stepsInput;
-    DbManager db;
+
 
     public CreateNewGoal() {
         // Required empty public constructor
@@ -96,7 +93,9 @@ public class CreateNewGoal extends DialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        DbManager db;
                         db = new DbManager(getActivity(), null, null, 2); // let the dbmanager take care of params
+
                         goalNameInput = (EditText) v.findViewById(R.id.goal_form);
                         stepsInput = (EditText) v.findViewById(R.id.goal_step_form);
                         Goals goal = new Goals();
@@ -107,7 +106,10 @@ public class CreateNewGoal extends DialogFragment {
                         goal.setComplete(false);
                         goal.setNumSteps(0);
                         db.addGoal(goal);
+                        // Need to add update list somehow..
+                        mcallBack.updateList();
                         dismiss();
+
                     }
                 })
 
@@ -117,7 +119,6 @@ public class CreateNewGoal extends DialogFragment {
                         dismiss();
                     }
                 });
-
 
         return builder.create();
     }
@@ -141,7 +142,15 @@ public class CreateNewGoal extends DialogFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mcallBack = null;
+    }
+
+    public void setListener(CreateNewGoalDialogListener callback) {
+        try {
+            mcallBack = callback;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(callback.toString() + " must implementtene CreateNewGoalDialogListener");
+        }
     }
 
     /**
@@ -154,9 +163,12 @@ public class CreateNewGoal extends DialogFragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface CreateNewGoalDialogListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
+        void updateList();
     }
+
 
 }

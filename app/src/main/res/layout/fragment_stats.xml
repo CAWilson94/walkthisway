@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.charl.walkthisway.stats">
+    tools:context="com.example.charl.walkthisway.stats"
+    android:id="@+id/stats_fragment"
+    >
 
     <!-- TODO: Update blank fragment custom_row -->
 
