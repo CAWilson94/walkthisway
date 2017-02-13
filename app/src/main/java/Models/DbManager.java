@@ -72,10 +72,10 @@ public class DbManager extends SQLiteOpenHelper {
         // Basically a list of values
         ContentValues values = new ContentValues();
         values.put(COLUMN_GOAL_NAME, goal.getName());
-        values.put(COLUMN_ACTIVE, (goal.getActive()) ? 1 : 0);
+        values.put(COLUMN_ACTIVE, (goal.getActive()) ? 0 : 1);
         values.put(COLUMN_STEP_GOALS, goal.getStepTarget());
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
-        values.put(COLUMN_GOAL_COMPLETE, (goal.getActive()) ? 1 : 0);
+        values.put(COLUMN_GOAL_COMPLETE, (goal.getActive()) ? 0 : 1);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
