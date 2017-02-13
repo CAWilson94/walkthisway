@@ -131,13 +131,25 @@ public class stats extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    /**
+     * Check for active goal in the goal card:
+     * if there is one, display everything related to it.
+     *
+     * @param cardView
+     */
     public void checkActiveGoalCard(View cardView) {
 
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);
         CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
-        String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
-        text.setText(pleaseEnterGoal);
+
+        if (db.checkForActiveGoal() == false) {
+            String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
+            text.setText(pleaseEnterGoal);
+        } else {
+            text.setText(db.displayActiveName().toString());
+        }
+
         //csb.setVisibility(View.INVISIBLE);
     }
 
@@ -160,12 +172,10 @@ public class stats extends Fragment {
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
         setListViewHeightBasedOnItems(myList);
-        //myCursorAdapter.notifyDataSetChanged();
-        //UIUtils.setListViewHeightBasedOnItems(myList);
         return v;
     }
 
-    public void makeActiveGoal(){
+    public void makeActiveGoal() {
 
     }
 
