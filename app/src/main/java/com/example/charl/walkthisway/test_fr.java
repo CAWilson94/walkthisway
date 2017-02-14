@@ -1,13 +1,21 @@
 package com.example.charl.walkthisway;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import Models.DbManager;
+
+import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
 
 /**
@@ -29,6 +37,10 @@ public class test_fr extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private Cursor cursor;
+    private View v;
+    private SimpleCursorAdapter myCursorAdapter;
+    DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
     public test_fr() {
         // Required empty public constructor
@@ -59,13 +71,17 @@ public class test_fr extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the custom_row for this fragment
-        return inflater.inflate(R.layout.fragment_test, container, false);
+        v = inflater.inflate(R.layout.fragment_test, container, false);
+        final CardView cardView = (CardView) v.findViewById(R.id.card_history);
+        populateListView();
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -84,6 +100,22 @@ public class test_fr extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public View populateListView() {
+        ListView myList;
+        cursor = db.getAllRows();
+        String[] fromFieldNames = new String[]{
+                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added, R.id.goal_complete_check}; // Placeholder
+        // Set up the adapter
+        myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
+        myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
+        myCursorAdapter.changeCursor(db.getAllRows());
+        myList.setAdapter(myCursorAdapter);
+        myList.setFocusable(false);
+        setListViewHeightBasedOnItems(myList);
+        return v;
     }
 
     /**
