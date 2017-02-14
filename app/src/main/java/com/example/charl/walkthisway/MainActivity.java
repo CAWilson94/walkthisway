@@ -122,6 +122,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.test:
                 fragment = new test_fr();
                 break;
+            case R.id.settings:
+                fragment = new Settings();
+                break;
         }
 
         /***

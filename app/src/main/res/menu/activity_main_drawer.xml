@@ -21,8 +21,13 @@
         <menu>
             <item
                 android:id="@+id/test"
-                android:icon="@android:drawable/ic_menu_preferences"
+                android:icon="@android:drawable/ic_menu_manage"
                 android:title="test" />
+
+            <item
+                android:id="@+id/settings"
+                android:icon="@android:drawable/ic_menu_preferences"
+                android:title="settings" />
         </menu>
     </item>
 

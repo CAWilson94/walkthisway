@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory android:title="Developer Options">
+
+    </PreferenceCategory>
     <SwitchPreference
         android:defaultValue="false"
         android:key="switch_preference_1"
         android:title="Test Mode" />
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Do something"
+        android:key="edit_text_preference_1" />
 </PreferenceScreen>
