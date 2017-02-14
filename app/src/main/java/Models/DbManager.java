@@ -123,7 +123,38 @@ public class DbManager extends SQLiteOpenHelper {
         return false;
     }
 
+    /**
+     * For a given goal name/active goal?
+     *
+     * @return
+     */
+    public int getCurrentProgress() {
+        int progress = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_STEP_GOALS + " , " + COLUMN_CURRENT_STEPS + " FROM "
+                + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1 "; // TODO: fix this hack you horrid person
+        Cursor c = db.rawQuery(query, null);
+        int stepGoal = 0;
+        int currentSteps = 0;
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("is_active")) != null) {
+                stepGoal = c.getInt(c.getColumnIndex("step_goal"));
+                currentSteps = c.getInt(c.getColumnIndex("current_steps"));
+                progress = stepGoal - currentSteps; //TODO: make this get abs value?
+            }
+            c.moveToNext();
+        }
+        db.close();
+
+        return progress;
+    }
+
     public String getActiveGoalName() {
+        /**
+         * Could return an array containing goal name and also current progress?
+         */
         String activeGoalName = "";
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1";
