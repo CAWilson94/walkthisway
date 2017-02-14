@@ -3,115 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/date_goal_added"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="Date"
+            android:layout_weight="1.00"
             android:textAlignment="center" />
 
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-
         <LinearLayout
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:weightSum="1">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.00">
 
-            <TextView
-                android:id="@+id/goal_name"
-                tools:text="goalName Progress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|top"
-                android:text="TextView"
-                android:textSize="10sp" />
-
-            <com.natasa.progressviews.LineProgressBar
-                android:id="@+id/line_progressbar"
-                app:bar_width="15dp"
-                app:progress="55"
-                app:progress_color="@color/colorAccent"
-                app:progress_width="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/line_progress"
-                android:layout_gravity="center_horizontal|top" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/current_progress_added"
-                    tools:text="numsteps / total"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="TextView"
-                    android:textAlignment="center"
-                    android:textSize="10sp" />
-            </LinearLayout>
-
+            <ListView
+                android:layout_width="215dp"
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="65dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/goal_complete_check"
-                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
-                android:layout_width="53dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
-                android:layout_weight="1"
-                android:checked="true"
-                android:duplicateParentState="false" />
-        </LinearLayout>
-
-    </LinearLayout>
-
 
 </LinearLayout>
+
+    <!-- include basic history row here -->
