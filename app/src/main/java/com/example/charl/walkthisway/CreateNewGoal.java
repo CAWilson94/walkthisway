@@ -102,7 +102,7 @@ public class CreateNewGoal extends DialogFragment {
                         goal.setName(goalNameInput.getText().toString());
                         goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
                         // now check toggle thingy
-                        goal.setActive(true);
+                        goal.setActive(false);
                         goal.setComplete(false);
                         goal.setNumSteps(0);
                         db.addGoal(goal);
