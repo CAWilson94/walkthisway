@@ -147,7 +147,6 @@ public class DbManager extends SQLiteOpenHelper {
             c.moveToNext();
         }
         db.close();
-
         return progress;
     }
 
