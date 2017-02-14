@@ -72,10 +72,10 @@ public class DbManager extends SQLiteOpenHelper {
         // Basically a list of values
         ContentValues values = new ContentValues();
         values.put(COLUMN_GOAL_NAME, goal.getName());
-        values.put(COLUMN_ACTIVE, (goal.getActive()) ? 1 : 0);
+        values.put(COLUMN_ACTIVE, (goal.getActive()) ? 0 : 1);
         values.put(COLUMN_STEP_GOALS, goal.getStepTarget());
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
-        values.put(COLUMN_GOAL_COMPLETE, (goal.getActive()) ? 1 : 0);
+        values.put(COLUMN_GOAL_COMPLETE, (goal.getActive()) ? 0 : 1);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
@@ -100,6 +100,26 @@ public class DbManager extends SQLiteOpenHelper {
      * @return
      */
     public Boolean checkForActiveGoal() {
+        String dbString = "";
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1";
+        ; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("is_active")) != null) {
+                dbString += c.getString(c.getColumnIndex("is_active"));
+                dbString += "\n";
+                return true;
+            }
+            c.moveToNext();
+        }
+        db.close();
+
         return false;
     }
 
