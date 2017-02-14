@@ -50,6 +50,7 @@ public class stats extends Fragment {
 
     Cursor cursor;
     SimpleCursorAdapter myCursorAdapter;
+    View cardView;
 
     View v;
     Bundle args = new Bundle();
@@ -93,8 +94,8 @@ public class stats extends Fragment {
         // Inflate the custom_row before trying to find the view
 
         v = inflater.inflate(R.layout.fragment_stats, container, false);
-        final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
-        checkActiveGoalCard(cardView);
+        cardView = (CardView) v.findViewById(R.id.main_progress_card);
+        checkActiveGoalCard();
 
         populateListView(); // populate list!
 
@@ -115,6 +116,7 @@ public class stats extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 0) {
             populateListView();
+            checkActiveGoalCard();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -137,7 +139,7 @@ public class stats extends Fragment {
      *
      * @param cardView
      */
-    public void checkActiveGoalCard(View cardView) {
+    public void checkActiveGoalCard() {
 
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);
