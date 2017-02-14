@@ -220,4 +220,24 @@ public class DbManager extends SQLiteOpenHelper {
         return c;
 
     }
+
+    public String displayActiveName() {
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_GOAL_NAME + " FROM " + TABLE_GOALS + " " + " WHERE " + COLUMN_ACTIVE + " =1"; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        String activeName = "";
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("goal_name")) != null) {
+                activeName = c.getString(c.getColumnIndex("goal_name"));
+            }
+            c.moveToNext();
+        }
+        db.close();
+        return activeName;
+    }
 }

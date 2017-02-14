@@ -50,7 +50,6 @@ public class stats extends Fragment {
 
     Cursor cursor;
     SimpleCursorAdapter myCursorAdapter;
-    View cardView;
 
     View v;
     Bundle args = new Bundle();
@@ -85,7 +84,7 @@ public class stats extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
+        db = new DbManager(getActivity(), null, null, 2);
     }
 
     @Override
@@ -94,8 +93,8 @@ public class stats extends Fragment {
         // Inflate the custom_row before trying to find the view
 
         v = inflater.inflate(R.layout.fragment_stats, container, false);
-        cardView = (CardView) v.findViewById(R.id.main_progress_card);
-        checkActiveGoalCard();
+        final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
+        checkActiveGoalCard(cardView);
 
         populateListView(); // populate list!
 
@@ -116,7 +115,6 @@ public class stats extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 0) {
             populateListView();
-            checkActiveGoalCard();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -139,7 +137,7 @@ public class stats extends Fragment {
      *
      * @param cardView
      */
-    public void checkActiveGoalCard() {
+    public void checkActiveGoalCard(View cardView) {
 
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);
@@ -149,7 +147,7 @@ public class stats extends Fragment {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             text.setText(pleaseEnterGoal);
         } else {
-            text.setText(db.getActiveGoalName());
+            text.setText(db.displayActiveName().toString());
         }
 
         //csb.setVisibility(View.INVISIBLE);
