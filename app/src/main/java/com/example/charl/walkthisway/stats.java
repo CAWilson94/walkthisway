@@ -46,6 +46,8 @@ public class stats extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    View cardView;
+
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
     Cursor cursor;
@@ -93,7 +95,7 @@ public class stats extends Fragment {
         // Inflate the custom_row before trying to find the view
 
         v = inflater.inflate(R.layout.fragment_stats, container, false);
-        final CardView cardView = (CardView) v.findViewById(R.id.main_progress_card);
+        cardView = (CardView) v.findViewById(R.id.main_progress_card);
         checkActiveGoalCard(cardView);
 
         populateListView(); // populate list!
@@ -115,8 +117,24 @@ public class stats extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == 0) {
             populateListView();
+            checkActiveGoalCard();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void checkActiveGoalCard() {
+
+        String test = "testing";
+        TextView text = (TextView) cardView.findViewById(R.id.textView3);
+        CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
+
+        if (db.checkForActiveGoal() == false) {
+            String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
+            text.setText(pleaseEnterGoal);
+        } else {
+            text.setText(db.getActiveGoalName());
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
