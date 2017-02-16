@@ -103,15 +103,15 @@ public class walk extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         // Inflate the custom_row for this fragment
         //Floating action button time
-        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.add_activity_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                addActivity dialogFragment = new addActivity ();
-                dialogFragment.show(fm, "Add Activity");
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.add_activity_fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentManager fm = getFragmentManager();
+//                addActivity dialogFragment = new addActivity ();
+//                dialogFragment.show(fm, "Add Activity");
+//            }
+//        });
         return v;
     }
 

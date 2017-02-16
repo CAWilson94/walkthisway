@@ -8,18 +8,6 @@
 
     <!-- TODO: Update blank fragment custom_row -->
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:fabSize="auto"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:id="@+id/add_activity_fab"
-        android:tint="@android:color/white"
-        app:backgroundTint="@color/colorPrimary" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
