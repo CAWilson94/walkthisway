@@ -104,11 +104,9 @@ public class stats extends Fragment {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 FragmentManager fm = getFragmentManager();
-                CreateNewGoal newGoal = new CreateNewGoal();
-                newGoal.setTargetFragment(stats.this, 0);
-                newGoal.show(fm, "Add New Goal");
+                addActivity dialogFragment = new addActivity();
+                dialogFragment.show(fm, "Add Activity");
             }
         });
 
@@ -117,8 +115,9 @@ public class stats extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
-                addActivity dialogFragment = new addActivity ();
-                dialogFragment.show(fm, "Add Activity");
+                CreateNewGoal newGoal = new CreateNewGoal();
+                newGoal.setTargetFragment(stats.this, 0);
+                newGoal.show(fm, "Add New Goal");
             }
         });
         return v;
