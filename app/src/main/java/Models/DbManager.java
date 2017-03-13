@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static android.R.attr.id;
+
 /**
  * Created by Charlotte on 12/02/2017.
  * Class for working with Database basically
@@ -221,6 +223,9 @@ public class DbManager extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * @return
+     */
     public String displayActiveName() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
@@ -240,7 +245,38 @@ public class DbManager extends SQLiteOpenHelper {
         db.close();
         return activeName;
     }
-    
-    public void addStepsCurrentGoal() {
+
+    /**
+     * User inputs active goal steps, this updates the steps for the current goal.
+     */
+    public void addStepsCurrentGoal(int steps) {
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "UPDATE " + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + steps +
+                " WHERE " + COLUMN_ACTIVE + " = 1";
+    }
+
+
+    /**
+     * @return
+     */
+    public int displayActiveSteps() {
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " " + " WHERE " + COLUMN_ACTIVE + " =1"; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        int activeSteps = 0;
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("current_steps")) != null) {
+                activeSteps = c.getInt(c.getColumnIndex("current_steps"));
+            }
+            c.moveToNext();
+        }
+        db.close();
+        return activeSteps;
     }
 }

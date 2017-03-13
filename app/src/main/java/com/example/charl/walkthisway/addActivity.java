@@ -95,7 +95,9 @@ public class addActivity extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         stepsInput = (EditText) v.findViewById(R.id.add_steps_input);
-                        db.addStepsCurrentGoal();
+                        String steps = stepsInput.getText().toString();
+                        int stepInt = Integer.parseInt(steps);
+                        db.addStepsCurrentGoal(stepInt); //TODO: get steps input in here
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }
