@@ -95,7 +95,6 @@ public class CreateNewGoal extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         DbManager db;
                         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of params
-
                         goalNameInput = (EditText) v.findViewById(R.id.goal_form);
                         stepsInput = (EditText) v.findViewById(R.id.goal_step_form);
                         Goals goal = new Goals();
@@ -106,12 +105,7 @@ public class CreateNewGoal extends DialogFragment {
                         goal.setComplete(false);
                         goal.setNumSteps(0);
                         db.addGoal(goal);
-                        // Need to add update list somehow..
-                        //MainActivity activity = (MainActivity) getActivity();
-                        //activity.onGoalAdd();
-                        // mcallBack.updateList()
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
-
                         dismiss();
                     }
                 })
