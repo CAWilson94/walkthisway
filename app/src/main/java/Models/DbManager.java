@@ -260,4 +260,7 @@ public class DbManager extends SQLiteOpenHelper {
         db.close();
         return activeName;
     }
+
+    public void addStepsCurrentGoal() {
+    }
 }

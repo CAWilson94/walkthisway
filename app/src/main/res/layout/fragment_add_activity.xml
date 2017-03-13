@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:inputType="numberSigned"
             android:ems="10"
-            android:id="@+id/editText2" />
+            android:id="@+id/add_steps_input" />
     </LinearLayout>
 
 </FrameLayout>

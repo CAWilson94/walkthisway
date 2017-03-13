@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import Models.DbManager;
 
 
 /**
@@ -34,7 +37,11 @@ public class addActivity extends DialogFragment {
     private String mParam1;
     private String mParam2;
 
+    View v;
+    EditText stepsInput;
+
     private OnFragmentInteractionListener mListener;
+    DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
     public addActivity() {
         // Required empty public constructor
@@ -66,8 +73,9 @@ public class addActivity extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        db = new DbManager(getActivity(), null, null, 2);
     }
-    
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -77,14 +85,18 @@ public class addActivity extends DialogFragment {
         // Set custom_row inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
+        v = inflater.inflate(R.layout.fragment_add_activity, null);
+
         builder.setMessage("Input Steps");
 
-        builder.setView(inflater.inflate(R.layout.fragment_add_activity, null))
+        builder.setView(v)
                 // Action Buttons
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO: databaseshit add steps :D
+                        stepsInput = (EditText) v.findViewById(R.id.add_steps_input);
+                        db.addStepsCurrentGoal();
+                        getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }
                 })

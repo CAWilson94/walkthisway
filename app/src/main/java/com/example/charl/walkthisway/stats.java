@@ -108,6 +108,7 @@ public class stats extends Fragment {
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
                 addActivity dialogFragment = new addActivity();
+                dialogFragment.setTargetFragment(stats.this, 0);
                 dialogFragment.show(fm, "Add Activity");
             }
         });
