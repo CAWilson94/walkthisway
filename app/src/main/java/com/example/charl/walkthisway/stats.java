@@ -146,7 +146,7 @@ public class stats extends Fragment {
             text.setText("pleaseEnterGoal");
         } else {
             text.setText(db.getActiveGoalName());
-            yermaw.setText(String.valueOf(db.displayActiveSteps()));
+            yermaw.setText(String.valueOf(db.displayActiveSteps()) + ": active HHH");
         }
     }
 
@@ -180,7 +180,7 @@ public class stats extends Fragment {
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());
-            stepsActive.setText(String.valueOf(db.displayActiveSteps()));
+            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + ": active AF");
         }
 
         //csb.setVisibility(View.INVISIBLE);

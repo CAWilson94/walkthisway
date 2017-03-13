@@ -94,6 +94,8 @@ public class addActivity extends DialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        DbManager db;
+                        db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
                         stepsInput = (EditText) v.findViewById(R.id.add_steps_input);
                         String steps = stepsInput.getText().toString();
                         int stepInt = Integer.parseInt(steps);
