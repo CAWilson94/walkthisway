@@ -181,6 +181,11 @@ public class stats extends Fragment {
         //csb.setVisibility(View.INVISIBLE);
     }
 
+    
+    public void inputSteps(){
+
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
