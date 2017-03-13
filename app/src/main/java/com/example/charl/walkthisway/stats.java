@@ -26,6 +26,8 @@ import com.natasa.progressviews.CircleSegmentBar;
 
 import Models.DbManager;
 
+import static com.example.charl.walkthisway.R.id.textView;
+import static com.example.charl.walkthisway.R.id.view;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
 
@@ -133,18 +135,18 @@ public class stats extends Fragment {
     }
 
     private void checkActiveGoalCard() {
-
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);
+        TextView yermaw = (TextView) cardView.findViewById(R.id.yermaw);
         CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
 
         if (db.checkForActiveGoal() == false) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
-            text.setText(pleaseEnterGoal);
+            text.setText("pleaseEnterGoal");
         } else {
             text.setText(db.getActiveGoalName());
+            yermaw.setText(db.getActiveGoalName());
         }
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -169,22 +171,20 @@ public class stats extends Fragment {
 
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);
+        TextView stepsActive = (TextView) cardView.findViewById(R.id.yermaw);
         CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
 
-        if (db.checkForActiveGoal() == false) {
+        if (!db.checkForActiveGoal()) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName().toString());
+            stepsActive.setText(db.displayActiveName().toString());
         }
 
         //csb.setVisibility(View.INVISIBLE);
     }
 
-    
-    public void inputSteps(){
-
-    }
 
     @Override
     public void onDetach() {

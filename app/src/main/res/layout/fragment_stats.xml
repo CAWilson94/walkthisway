@@ -83,7 +83,7 @@
                                 android:text="55/100"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/textView2"
+                                android:id="@+id/yermaw"
                                 android:layout_gravity="center"
                                 android:lines="1"/>
 
