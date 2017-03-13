@@ -67,27 +67,7 @@ public class addActivity extends DialogFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the custom_row for this fragment
-//        getDialog().setTitle("Simple Dialog");
-//        // Container inflate
-//        View v = inflater.inflate(R.custom_row.fragment_add_activity, container, false);
-//        // Dismiss Button
-//        Button dismiss = (Button) v.findViewById(R.id.dismiss);
-//        dismiss.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dismiss();
-//            }
-//        });
-//        return v;
-//    }
-
-
+    
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
