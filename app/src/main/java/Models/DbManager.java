@@ -50,7 +50,6 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL" +
                 ")";
         db.execSQL(query);
-        db.close();
     }
 
     /**
