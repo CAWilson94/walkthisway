@@ -78,7 +78,7 @@ public class DbManager extends SQLiteOpenHelper {
         values.put(COLUMN_ACTIVE, (goal.getActive()) ? 1 : 0);
         values.put(COLUMN_STEP_GOALS, goal.getStepTarget());
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
-        values.put(COLUMN_GOAL_COMPLETE, (goal.getActive()) ? 1 : 0);
+        values.put(COLUMN_GOAL_COMPLETE, (goal.getComplete()) ? 1 : 0);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
@@ -289,5 +289,14 @@ public class DbManager extends SQLiteOpenHelper {
         }
         db.close();
         return activeSteps;
+    }
+
+    public void sketchySetAllOthersInactive() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_GOALS + " SET "
+                + COLUMN_ACTIVE + " = " + 0 + " WHERE "
+                + COLUMN_ACTIVE + " =1");
+        db.close();
+
     }
 }

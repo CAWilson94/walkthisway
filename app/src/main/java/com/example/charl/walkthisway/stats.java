@@ -198,7 +198,7 @@ public class stats extends Fragment {
         ListView myList;
         cursor = db.getAllRows();
         String[] fromFieldNames = new String[]{
-                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
+                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_CURRENT_STEPS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
         int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);

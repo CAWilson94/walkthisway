@@ -102,6 +102,8 @@ public class CreateNewGoal extends DialogFragment {
                         Goals goal = new Goals();
                         goal.setName(goalNameInput.getText().toString());
                         goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
+                        // For all other active goals set incomplete
+                        db.sketchySetAllOthersInactive();
                         // now check toggle thingy
                         goal.setActive(true);
                         goal.setComplete(false);
