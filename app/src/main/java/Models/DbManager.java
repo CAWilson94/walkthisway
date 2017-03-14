@@ -297,6 +297,5 @@ public class DbManager extends SQLiteOpenHelper {
                 + COLUMN_ACTIVE + " = " + 0 + " WHERE "
                 + COLUMN_ACTIVE + " =1");
         db.close();
-
     }
 }

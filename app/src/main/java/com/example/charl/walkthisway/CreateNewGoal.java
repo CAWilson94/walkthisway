@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import Models.DbManager;
 import Models.Goals;
@@ -43,6 +44,7 @@ public class CreateNewGoal extends DialogFragment {
     // Custom Dialog fields
     View v;
     EditText goalNameInput, stepsInput;
+    Switch checkedActive;
     Bundle bundle = new Bundle();
 
     public CreateNewGoal() {
@@ -99,13 +101,20 @@ public class CreateNewGoal extends DialogFragment {
                         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of params
                         goalNameInput = (EditText) v.findViewById(R.id.goal_form);
                         stepsInput = (EditText) v.findViewById(R.id.goal_step_form);
+                        checkedActive = (Switch) v.findViewById(R.id.switch_goal);
+                        Boolean switchState = checkedActive.isChecked(); // Check current state of switch
                         Goals goal = new Goals();
                         goal.setName(goalNameInput.getText().toString());
                         goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
                         // For all other active goals set incomplete
-                        db.sketchySetAllOthersInactive();
                         // now check toggle thingy
-                        goal.setActive(true);
+                        if (switchState) {
+                            db.sketchySetAllOthersInactive();
+                            goal.setActive(switchState);
+                        } else {
+                            goal.setActive(false);
+                        }
+
                         goal.setComplete(false);
                         goal.setNumSteps(0);
                         db.addGoal(goal);
@@ -121,22 +130,6 @@ public class CreateNewGoal extends DialogFragment {
                 });
         return builder.create();
     }
-
-
-    //    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_create_new_goal, container, false);
-//    }
-//
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-
 
     @Override
     public void onDetach() {
@@ -165,6 +158,7 @@ public class CreateNewGoal extends DialogFragment {
     public interface CreateNewGoalDialogListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
         void updateList();
     }
 
