@@ -99,7 +99,7 @@ public class addActivity extends DialogFragment {
                         stepsInput = (EditText) v.findViewById(R.id.add_steps_input);
                         String steps = stepsInput.getText().toString();
                         int stepInt = Integer.parseInt(steps);
-                        db.addStepsCurrentGoal(stepInt); //TODO: get steps input in here
+                        db.incrementSteps(stepInt); //TODO: get steps input in here
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }

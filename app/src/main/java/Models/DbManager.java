@@ -35,6 +35,7 @@ public class DbManager extends SQLiteOpenHelper {
     /**
      * Whenyou create the table for the first time what do you want me to do?
      *
+     *
      * @param db
      */
     @Override
@@ -49,6 +50,7 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL" +
                 ")";
         db.execSQL(query);
+        db.close();
     }
 
     /**
@@ -121,7 +123,6 @@ public class DbManager extends SQLiteOpenHelper {
             c.moveToNext();
         }
         db.close();
-
         return false;
     }
 
@@ -253,8 +254,19 @@ public class DbManager extends SQLiteOpenHelper {
         // Reference to db
         SQLiteDatabase db = getReadableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_CURRENT_STEPS, 20);
-        db.update(TABLE_GOALS, cv,COLUMN_ACTIVE + " =1", null);
+        int activeStep = displayActiveSteps();
+        int newStepNewMe = activeStep + steps;
+        cv.put(COLUMN_CURRENT_STEPS, newStepNewMe);
+        db.update(TABLE_GOALS, cv, COLUMN_ACTIVE + " =1", null);
+        db.close();
+    }
+
+    public void incrementSteps(int steps){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_GOALS + " SET "
+                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE "
+                + COLUMN_ACTIVE + " =1");
+        db.close();
     }
 
     /**
@@ -263,7 +275,7 @@ public class DbManager extends SQLiteOpenHelper {
     public int displayActiveSteps() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_CURRENT_STEPS+ " FROM " + TABLE_GOALS + " " + " WHERE " + COLUMN_ACTIVE + " =1"; // one means select every row ( every condition is met)
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " " + " WHERE " + COLUMN_ACTIVE + " =1"; // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         int activeSteps = 0;
         Cursor c = db.rawQuery(query, null);
