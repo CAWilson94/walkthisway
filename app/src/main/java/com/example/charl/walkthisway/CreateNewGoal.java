@@ -19,6 +19,8 @@ import android.widget.EditText;
 import Models.DbManager;
 import Models.Goals;
 
+import static android.R.attr.x;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement thee

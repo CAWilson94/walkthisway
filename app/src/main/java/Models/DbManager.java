@@ -15,7 +15,7 @@ import static android.R.attr.id;
 
 public class DbManager extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 3; //update version when database update
+    public static final int DATABASE_VERSION = 5; //update version when database update
     private static final String DATABASE_NAME = "walkthisway.db";
     public static final String TABLE_GOALS = "goals";
     public static final String TABLE_HISTORY = "history";
@@ -251,11 +251,11 @@ public class DbManager extends SQLiteOpenHelper {
      */
     public void addStepsCurrentGoal(int steps) {
         // Reference to db
-        SQLiteDatabase db = getWritableDatabase();
-        String query = "UPDATE " + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + steps +
-                " WHERE " + COLUMN_ACTIVE + " = 1";
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_CURRENT_STEPS, 20);
+        db.update(TABLE_GOALS, cv,COLUMN_ACTIVE + " =1", null);
     }
-
 
     /**
      * @return
@@ -263,7 +263,7 @@ public class DbManager extends SQLiteOpenHelper {
     public int displayActiveSteps() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " " + " WHERE " + COLUMN_ACTIVE + " =1"; // one means select every row ( every condition is met)
+        String query = "SELECT " + COLUMN_CURRENT_STEPS+ " FROM " + TABLE_GOALS + " " + " WHERE " + COLUMN_ACTIVE + " =1"; // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         int activeSteps = 0;
         Cursor c = db.rawQuery(query, null);

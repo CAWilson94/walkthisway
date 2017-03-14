@@ -28,6 +28,7 @@ import Models.DbManager;
 
 import static com.example.charl.walkthisway.R.id.textView;
 import static com.example.charl.walkthisway.R.id.view;
+import static com.example.charl.walkthisway.R.id.yermaw;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
 
@@ -146,7 +147,7 @@ public class stats extends Fragment {
             text.setText("pleaseEnterGoal");
         } else {
             text.setText(db.getActiveGoalName());
-            yermaw.setText(String.valueOf(db.displayActiveSteps()) + ": active HHH");
+            yermaw.setText(String.valueOf(db.displayActiveSteps()));
         }
     }
 
@@ -172,7 +173,7 @@ public class stats extends Fragment {
 
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);
-        TextView stepsActive = (TextView) cardView.findViewById(R.id.yermaw);
+        TextView stepsActive = (TextView) cardView.findViewById(yermaw);
         CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
 
         if (!db.checkForActiveGoal()) {
@@ -180,7 +181,7 @@ public class stats extends Fragment {
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());
-            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + ": active AF");
+            stepsActive.setText(String.valueOf(db.displayActiveSteps()));
         }
 
         //csb.setVisibility(View.INVISIBLE);
