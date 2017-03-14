@@ -1,33 +1,26 @@
 package com.example.charl.walkthisway;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.natasa.progressviews.CircleSegmentBar;
 
 import Models.DbManager;
 
-import static com.example.charl.walkthisway.R.id.textView;
-import static com.example.charl.walkthisway.R.id.view;
+import static com.example.charl.walkthisway.R.id.circle_progress;
 import static com.example.charl.walkthisway.R.id.yermaw;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
@@ -51,6 +44,7 @@ public class stats extends Fragment {
     private String mParam2;
 
     View cardView;
+    com.natasa.progressviews.CircleSegmentBar circleProgressBar;
 
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
@@ -99,6 +93,8 @@ public class stats extends Fragment {
         // Inflate the custom_row before trying to find the view
 
         v = inflater.inflate(R.layout.fragment_stats, container, false);
+        circleProgressBar = (com.natasa.progressviews.CircleSegmentBar) v.findViewById(R.id.circle_progress);
+        circleProgressBar(circleProgressBar);
         cardView = (CardView) v.findViewById(R.id.main_progress_card);
         checkActiveGoalCard(cardView);
 
@@ -132,22 +128,35 @@ public class stats extends Fragment {
         if (resultCode == 0) {
             populateListView();
             checkActiveGoalCard();
+            circleProgressBar(circleProgressBar);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private int getProgress(){
+        float progress = 0;
+        int currentSteps = db.displayActiveSteps();
+        int goalSteps = db.displayGoalSteps();
+        progress = Math.round((currentSteps * 100)/ goalSteps);
+        return (int) progress;
+    }
+
+    private void circleProgressBar(CircleSegmentBar circleProgressBar) {
+        this.circleProgressBar.setProgress((int)getProgress()); // Sign of weakness sue me!!
     }
 
     private void checkActiveGoalCard() {
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);
         TextView yermaw = (TextView) cardView.findViewById(R.id.yermaw);
-        CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
+        CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(circle_progress);
 
         if (db.checkForActiveGoal() == false) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             text.setText("pleaseEnterGoal");
         } else {
             text.setText(db.getActiveGoalName());
-            yermaw.setText(String.valueOf(db.displayActiveSteps()));
+            yermaw.setText(String.valueOf(getProgress()) + "%");
         }
     }
 
@@ -174,14 +183,14 @@ public class stats extends Fragment {
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);
         TextView stepsActive = (TextView) cardView.findViewById(yermaw);
-        CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(R.id.circle_progress);
+        CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(circle_progress);
 
         if (!db.checkForActiveGoal()) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());
-            stepsActive.setText(String.valueOf(db.displayActiveSteps()));
+            stepsActive.setText(String.valueOf(getProgress()) + "%");
         }
 
         //csb.setVisibility(View.INVISIBLE);
@@ -210,9 +219,6 @@ public class stats extends Fragment {
         return v;
     }
 
-    public void makeActiveGoal() {
-
-    }
 
     /**
      * This interface must be implemented by activities that contain this

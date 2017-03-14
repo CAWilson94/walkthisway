@@ -291,6 +291,29 @@ public class DbManager extends SQLiteOpenHelper {
         return activeSteps;
     }
 
+    /**
+     * @return
+     */
+    public int displayGoalSteps() {
+        // Reference to db
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_STEP_GOALS + " FROM " + TABLE_GOALS + " " + " WHERE " + COLUMN_ACTIVE + " =1"; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        int goalSteps = 0;
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            if (c.getString(c.getColumnIndex("step_goal")) != null) {
+                goalSteps = c.getInt(c.getColumnIndex("step_goal"));
+            }
+            c.moveToNext();
+        }
+        db.close();
+        return goalSteps;
+    }
+
     public void sketchySetAllOthersInactive() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
