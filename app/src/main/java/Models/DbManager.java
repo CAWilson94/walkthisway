@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.R.attr.id;
+import static javax.xml.datatype.DatatypeConstants.DATETIME;
 
 /**
  * Created by Charlotte on 12/02/2017.
@@ -26,6 +27,7 @@ public class DbManager extends SQLiteOpenHelper {
     public static final String COLUMN_CURRENT_STEPS = "current_steps";
     public static final String COLUMN_STEP_GOALS = "step_goal";
     public static final String COLUMN_GOAL_COMPLETE = "goal_complete";
+    public static final String COLUMN_GOAL_DATE = "goal_date";
 
 
     public DbManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -48,6 +50,7 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_ACTIVE + " INTEGER DEFAULT 0, " +
                 COLUMN_GOAL_COMPLETE + " INTEGER DEFAULT 0, " +
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL" +
+                COLUMN_GOAL_DATE + "DATETIME DEFAULT CURRENT_TIMESTAMP" +
                 ")";
         db.execSQL(query);
     }
