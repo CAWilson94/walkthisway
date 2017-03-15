@@ -89,12 +89,12 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
     /**
-     * Delete Goals from data base
-     * Remembering you can only delete it if it is non active!
-     *
-     * @param goalName
+     * Delete goal based on cursor position
+     * So, from stats class you want to get position of cursor
+     * find corresponding position in DB and delete that row.
+     * @param goalPosition
      */
-    public void deleteGoal(String goalName) {
+    public void deleteGoal(int goalPosition) {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_NAME + " =\" " + goalName + "\";");
