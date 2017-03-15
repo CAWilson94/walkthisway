@@ -137,7 +137,8 @@ public class stats extends Fragment {
         float progress = 0;
         int currentSteps = db.displayActiveSteps();
         int goalSteps = db.displayGoalSteps();
-        progress = Math.round((currentSteps * 100)/ goalSteps);
+        progress = Math.round((currentSteps * 100.0f)/ goalSteps);
+        db.close();
         return (int) progress;
     }
 
@@ -156,8 +157,10 @@ public class stats extends Fragment {
             text.setText("pleaseEnterGoal");
         } else {
             text.setText(db.getActiveGoalName());
-            yermaw.setText(String.valueOf(getProgress()) + "%");
+            yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / "  + db.displayGoalSteps());
         }
+
+        db.close();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -190,10 +193,11 @@ public class stats extends Fragment {
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());
-            stepsActive.setText(String.valueOf(getProgress()) + "%");
+            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / "  + db.displayGoalSteps());
         }
 
         //csb.setVisibility(View.INVISIBLE);
+        db.close();
     }
 
 
