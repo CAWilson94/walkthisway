@@ -233,10 +233,11 @@ public class stats extends Fragment {
 
                 //cursor.moveToPosition(position); // SELECT * FROM goals WHERE 1
                 Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
-                String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_NAME));
+                String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_ID ));
 
                 db.deleteGoal(myColumnValue);
                 Toast.makeText(getContext(), String.valueOf(myColumnValue), Toast.LENGTH_SHORT).show();
+                myCursorAdapter.changeCursor(db.getAllRows());
             }
         });
 

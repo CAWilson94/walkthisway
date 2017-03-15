@@ -93,12 +93,12 @@ public class DbManager extends SQLiteOpenHelper {
      * Delete Goals from data base
      * Remembering you can only delete it if it is non active!
      *
-     * @param goalName
+     * @param goalID
      */
-    public void deleteGoal(String goalName) {
+    public void deleteGoal(String goalID) {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_NAME +"='"+goalName+"'");
+        db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_ID  +"='"+goalID+"'");
     }
 
     /**
