@@ -5,6 +5,7 @@
     android:id="@+id/stats_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
     tools:context="com.example.charl.walkthisway.stats">
 
     <!-- TODO: Update blank fragment custom_row -->
@@ -121,9 +122,12 @@
 
 
                         <ListView
+                            android:clickable="true"
+                            android:descendantFocusability="blocksDescendants"
                             android:id="@+id/list_goals"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp" />
+                            android:layout_height="0dp"
+                            />
 
 
                     </android.support.v7.widget.CardView>

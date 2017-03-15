@@ -13,14 +13,18 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.natasa.progressviews.CircleSegmentBar;
 
 import Models.DbManager;
 
+import static android.R.attr.data;
 import static com.example.charl.walkthisway.R.id.circle_progress;
+import static com.example.charl.walkthisway.R.id.view;
 import static com.example.charl.walkthisway.R.id.yermaw;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
@@ -52,6 +56,7 @@ public class stats extends Fragment {
     SimpleCursorAdapter myCursorAdapter;
 
     View v;
+    ListView myList;
     Bundle args = new Bundle();
     private OnFragmentInteractionListener mListener;
 
@@ -97,6 +102,16 @@ public class stats extends Fragment {
         circleProgressBar(circleProgressBar);
         cardView = (CardView) v.findViewById(R.id.main_progress_card);
         checkActiveGoalCard(cardView);
+        // List shit
+        myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "MESSAGE",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
 
         populateListView(); // populate list!
 
@@ -133,17 +148,17 @@ public class stats extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private int getProgress(){
+    private int getProgress() {
         float progress = 0;
         int currentSteps = db.displayActiveSteps();
         int goalSteps = db.displayGoalSteps();
-        progress = Math.round((currentSteps * 100.0f)/ goalSteps);
+        progress = Math.round((currentSteps * 100.0f) / goalSteps);
         db.close();
         return (int) progress;
     }
 
     private void circleProgressBar(CircleSegmentBar circleProgressBar) {
-        this.circleProgressBar.setProgress((int)getProgress()); // Sign of weakness sue me!!
+        this.circleProgressBar.setProgress((int) getProgress()); // Sign of weakness sue me!!
     }
 
     private void checkActiveGoalCard() {
@@ -157,7 +172,7 @@ public class stats extends Fragment {
             text.setText("pleaseEnterGoal");
         } else {
             text.setText(db.getActiveGoalName());
-            yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / "  + db.displayGoalSteps());
+            yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
         }
 
         db.close();
@@ -193,7 +208,7 @@ public class stats extends Fragment {
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());
-            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / "  + db.displayGoalSteps());
+            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
         }
 
         //csb.setVisibility(View.INVISIBLE);
@@ -208,14 +223,14 @@ public class stats extends Fragment {
     }
 
     public View populateListView() {
-        ListView myList;
         cursor = db.getAllRows();
         String[] fromFieldNames = new String[]{
                 DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_CURRENT_STEPS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
         int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
-        myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
+
+
         myCursorAdapter.changeCursor(db.getAllRows());
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
