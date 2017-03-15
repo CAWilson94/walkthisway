@@ -2,6 +2,7 @@ package com.example.charl.walkthisway;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -104,14 +105,7 @@ public class stats extends Fragment {
         checkActiveGoalCard(cardView);
         // List shit
         myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
-        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "MESSAGE",
-                        Toast.LENGTH_LONG).show();
-            }
-        });
 
         populateListView(); // populate list!
 
@@ -230,6 +224,19 @@ public class stats extends Fragment {
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
 
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //db.getWritableDatabase();
+                // AHHHHHHHHH
+
+                //cursor.moveToPosition(position); // SELECT * FROM goals WHERE 1
+                Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
+                String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_NAME));
+                Toast.makeText(getContext(), String.valueOf(myColumnValue), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         myCursorAdapter.changeCursor(db.getAllRows());
         myList.setAdapter(myCursorAdapter);
