@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.R.attr.id;
+import static android.R.attr.value;
 import static javax.xml.datatype.DatatypeConstants.DATETIME;
 
 /**
@@ -89,15 +90,15 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
     /**
-     * Delete goal based on cursor position
-     * So, from stats class you want to get position of cursor
-     * find corresponding position in DB and delete that row.
-     * @param goalPosition
+     * Delete Goals from data base
+     * Remembering you can only delete it if it is non active!
+     *
+     * @param goalName
      */
-    public void deleteGoal(int goalPosition) {
+    public void deleteGoal(String goalName) {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_NAME + " =\" " + goalName + "\";");
+        db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_NAME +"='"+goalName+"'");
     }
 
     /**

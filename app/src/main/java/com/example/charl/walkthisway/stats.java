@@ -235,6 +235,7 @@ public class stats extends Fragment {
                 Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
                 String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_NAME));
 
+                db.deleteGoal(myColumnValue);
                 Toast.makeText(getContext(), String.valueOf(myColumnValue), Toast.LENGTH_SHORT).show();
             }
         });
