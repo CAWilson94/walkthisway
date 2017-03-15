@@ -1,5 +1,8 @@
 package Models;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Charlotte on 12/02/2017.
  */
@@ -12,6 +15,7 @@ public class Goals {
     int stepTarget;
     Boolean active;
     Boolean complete;
+    Date dateGoal;
 
     /**
      * int myInt = (myBoolean) ? 1 : 0
@@ -30,6 +34,19 @@ public class Goals {
         this.numSteps = numSteps;
         this.stepTarget = stepTarget;
         this.name = name;
+        setDateGoal();
+    }
+
+    public Date getDateGoal() {
+        return dateGoal;
+    }
+
+    public void setDateGoal() {
+        Date haw = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        haw = new Date(System.currentTimeMillis());
+        System.currentTimeMillis();
+        this.dateGoal = haw;
     }
 
     public String getName() {

@@ -104,6 +104,7 @@ public class CreateNewGoal extends DialogFragment {
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
                         Boolean switchState = checkedActive.isChecked(); // Check current state of switch
                         Goals goal = new Goals();
+                        goal.setDateGoal();
                         goal.setName(goalNameInput.getText().toString());
                         goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
                         // For all other active goals set incomplete

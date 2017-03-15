@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import static android.R.attr.id;
+import static javax.xml.datatype.DatatypeConstants.DATETIME;
 
 /**
  * Created by Charlotte on 12/02/2017.
@@ -15,7 +16,7 @@ import static android.R.attr.id;
 
 public class DbManager extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 5; //update version when database update
+    public static final int DATABASE_VERSION = 7; //update version when database update
     private static final String DATABASE_NAME = "walkthisway.db";
     public static final String TABLE_GOALS = "goals";
     public static final String TABLE_HISTORY = "history";
@@ -26,6 +27,7 @@ public class DbManager extends SQLiteOpenHelper {
     public static final String COLUMN_CURRENT_STEPS = "current_steps";
     public static final String COLUMN_STEP_GOALS = "step_goal";
     public static final String COLUMN_GOAL_COMPLETE = "goal_complete";
+    public static final String COLUMN_DATE_GOALS = "goal_date";
 
 
     public DbManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -47,7 +49,8 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_CURRENT_STEPS + " INTEGER, " +
                 COLUMN_ACTIVE + " INTEGER DEFAULT 0, " +
                 COLUMN_GOAL_COMPLETE + " INTEGER DEFAULT 0, " +
-                COLUMN_STEP_GOALS + " INTEGER NOT NULL" +
+                COLUMN_STEP_GOALS + " INTEGER NOT NULL, " +
+                COLUMN_DATE_GOALS + " DATETIME DEFAULT CURRENT_TIMESTAMP " +
                 ")";
         db.execSQL(query);
     }
@@ -79,6 +82,7 @@ public class DbManager extends SQLiteOpenHelper {
         values.put(COLUMN_STEP_GOALS, goal.getStepTarget());
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
         values.put(COLUMN_GOAL_COMPLETE, (goal.getComplete()) ? 1 : 0);
+        values.put(COLUMN_DATE_GOALS, String.valueOf(goal.getDateGoal()));
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
