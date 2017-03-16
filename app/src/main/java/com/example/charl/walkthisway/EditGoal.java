@@ -19,6 +19,7 @@ import Models.DbManager;
 import Models.Goals;
 
 import static Models.DbManager.COLUMN_GOAL_NAME;
+import static Models.DbManager.COLUMN_STEP_GOALS;
 import static android.os.Build.ID;
 
 
@@ -45,7 +46,7 @@ public class EditGoal extends DialogFragment {
     View v;
 
 
-    EditText goalNameEdit, stepsEdit;
+    EditText goalNameEdit, goalStepEdit;
 
     private OnFragmentInteractionListener mListener;
 
@@ -97,9 +98,14 @@ public class EditGoal extends DialogFragment {
         builder.setMessage("Edit yer goal fatty!");
 
         goalNameEdit = (EditText) v.findViewById(R.id.goal_form_edit);
+        goalStepEdit = (EditText) v.findViewById(R.id.step_edit__form);
+
         Bundle boop = getArguments();
         final String tableID = boop.getString("IDYAS");
+
         goalNameEdit.setText(db.getGoalName(Integer.valueOf(tableID)));
+        String stepGOAL = db.displayFieldFromID(COLUMN_STEP_GOALS, Integer.valueOf(tableID));
+        goalStepEdit.setText(stepGOAL);
 
         builder.setView(v)
                 // Action Buttons
@@ -109,9 +115,9 @@ public class EditGoal extends DialogFragment {
                         DbManager db;
                         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
                         String goalName = goalNameEdit.getText().toString();
-
-                        db.updateFieldFromID(COLUMN_GOAL_NAME,goalName, Integer.valueOf(tableID));
-
+                        String stepGoal = goalStepEdit.getText().toString();
+                        db.updateFieldFromID(COLUMN_GOAL_NAME, goalName, Integer.valueOf(tableID));
+                        db.updateFieldFromID(COLUMN_STEP_GOALS, stepGoal, Integer.valueOf(tableID));
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }

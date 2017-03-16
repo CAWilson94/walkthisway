@@ -357,6 +357,26 @@ public class DbManager extends SQLiteOpenHelper {
         return goalSteps;
     }
 
+    /**
+     * Returns a string value of the current field based on ID
+     *
+     * @param field
+     * @param ID
+     * @return
+     */
+    public String displayFieldFromID(String field, int ID) {
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + field + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_ID + "='" + ID + "'";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            field = cursor.getString(cursor.getColumnIndex(field));
+        }
+        return field;
+    }
+
+
     public void sketchySetAllOthersInactive() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
