@@ -2,7 +2,6 @@ package com.example.charl.walkthisway;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,15 +16,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.natasa.progressviews.CircleSegmentBar;
 
 import Models.DbManager;
 
-import static android.R.attr.data;
 import static com.example.charl.walkthisway.R.id.circle_progress;
-import static com.example.charl.walkthisway.R.id.view;
 import static com.example.charl.walkthisway.R.id.yermaw;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
@@ -34,12 +29,12 @@ import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItem
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link stats.OnFragmentInteractionListener} interface
+ * {@link walkthisway.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link stats#newInstance} factory method to
+ * Use the {@link walkthisway#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class stats extends Fragment {
+public class walkthisway extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,7 +57,7 @@ public class stats extends Fragment {
     Bundle args = new Bundle();
     private OnFragmentInteractionListener mListener;
 
-    public stats() {
+    public walkthisway() {
         // Required empty public constructor
     }
 
@@ -72,11 +67,11 @@ public class stats extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment stats.
+     * @return A new instance of fragment walkthisway.
      */
     // TODO: Rename and change types and number of parameters
-    public static stats newInstance(String param1, String param2) {
-        stats fragment = new stats();
+    public static walkthisway newInstance(String param1, String param2) {
+        walkthisway fragment = new walkthisway();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -117,7 +112,7 @@ public class stats extends Fragment {
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
                 addActivity dialogFragment = new addActivity();
-                dialogFragment.setTargetFragment(stats.this, 0);
+                dialogFragment.setTargetFragment(walkthisway.this, 0);
                 dialogFragment.show(fm, "Add Activity");
             }
         });
@@ -128,7 +123,7 @@ public class stats extends Fragment {
             public void onClick(View view) {
                 FragmentManager fm = getFragmentManager();
                 CreateNewGoal newGoal = new CreateNewGoal();
-                newGoal.setTargetFragment(stats.this, 0);
+                newGoal.setTargetFragment(walkthisway.this, 0);
                 newGoal.show(fm, "Add New Goal");
             }
         });
@@ -246,7 +241,7 @@ public class stats extends Fragment {
                 args.putString("IDYAS", myColumnValue);
                 dialogFragment.setArguments(args);
 
-                dialogFragment.setTargetFragment(stats.this, 0);
+                dialogFragment.setTargetFragment(walkthisway.this, 0);
                 dialogFragment.show(fm, "Add Activity");
 
             }

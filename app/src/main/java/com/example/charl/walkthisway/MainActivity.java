@@ -1,21 +1,9 @@
 package com.example.charl.walkthisway;
 
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.CursorAdapter;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,22 +12,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 
 import Models.DbManager;
-import Models.Goals;
 
-import static com.example.charl.walkthisway.R.id.content_frame;
 import static com.example.charl.walkthisway.R.id.stats;
-import static com.example.charl.walkthisway.R.layout.fragment_history;
-import static com.example.charl.walkthisway.R.layout.fragment_stats;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     DbManager db;
-    stats stat;
+    walkthisway stat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +105,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new walk();
                 break;
             case stats:
-                fragment = new stats();
+                fragment = new walkthisway();
                 break;
             case R.id.test:
                 fragment = new test_fr();

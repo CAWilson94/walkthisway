@@ -1,29 +1,19 @@
 package com.example.charl.walkthisway;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTabHost;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.attr.button;
-import static android.R.attr.defaultHeight;
-import static android.R.attr.fragment;
 
 
 /**
@@ -96,7 +86,7 @@ public class walk extends Fragment {
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new history(), "Stats");
-        adapter.addFragment(new stats(), "Goals");
+        adapter.addFragment(new walkthisway(), "Goals");
         adapter.addFragment(new test_fr(), "History");
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);

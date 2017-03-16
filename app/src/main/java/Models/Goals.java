@@ -16,6 +16,7 @@ public class Goals {
     Boolean active;
     Boolean complete;
     Date dateGoal;
+    Boolean dayPassed;
 
     /**
      * int myInt = (myBoolean) ? 1 : 0
@@ -35,6 +36,15 @@ public class Goals {
         this.stepTarget = stepTarget;
         this.name = name;
         setDateGoal();
+    }
+
+
+    public Boolean getDayPassed() {
+        return dayPassed;
+    }
+
+    public void setDayPassed(Boolean dayPassed) {
+        this.dayPassed = dayPassed;
     }
 
     public Date getDateGoal() {

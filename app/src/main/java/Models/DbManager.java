@@ -21,7 +21,6 @@ public class DbManager extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 7; //update version when database update
     private static final String DATABASE_NAME = "walkthisway.db";
     public static final String TABLE_GOALS = "goals";
-    public static final String TABLE_HISTORY = "history";
     // Names of your columns for Goals Table
     public static final String COLUMN_GOAL_ID = "_id";
     public static final String COLUMN_GOAL_NAME = "goal_name";
@@ -30,6 +29,7 @@ public class DbManager extends SQLiteOpenHelper {
     public static final String COLUMN_STEP_GOALS = "step_goal";
     public static final String COLUMN_GOAL_COMPLETE = "goal_complete";
     public static final String COLUMN_DATE_GOALS = "goal_date";
+    public static final String COLUMN_DAY_PASSED = "day_passed";
 
 
     public DbManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -51,7 +51,8 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_ACTIVE + " INTEGER DEFAULT 0, " +
                 COLUMN_GOAL_COMPLETE + " INTEGER DEFAULT 0, " +
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL, " +
-                COLUMN_DATE_GOALS + " DATETIME DEFAULT CURRENT_TIMESTAMP " +
+                COLUMN_DATE_GOALS + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                COLUMN_DAY_PASSED + " INTEGER DEFAULT 0 " +
                 ")";
         db.execSQL(query);
     }
@@ -84,6 +85,7 @@ public class DbManager extends SQLiteOpenHelper {
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
         values.put(COLUMN_GOAL_COMPLETE, (goal.getComplete()) ? 1 : 0);
         values.put(COLUMN_DATE_GOALS, String.valueOf(goal.getDateGoal()));
+        values.put(COLUMN_DAY_PASSED,(goal.getComplete()) ? 1 : 0);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
