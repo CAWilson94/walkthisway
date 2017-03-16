@@ -220,8 +220,10 @@ public class stats extends Fragment {
 
     public View populateListView() {
         cursor = db.getAllRows();
+
         String[] fromFieldNames = new String[]{DbManager.COLUMN_DATE_GOALS, DbManager.COLUMN_GOAL_NAME,
                 DbManager.COLUMN_CURRENT_STEPS, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
+
         int[] toViewIDs = new int[]{R.id.date_goal_added,R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
@@ -233,15 +235,6 @@ public class stats extends Fragment {
 
                 Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
                 String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_ID));
-
-
-                /**
-                db.deleteGoal(myColumnValue);
-                Toast.makeText(getContext(), String.valueOf(myColumnValue), Toast.LENGTH_SHORT).show();
-                checkActiveGoalCard();
-                circleProgressBar(circleProgressBar);
-                myCursorAdapter.changeCursor(db.getAllRows());
-                **/
 
                 FragmentManager fm = getFragmentManager();
                 EditGoal dialogFragment = new EditGoal();

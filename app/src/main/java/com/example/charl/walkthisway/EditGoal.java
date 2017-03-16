@@ -123,7 +123,14 @@ public class EditGoal extends DialogFragment {
             @Override
             public void onClick(View view) {
                 deleteClicked = true;
-                deleteButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+
+                if (deleteButton.getBackgroundTintList() != ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary))) {
+                    deleteButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+                } else {
+                    deleteButton.setBackgroundTintList(null);
+                    deleteClicked = false;
+                }
+
             }
         });
 

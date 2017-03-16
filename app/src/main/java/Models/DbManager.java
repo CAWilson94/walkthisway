@@ -260,6 +260,7 @@ public class DbManager extends SQLiteOpenHelper {
         return dbString;
     }
 
+
     public Cursor getAllRows() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
