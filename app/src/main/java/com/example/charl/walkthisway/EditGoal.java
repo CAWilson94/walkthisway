@@ -24,6 +24,8 @@ import android.widget.Toast;
 import Models.DbManager;
 import Models.Goals;
 
+import static Models.DbManager.COLUMN_ACTIVE;
+import static Models.DbManager.COLUMN_CURRENT_STEPS;
 import static Models.DbManager.COLUMN_GOAL_NAME;
 import static Models.DbManager.COLUMN_STEP_GOALS;
 import static android.R.attr.resource;
@@ -57,6 +59,7 @@ public class EditGoal extends DialogFragment {
 
     EditText goalNameEdit, goalStepEdit;
     Button deleteButton;
+    Switch editActive;
 
     private OnFragmentInteractionListener mListener;
 
@@ -110,6 +113,9 @@ public class EditGoal extends DialogFragment {
         goalNameEdit = (EditText) v.findViewById(R.id.goal_form_edit);
         goalStepEdit = (EditText) v.findViewById(R.id.step_edit__form);
         deleteButton = (Button) v.findViewById(R.id.delete_goal_button);
+        editActive = (Switch) v.findViewById(R.id.switch_goal_edit);
+
+        final Boolean switchState = editActive.isChecked();
 
         Bundle boop = getArguments();
         final String tableID = boop.getString("IDYAS");
@@ -134,7 +140,6 @@ public class EditGoal extends DialogFragment {
             }
         });
 
-
         builder.setView(v)
                 // Action Buttons
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -149,6 +154,18 @@ public class EditGoal extends DialogFragment {
                         if (deleteClicked) {
                             Toast.makeText(getContext(), "You clicked delete: well done!", Toast.LENGTH_LONG).show();
                             db.deleteGoal(tableID);
+                        }
+                        if (switchState) {
+
+                            // Check there is an active goal first
+                            if (db.checkActiveGoal()) {
+                                String boop = String.valueOf(db.activeGoalInit());
+                                db.updateFieldFromID(COLUMN_CURRENT_STEPS, boop, Integer.valueOf(tableID));
+                            }
+                            db.sketchySetAllOthersInactive();
+                            db.updateFieldFromID(COLUMN_ACTIVE, String.valueOf(1), Integer.valueOf(tableID));
+
+
                         }
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
