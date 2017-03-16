@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,6 +91,8 @@ public class stats extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(R.drawable.ic_menu_camera);
         db = new DbManager(getActivity(), null, null, 2);
     }
 
@@ -224,7 +227,7 @@ public class stats extends Fragment {
         String[] fromFieldNames = new String[]{DbManager.COLUMN_DATE_GOALS, DbManager.COLUMN_GOAL_NAME,
                 DbManager.COLUMN_CURRENT_STEPS, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
 
-        int[] toViewIDs = new int[]{R.id.date_goal_added,R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
 
