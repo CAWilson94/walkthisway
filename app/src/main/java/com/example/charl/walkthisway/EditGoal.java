@@ -18,6 +18,7 @@ import android.widget.Switch;
 import Models.DbManager;
 import Models.Goals;
 
+import static Models.DbManager.COLUMN_GOAL_NAME;
 import static android.os.Build.ID;
 
 
@@ -38,6 +39,8 @@ public class EditGoal extends DialogFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
     View v;
 
@@ -88,18 +91,26 @@ public class EditGoal extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set custom_row inflater
 
+        DbManager db;
+        db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
+
         builder.setMessage("Edit yer goal fatty!");
 
         goalNameEdit = (EditText) v.findViewById(R.id.goal_form_edit);
         Bundle boop = getArguments();
-        goalNameEdit.setText(boop.getString("IDYAS"));
+        final String tableID = boop.getString("IDYAS");
+        goalNameEdit.setText(db.getGoalName(Integer.valueOf(tableID)));
 
         builder.setView(v)
                 // Action Buttons
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        DbManager db;
+                        db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
+                        String goalName = goalNameEdit.getText().toString();
 
+                        db.updateFieldFromID(goalName, Integer.valueOf(tableID));
 
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();

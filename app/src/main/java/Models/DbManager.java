@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import static android.R.attr.id;
 import static android.R.attr.value;
@@ -37,7 +38,6 @@ public class DbManager extends SQLiteOpenHelper {
 
     /**
      * Whenyou create the table for the first time what do you want me to do?
-     *
      *
      * @param db
      */
@@ -98,7 +98,7 @@ public class DbManager extends SQLiteOpenHelper {
     public void deleteGoal(String goalID) {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_ID  +"='"+goalID+"'");
+        db.execSQL("DELETE FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_ID + "='" + goalID + "'");
     }
 
     /**
@@ -157,12 +157,12 @@ public class DbManager extends SQLiteOpenHelper {
         return progress;
     }
 
-    public int activeGoalInit(){
+    public int activeGoalInit() {
         int initSteps = 0;
         SQLiteDatabase db = getWritableDatabase();
         // Go to current active goal; get steps from that
         String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + "=1";
-        Cursor  cursor = db.rawQuery(query,null);
+        Cursor cursor = db.rawQuery(query, null);
 
         if (cursor != null) {
             cursor.moveToFirst();
@@ -170,6 +170,29 @@ public class DbManager extends SQLiteOpenHelper {
         }
 
         return initSteps;
+    }
+
+
+    public void updateFieldFromID(String update, int ID) {
+        // Reference to db
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_GOAL_NAME, String.valueOf(update));
+        int boop = db.update(TABLE_GOALS, cv, COLUMN_GOAL_ID + " = " + ID, null);
+        db.close();
+    }
+
+    public String getGoalName(int goalID) {
+        String goalName = null;
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_GOAL_NAME + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_GOAL_ID + "='" + goalID + "'";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            goalName = cursor.getString(cursor.getColumnIndex("goal_name"));
+        }
+
+        return goalName;
     }
 
     public String getActiveGoalName() {
@@ -280,7 +303,7 @@ public class DbManager extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void incrementSteps(int steps){
+    public void incrementSteps(int steps) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
                 + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE "
