@@ -110,7 +110,7 @@ public class EditGoal extends DialogFragment {
                         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
                         String goalName = goalNameEdit.getText().toString();
 
-                        db.updateFieldFromID(goalName, Integer.valueOf(tableID));
+                        db.updateFieldFromID(COLUMN_GOAL_NAME,goalName, Integer.valueOf(tableID));
 
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();

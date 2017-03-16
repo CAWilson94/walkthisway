@@ -173,11 +173,11 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
 
-    public void updateFieldFromID(String update, int ID) {
+    public void updateFieldFromID(String field, String update, int ID) {
         // Reference to db
         SQLiteDatabase db = getReadableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(COLUMN_GOAL_NAME, String.valueOf(update));
+        cv.put(field, String.valueOf(update));
         int boop = db.update(TABLE_GOALS, cv, COLUMN_GOAL_ID + " = " + ID, null);
         db.close();
     }
