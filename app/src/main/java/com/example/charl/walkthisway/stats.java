@@ -164,6 +164,7 @@ public class stats extends Fragment {
         if (db.checkForActiveGoal() == false) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             text.setText("pleaseEnterGoal");
+            yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
         } else {
             text.setText(db.getActiveGoalName());
             yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
@@ -199,6 +200,7 @@ public class stats extends Fragment {
 
         if (!db.checkForActiveGoal()) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
+            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());
@@ -237,7 +239,10 @@ public class stats extends Fragment {
 
                 db.deleteGoal(myColumnValue);
                 Toast.makeText(getContext(), String.valueOf(myColumnValue), Toast.LENGTH_SHORT).show();
+                checkActiveGoalCard();
+                circleProgressBar(circleProgressBar);
                 myCursorAdapter.changeCursor(db.getAllRows());
+                // TODO: need to update the main goal view when active goal is deleted
             }
         });
 
