@@ -18,6 +18,8 @@ import android.widget.Switch;
 import Models.DbManager;
 import Models.Goals;
 
+import static android.os.Build.ID;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +40,9 @@ public class EditGoal extends DialogFragment {
     private String mParam2;
 
     View v;
+
+
+    EditText goalNameEdit, stepsEdit;
 
     private OnFragmentInteractionListener mListener;
 
@@ -85,11 +90,17 @@ public class EditGoal extends DialogFragment {
 
         builder.setMessage("Edit yer goal fatty!");
 
+        goalNameEdit = (EditText) v.findViewById(R.id.goal_form_edit);
+        Bundle boop = getArguments();
+        goalNameEdit.setText(boop.getString("IDYAS"));
+
         builder.setView(v)
                 // Action Buttons
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }

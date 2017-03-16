@@ -27,14 +27,14 @@
                 android:text="Edit Goal Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/goal_name_input" />
+                android:id="@+id/goal_name_edit" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textAutoComplete"
                 android:ems="10"
-                android:id="@+id/goal_form"
+                android:id="@+id/goal_form_edit"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -50,14 +50,14 @@
                 android:text="Edit Target Steps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/goal_step_input" />
+                android:id="@+id/goal_step_edit" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberSigned"
                 android:ems="10"
-                android:id="@+id/goal_step_form"
+                android:id="@+id/step_edit__form"
                 android:layout_weight="1" />
 
         </LinearLayout>

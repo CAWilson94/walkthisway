@@ -232,8 +232,8 @@ public class stats extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
-                String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_ID ));
-                db.close();
+                String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_ID));
+
 
                 /**
                 db.deleteGoal(myColumnValue);
@@ -245,6 +245,11 @@ public class stats extends Fragment {
 
                 FragmentManager fm = getFragmentManager();
                 EditGoal dialogFragment = new EditGoal();
+
+                Bundle args = new Bundle();
+                args.putString("IDYAS", myColumnValue);
+                dialogFragment.setArguments(args);
+
                 dialogFragment.setTargetFragment(stats.this, 0);
                 dialogFragment.show(fm, "Add Activity");
 
@@ -255,6 +260,7 @@ public class stats extends Fragment {
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
         setListViewHeightBasedOnItems(myList);
+        db.close();
         return v;
     }
 
