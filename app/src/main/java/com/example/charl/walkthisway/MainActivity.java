@@ -110,8 +110,9 @@ public class MainActivity extends AppCompatActivity
 
         //initializing the fragment object which is selected
         switch (itemId) {
-            case R.id.history:
-                fragment = new history();
+            case R.id.Settings:
+                Intent i = new Intent(this, MyPreferenceActivity.class);
+                startActivity(i);
                 break;
             case R.id.walk:
                 fragment = new walk();
