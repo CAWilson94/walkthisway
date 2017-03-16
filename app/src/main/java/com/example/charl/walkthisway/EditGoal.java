@@ -77,13 +77,13 @@ public class EditGoal extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        v = inflater.inflate(R.layout.fragment_create_new_goal, null);
+        v = inflater.inflate(R.layout.fragment_edit_goals, null);
 
         // TODO: change theme of overlay
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Set custom_row inflater
 
-        builder.setMessage("Input Goal Info");
+        builder.setMessage("Edit yer goal fatty!");
 
         builder.setView(v)
                 // Action Buttons

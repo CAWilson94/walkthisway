@@ -234,6 +234,7 @@ public class stats extends Fragment {
 
                 Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
                 String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_ID ));
+                db.close();
 
                 /**
                 db.deleteGoal(myColumnValue);
