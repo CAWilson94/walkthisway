@@ -107,7 +107,7 @@ public class test_fr extends Fragment {
         cursor = db.getAllRows();
         String[] fromFieldNames = new String[]{
                 DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
-        int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_added, R.id.goal_complete_check}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.goal_name, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
         myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
