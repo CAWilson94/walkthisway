@@ -231,21 +231,23 @@ public class stats extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                /**
+
                 Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
                 String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_ID ));
 
+                /**
                 db.deleteGoal(myColumnValue);
                 Toast.makeText(getContext(), String.valueOf(myColumnValue), Toast.LENGTH_SHORT).show();
                 checkActiveGoalCard();
                 circleProgressBar(circleProgressBar);
                 myCursorAdapter.changeCursor(db.getAllRows());
-                 */
+                **/
 
                 FragmentManager fm = getFragmentManager();
                 EditGoal dialogFragment = new EditGoal();
                 dialogFragment.setTargetFragment(stats.this, 0);
                 dialogFragment.show(fm, "Add Activity");
+
 
             }
         });

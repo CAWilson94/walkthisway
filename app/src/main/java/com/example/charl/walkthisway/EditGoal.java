@@ -90,8 +90,6 @@ public class EditGoal extends DialogFragment {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }
@@ -105,17 +103,6 @@ public class EditGoal extends DialogFragment {
         return builder.create();
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
     @Override
     public void onDetach() {
