@@ -230,10 +230,8 @@ public class stats extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //db.getWritableDatabase();
-                // AHHHHHHHHH
 
-                //cursor.moveToPosition(position); // SELECT * FROM goals WHERE 1
+                /**
                 Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
                 String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_ID ));
 
@@ -242,7 +240,13 @@ public class stats extends Fragment {
                 checkActiveGoalCard();
                 circleProgressBar(circleProgressBar);
                 myCursorAdapter.changeCursor(db.getAllRows());
-                // TODO: need to update the main goal view when active goal is deleted
+                 */
+
+                FragmentManager fm = getFragmentManager();
+                EditGoal dialogFragment = new EditGoal();
+                dialogFragment.setTargetFragment(stats.this, 0);
+                dialogFragment.show(fm, "Add Activity");
+
             }
         });
 

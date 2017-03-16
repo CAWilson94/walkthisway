@@ -157,6 +157,21 @@ public class DbManager extends SQLiteOpenHelper {
         return progress;
     }
 
+    public int activeGoalInit(){
+        int initSteps = 0;
+        SQLiteDatabase db = getWritableDatabase();
+        // Go to current active goal; get steps from that
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + "=1";
+        Cursor  cursor = db.rawQuery(query,null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            initSteps = cursor.getInt(cursor.getColumnIndex("current_steps"));
+        }
+
+        return initSteps;
+    }
+
     public String getActiveGoalName() {
         /**
          * Could return an array containing goal name and also current progress?

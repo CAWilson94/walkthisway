@@ -110,14 +110,15 @@ public class CreateNewGoal extends DialogFragment {
                         // For all other active goals set incomplete
                         // now check toggle thingy
                         if (switchState) {
+                            goal.setNumSteps(db.activeGoalInit()); // Sets new goals steps to those of last active goal
                             db.sketchySetAllOthersInactive();
                             goal.setActive(switchState);
                         } else {
                             goal.setActive(false);
+                            goal.setNumSteps(0);
                         }
 
                         goal.setComplete(false);
-                        goal.setNumSteps(0);
                         db.addGoal(goal);
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
