@@ -231,7 +231,6 @@ public class stats extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
                 Cursor cursor = (Cursor) myCursorAdapter.getItem(position);
                 String myColumnValue = cursor.getString(cursor.getColumnIndex(db.COLUMN_GOAL_ID ));
                 db.close();
@@ -249,7 +248,6 @@ public class stats extends Fragment {
                 dialogFragment.setTargetFragment(stats.this, 0);
                 dialogFragment.show(fm, "Add Activity");
 
-
             }
         });
 
@@ -259,7 +257,6 @@ public class stats extends Fragment {
         setListViewHeightBasedOnItems(myList);
         return v;
     }
-
 
     /**
      * This interface must be implemented by activities that contain this
