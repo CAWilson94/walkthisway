@@ -168,8 +168,23 @@ public class DbManager extends SQLiteOpenHelper {
             cursor.moveToFirst();
             initSteps = cursor.getInt(cursor.getColumnIndex("current_steps"));
         }
-
         return initSteps;
+    }
+
+    public Boolean checkActiveGoal(){
+        Boolean check = false;
+
+        SQLiteDatabase db = getWritableDatabase();
+        // Go to current active goal; get steps from that
+        String query = "SELECT * " + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + "=1";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.getCount() > 0){
+            cursor.close();
+            check = true;
+        }
+
+        return check;
     }
 
 

@@ -84,9 +84,10 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:background="@android:drawable/ic_menu_delete"
+                    android:background="@drawable/selector"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button"
+                    android:id="@+id/delete_goal_button"
+                    android:clickable="true"
                     android:layout_width="62dp" />
             </LinearLayout>
 

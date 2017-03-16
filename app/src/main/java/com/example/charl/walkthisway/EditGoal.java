@@ -4,22 +4,29 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import Models.DbManager;
 import Models.Goals;
 
 import static Models.DbManager.COLUMN_GOAL_NAME;
 import static Models.DbManager.COLUMN_STEP_GOALS;
+import static android.R.attr.resource;
 import static android.os.Build.ID;
 
 
@@ -41,12 +48,15 @@ public class EditGoal extends DialogFragment {
     private String mParam1;
     private String mParam2;
 
+
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
     View v;
+    Boolean deleteClicked = false;
 
 
     EditText goalNameEdit, goalStepEdit;
+    Button deleteButton;
 
     private OnFragmentInteractionListener mListener;
 
@@ -99,6 +109,7 @@ public class EditGoal extends DialogFragment {
 
         goalNameEdit = (EditText) v.findViewById(R.id.goal_form_edit);
         goalStepEdit = (EditText) v.findViewById(R.id.step_edit__form);
+        deleteButton = (Button) v.findViewById(R.id.delete_goal_button);
 
         Bundle boop = getArguments();
         final String tableID = boop.getString("IDYAS");
@@ -106,6 +117,16 @@ public class EditGoal extends DialogFragment {
         goalNameEdit.setText(db.getGoalName(Integer.valueOf(tableID)));
         String stepGOAL = db.displayFieldFromID(COLUMN_STEP_GOALS, Integer.valueOf(tableID));
         goalStepEdit.setText(stepGOAL);
+
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteClicked = true;
+                deleteButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorPrimary)));
+            }
+        });
+
 
         builder.setView(v)
                 // Action Buttons
@@ -118,6 +139,10 @@ public class EditGoal extends DialogFragment {
                         String stepGoal = goalStepEdit.getText().toString();
                         db.updateFieldFromID(COLUMN_GOAL_NAME, goalName, Integer.valueOf(tableID));
                         db.updateFieldFromID(COLUMN_STEP_GOALS, stepGoal, Integer.valueOf(tableID));
+                        if (deleteClicked) {
+                            Toast.makeText(getContext(), "You clicked delete: well done!", Toast.LENGTH_LONG).show();
+                            db.deleteGoal(tableID);
+                        }
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }
