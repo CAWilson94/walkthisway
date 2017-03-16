@@ -171,7 +171,7 @@ public class DbManager extends SQLiteOpenHelper {
         return initSteps;
     }
 
-    public Boolean checkActiveGoal(){
+    public Boolean checkActiveGoal() {
         Boolean check = false;
 
         SQLiteDatabase db = getWritableDatabase();
@@ -179,7 +179,7 @@ public class DbManager extends SQLiteOpenHelper {
         String query = "SELECT * " + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + "=1";
         Cursor cursor = db.rawQuery(query, null);
 
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             cursor.close();
             check = true;
         }
@@ -264,7 +264,7 @@ public class DbManager extends SQLiteOpenHelper {
     public Cursor getAllRows() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_GOALS + " " + "WHERE 1"; // one means select every row ( every condition is met)
+        String query = "SELECT * FROM " + TABLE_GOALS + " " + "WHERE " + COLUMN_ACTIVE + " =0"; // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         Cursor c = db.rawQuery(query, null);
         // Move to first row in your results
