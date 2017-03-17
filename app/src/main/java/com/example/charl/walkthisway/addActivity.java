@@ -106,7 +106,7 @@ public class addActivity extends DialogFragment {
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         String currentDate = sdf.format(new Date(System.currentTimeMillis()));
                         int stepInt = Integer.parseInt(steps);
-                        db.addStepsCurrentGoal(stepInt,sdf.format(currentDate));
+                        db.incrementSteps(stepInt,currentDate);
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }

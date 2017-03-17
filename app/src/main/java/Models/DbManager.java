@@ -51,7 +51,7 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_ACTIVE + " INTEGER DEFAULT 0, " +
                 COLUMN_GOAL_COMPLETE + " INTEGER DEFAULT 0, " +
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL, " +
-                COLUMN_DATE_GOALS + " DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+                COLUMN_DATE_GOALS + " DATE DEFAULT CURRENT_TIMESTAMP, " +
                 COLUMN_DAY_PASSED + " INTEGER DEFAULT 0 " +
                 ")";
         db.execSQL(query);
@@ -325,14 +325,15 @@ public class DbManager extends SQLiteOpenHelper {
         int activeStep = displayActiveSteps();
         int newStepNewMe = activeStep + steps;
         cv.put(COLUMN_CURRENT_STEPS, newStepNewMe);
-        db.update(TABLE_GOALS, cv, COLUMN_ACTIVE + " =1", null);
+        String boop = "date(" + COLUMN_DATE_GOALS+ ")" + " = " + "'" + currentDate + "'";
+        db.update(TABLE_GOALS, cv, boop, null);
         //db.close();
     }
 
     public void incrementSteps(int steps, String currentDate) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
-                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE " + COLUMN_DATE_GOALS + " = " + currentDate);
+                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE " + "date(" + COLUMN_DATE_GOALS+ ")" + " = " + "'" + currentDate + "'");
         //db.close();
     }
 
@@ -342,7 +343,7 @@ public class DbManager extends SQLiteOpenHelper {
     public int displayActiveSteps() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS; // one means select every row ( every condition is met)
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + "=1"; // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         int activeSteps = 0;
         Cursor c = db.rawQuery(query, null);
