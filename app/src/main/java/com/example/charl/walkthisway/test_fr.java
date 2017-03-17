@@ -40,6 +40,7 @@ public class test_fr extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Cursor cursor;
+    CardView cardListView;
     String time[] = {"Day view", "Week view", "Month View", "Custom View"};
     String units[] = {"Steps", "Km", "Miles", "Monroes.."};
     String complete[] = {"Complete", "All"};
@@ -87,10 +88,11 @@ public class test_fr extends Fragment {
         final CardView cardView = (CardView) v.findViewById(R.id.card_history);
         Spinner spinnerCompleteView = (Spinner) v.findViewById(R.id.spinner_complete);
         Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner_time);
-        Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner_units  );
+        Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner_units);
         populateSpinner(spinnerTimeView, time);
         populateSpinner(spinnerUnitsView, units);
         populateSpinner(spinnerCompleteView, complete);
+        cardListView = (CardView) v.findViewById(R.id.card_history);
         populateListView();
         return v;
     }
@@ -125,7 +127,7 @@ public class test_fr extends Fragment {
         myCursorAdapter.changeCursor(db.getAllRows());
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
-        setListViewHeightBasedOnItems(myList);
+        setListViewHeightBasedOnItems(myList, cardListView);
         return v;
     }
 

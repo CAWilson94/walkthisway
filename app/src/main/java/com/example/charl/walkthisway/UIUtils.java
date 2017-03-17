@@ -1,7 +1,10 @@
 package com.example.charl.walkthisway;
 
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -17,7 +20,7 @@ public class UIUtils {
      * @param listView to be resized
      * @return true if the listView is successfully resized, false otherwise
      */
-    public static boolean setListViewHeightBasedOnItems(ListView listView) {
+    public static boolean setListViewHeightBasedOnItems(ListView listView, CardView cardView) {
 
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter != null) {
@@ -39,6 +42,14 @@ public class UIUtils {
             // Set list height.
             ViewGroup.LayoutParams params = listView.getLayoutParams();
             params.height = totalItemsHeight + totalDividersHeight;
+            if (cardView != null) {
+                ViewGroup.LayoutParams paramsCard = cardView.getLayoutParams();
+                //paramsCard.height = totalItemsHeight + totalDividersHeight;
+                cardView.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, totalItemsHeight + totalDividersHeight
+                ));
+            }
+            //cardView.setMinimumHeight(totalItemsHeight + totalDividersHeight);
             listView.setLayoutParams(params);
             listView.requestLayout();
 

@@ -85,7 +85,7 @@ public class DbManager extends SQLiteOpenHelper {
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
         values.put(COLUMN_GOAL_COMPLETE, (goal.getComplete()) ? 1 : 0);
         values.put(COLUMN_DATE_GOALS, String.valueOf(goal.getDateGoal()));
-        values.put(COLUMN_DAY_PASSED,(goal.getComplete()) ? 1 : 0);
+        //values.put(COLUMN_DAY_PASSED,(goal.getComplete()) ? 1 : 0);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();

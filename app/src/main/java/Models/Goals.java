@@ -99,5 +99,10 @@ public class Goals {
         this.complete = complete;
     }
 
+    public void createRandomGoals(){
+
+
+    }
+
 
 }

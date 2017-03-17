@@ -44,7 +44,8 @@ public class walkthisway extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    View cardView;
+    CardView cardView;
+    CardView cardListView;
     com.natasa.progressviews.CircleSegmentBar circleProgressBar;
 
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
@@ -100,6 +101,7 @@ public class walkthisway extends Fragment {
         circleProgressBar = (com.natasa.progressviews.CircleSegmentBar) v.findViewById(R.id.circle_progress);
         circleProgressBar(circleProgressBar);
         cardView = (CardView) v.findViewById(R.id.main_progress_card);
+        cardListView = (CardView) v.findViewById(R.id.card_view_goals_list);
         checkActiveGoalCard(cardView);
         // List shit
         myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
@@ -250,7 +252,8 @@ public class walkthisway extends Fragment {
         myCursorAdapter.changeCursor(db.getAllRows());
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
-        setListViewHeightBasedOnItems(myList);
+
+        setListViewHeightBasedOnItems(myList, cardListView);
         db.close();
         return v;
     }
