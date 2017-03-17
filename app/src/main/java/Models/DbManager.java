@@ -85,7 +85,7 @@ public class DbManager extends SQLiteOpenHelper {
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
         values.put(COLUMN_GOAL_COMPLETE, (goal.getComplete()) ? 1 : 0);
         values.put(COLUMN_DATE_GOALS, String.valueOf(goal.getDateGoal()));
-        values.put(COLUMN_DAY_PASSED,(goal.getComplete()) ? 1 : 0);
+        values.put(COLUMN_DAY_PASSED, (goal.getComplete()) ? 1 : 0);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
@@ -128,6 +128,7 @@ public class DbManager extends SQLiteOpenHelper {
             }
             c.moveToNext();
         }
+        c.close();
         db.close();
         return false;
     }
@@ -155,6 +156,7 @@ public class DbManager extends SQLiteOpenHelper {
             }
             c.moveToNext();
         }
+        c.close();
         db.close();
         return progress;
     }
@@ -170,6 +172,7 @@ public class DbManager extends SQLiteOpenHelper {
             cursor.moveToFirst();
             initSteps = cursor.getInt(cursor.getColumnIndex("current_steps"));
         }
+        cursor.close();
         return initSteps;
     }
 
@@ -185,7 +188,7 @@ public class DbManager extends SQLiteOpenHelper {
             cursor.close();
             check = true;
         }
-
+        cursor.close();
         return check;
     }
 
@@ -196,7 +199,7 @@ public class DbManager extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(field, String.valueOf(update));
         int boop = db.update(TABLE_GOALS, cv, COLUMN_GOAL_ID + " = " + ID, null);
-        db.close();
+        //db.close();
     }
 
     public String getGoalName(int goalID) {
@@ -208,6 +211,8 @@ public class DbManager extends SQLiteOpenHelper {
             cursor.moveToFirst();
             goalName = cursor.getString(cursor.getColumnIndex("goal_name"));
         }
+
+        cursor.close();
 
         return goalName;
     }
@@ -231,7 +236,8 @@ public class DbManager extends SQLiteOpenHelper {
             }
             c.moveToNext();
         }
-        db.close();
+        //db.close();
+        c.close();
         return activeGoalName;
     }
 
@@ -258,7 +264,8 @@ public class DbManager extends SQLiteOpenHelper {
             }
             c.moveToNext();
         }
-        db.close();
+        //db.close();
+        c.close();
         return dbString;
     }
 
@@ -278,8 +285,8 @@ public class DbManager extends SQLiteOpenHelper {
             }
             c.moveToNext();
         }
-        db.close();
-
+        //db.close();
+        //c.close();
         return c;
 
     }
@@ -303,14 +310,15 @@ public class DbManager extends SQLiteOpenHelper {
             }
             c.moveToNext();
         }
-        db.close();
+        //db.close();
+        c.close();
         return activeName;
     }
 
     /**
      * User inputs active goal steps, this updates the steps for the current goal.
      */
-    public void addStepsCurrentGoal(int steps) {
+    public void addStepsCurrentGoal(int steps, String currentDate) {
         // Reference to db
         SQLiteDatabase db = getReadableDatabase();
         ContentValues cv = new ContentValues();
@@ -318,14 +326,14 @@ public class DbManager extends SQLiteOpenHelper {
         int newStepNewMe = activeStep + steps;
         cv.put(COLUMN_CURRENT_STEPS, newStepNewMe);
         db.update(TABLE_GOALS, cv, COLUMN_ACTIVE + " =1", null);
-        db.close();
+        //db.close();
     }
 
-    public void incrementSteps(int steps) {
+    public void incrementSteps(int steps, String currentDate) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
-                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps);
-        db.close();
+                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE " + COLUMN_DATE_GOALS + " = " + currentDate);
+        //db.close();
     }
 
     /**
@@ -334,7 +342,7 @@ public class DbManager extends SQLiteOpenHelper {
     public int displayActiveSteps() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS ; // one means select every row ( every condition is met)
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS; // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         int activeSteps = 0;
         Cursor c = db.rawQuery(query, null);
@@ -347,7 +355,8 @@ public class DbManager extends SQLiteOpenHelper {
             }
             c.moveToNext();
         }
-        db.close();
+        //db.close();
+        c.close();
         return activeSteps;
     }
 
@@ -370,7 +379,8 @@ public class DbManager extends SQLiteOpenHelper {
             }
             c.moveToNext();
         }
-        db.close();
+        //db.close();
+        c.close();
         return goalSteps;
     }
 
@@ -390,6 +400,7 @@ public class DbManager extends SQLiteOpenHelper {
             cursor.moveToFirst();
             field = cursor.getString(cursor.getColumnIndex(field));
         }
+        cursor.close();
         return field;
     }
 
@@ -399,6 +410,6 @@ public class DbManager extends SQLiteOpenHelper {
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
                 + COLUMN_ACTIVE + " = " + 0 + " WHERE "
                 + COLUMN_ACTIVE + " =1");
-        db.close();
+        //db.close();
     }
 }

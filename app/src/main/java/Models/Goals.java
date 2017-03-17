@@ -15,7 +15,7 @@ public class Goals {
     int stepTarget;
     Boolean active;
     Boolean complete;
-    Date dateGoal;
+    String dateGoal;
     Boolean dayPassed;
 
     /**
@@ -28,7 +28,7 @@ public class Goals {
 
     }
 
-    public Goals(String name, int numSteps, int stepTarget, Date date) {
+    public Goals(String name, int numSteps, int stepTarget, String date) {
 
         //this.active = active;
         //this.complete = complete;
@@ -47,11 +47,11 @@ public class Goals {
         this.dayPassed = dayPassed;
     }
 
-    public Date getDateGoal() {
+    public String getDateGoal() {
         return dateGoal;
     }
 
-    public void setDateGoal(Date someDate) {
+    public void setDateGoal(String someDate) {
         //haw = new Date(System.currentTimeMillis());
         //System.currentTimeMillis();
         this.dateGoal = someDate;

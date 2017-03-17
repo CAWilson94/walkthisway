@@ -92,8 +92,8 @@ public class walkthisway extends Fragment {
         //((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(R.drawable.ic_menu_camera);
         db = new DbManager(getActivity(), null, null, 2);
 
-        GoalHandler goalHandler = new GoalHandler();
-        goalHandler.createRandomGoals(db);
+        //GoalHandler goalHandler = new GoalHandler();
+        //goalHandler.createRandomGoals(db);
     }
 
     @Override

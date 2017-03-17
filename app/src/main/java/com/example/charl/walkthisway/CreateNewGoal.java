@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import Models.DbManager;
 import Models.Goals;
@@ -106,8 +107,9 @@ public class CreateNewGoal extends DialogFragment {
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
                         Boolean switchState = checkedActive.isChecked(); // Check current state of switch
                         Goals goal = new Goals();
-                        Date date = new Date(System.currentTimeMillis());
-                        goal.setDateGoal(date);
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        String currentDate = sdf.format(new Date(System.currentTimeMillis()));
+                        goal.setDateGoal(currentDate);
                         goal.setName(goalNameInput.getText().toString());
                         goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
                         // For all other active goals set incomplete
