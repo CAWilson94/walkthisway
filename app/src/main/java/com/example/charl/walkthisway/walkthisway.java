@@ -151,7 +151,7 @@ public class walkthisway extends Fragment {
         int currentSteps = db.displayActiveSteps();
         int goalSteps = db.displayGoalSteps();
         progress = Math.round((currentSteps * 100.0f) / goalSteps);
-        db.close();
+        //db.close();
         return (int) progress;
     }
 
@@ -174,7 +174,7 @@ public class walkthisway extends Fragment {
             yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
         }
 
-        db.close();
+        //db.close();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -212,7 +212,7 @@ public class walkthisway extends Fragment {
         }
 
         //csb.setVisibility(View.INVISIBLE);
-        db.close();
+        //db.close();
     }
 
 
@@ -225,8 +225,8 @@ public class walkthisway extends Fragment {
     public View populateListView() {
         cursor = db.getAllRows();
 
-        String[] fromFieldNames = new String[]{DbManager.COLUMN_DATE_GOALS, DbManager.COLUMN_GOAL_NAME,
-                DbManager.COLUMN_CURRENT_STEPS, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
+        String[] fromFieldNames = new String[]{db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
+                db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS, db.COLUMN_GOAL_COMPLETE}; // Placeholder
 
         int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
@@ -258,7 +258,7 @@ public class walkthisway extends Fragment {
         myList.setFocusable(false);
 
         setListViewHeightBasedOnItems(myList, cardListView);
-        db.close();
+        //db.close();
         return v;
     }
 

@@ -106,7 +106,7 @@ public class addActivity extends DialogFragment {
                         String steps = stepsInput.getText().toString();
                         Date currentDate = new Date(System.currentTimeMillis());
                         int stepInt = Integer.parseInt(steps);
-                        db.incrementSteps(stepInt, currentDate);
+                        db.incrementSteps(stepInt);
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }
