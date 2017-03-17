@@ -28,14 +28,14 @@ public class Goals {
 
     }
 
-    public Goals(String name, int numSteps, int stepTarget) {
+    public Goals(String name, int numSteps, int stepTarget, Date date) {
 
         //this.active = active;
         //this.complete = complete;
         this.numSteps = numSteps;
         this.stepTarget = stepTarget;
         this.name = name;
-        setDateGoal();
+        this.dateGoal = date;
     }
 
 
@@ -51,12 +51,10 @@ public class Goals {
         return dateGoal;
     }
 
-    public void setDateGoal() {
-        Date haw = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        haw = new Date(System.currentTimeMillis());
-        System.currentTimeMillis();
-        this.dateGoal = haw;
+    public void setDateGoal(Date someDate) {
+        //haw = new Date(System.currentTimeMillis());
+        //System.currentTimeMillis();
+        this.dateGoal = someDate;
     }
 
     public String getName() {
@@ -97,11 +95,6 @@ public class Goals {
 
     public void setComplete(Boolean complete) {
         this.complete = complete;
-    }
-
-    public void createRandomGoals(){
-
-
     }
 
 

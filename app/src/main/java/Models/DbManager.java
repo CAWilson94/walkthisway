@@ -6,13 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.sql.Date;
 
 import static android.R.attr.id;
 import static android.R.attr.value;
-import static java.security.AccessController.getContext;
 import static javax.xml.datatype.DatatypeConstants.DATETIME;
 
 /**
@@ -89,7 +85,7 @@ public class DbManager extends SQLiteOpenHelper {
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
         values.put(COLUMN_GOAL_COMPLETE, (goal.getComplete()) ? 1 : 0);
         values.put(COLUMN_DATE_GOALS, String.valueOf(goal.getDateGoal()));
-        //values.put(COLUMN_DAY_PASSED,(goal.getComplete()) ? 1 : 0);
+        values.put(COLUMN_DAY_PASSED,(goal.getComplete()) ? 1 : 0);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
@@ -325,16 +321,12 @@ public class DbManager extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void incrementSteps(int steps, Date currentDate) {
-        SQLiteDatabase db = getReadableDatabase();
-        ContentValues cv = new ContentValues();
-        int activeStep = displayActiveSteps();
-        int newStepNewMe = activeStep + steps;
-        cv.put(COLUMN_CURRENT_STEPS, newStepNewMe);
-        db.update(TABLE_GOALS, cv, COLUMN_DATE_GOALS + " = " + "DATETIME( ' " + currentDate + " ' )", null);
+    public void incrementSteps(int steps) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE " + TABLE_GOALS + " SET "
+                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps);
         db.close();
     }
-
 
     /**
      * @return
@@ -342,7 +334,7 @@ public class DbManager extends SQLiteOpenHelper {
     public int displayActiveSteps() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " " + " WHERE " + COLUMN_ACTIVE + " =1"; // one means select every row ( every condition is met)
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS ; // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         int activeSteps = 0;
         Cursor c = db.rawQuery(query, null);
@@ -398,7 +390,6 @@ public class DbManager extends SQLiteOpenHelper {
             cursor.moveToFirst();
             field = cursor.getString(cursor.getColumnIndex(field));
         }
-        db.close();
         return field;
     }
 

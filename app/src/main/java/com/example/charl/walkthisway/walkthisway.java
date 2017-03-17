@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.natasa.progressviews.CircleSegmentBar;
 
 import Models.DbManager;
+import Models.GoalHandler;
 
 import static com.example.charl.walkthisway.R.id.circle_progress;
 import static com.example.charl.walkthisway.R.id.yermaw;
@@ -90,6 +91,9 @@ public class walkthisway extends Fragment {
 
         //((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(R.drawable.ic_menu_camera);
         db = new DbManager(getActivity(), null, null, 2);
+
+        GoalHandler goalHandler = new GoalHandler();
+        goalHandler.createRandomGoals(db);
     }
 
     @Override
