@@ -104,7 +104,7 @@ public class addActivity extends DialogFragment {
                         stepsInput = (EditText) v.findViewById(R.id.add_steps_input);
                         String steps = stepsInput.getText().toString();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        Date currentDate = new Date(System.currentTimeMillis());
+                        String currentDate = sdf.format(new Date(System.currentTimeMillis()));
                         int stepInt = Integer.parseInt(steps);
                         db.addStepsCurrentGoal(stepInt,sdf.format(currentDate));
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
