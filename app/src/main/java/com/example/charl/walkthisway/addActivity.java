@@ -15,8 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.sql.Date;
 
 import Models.DbManager;
+
+import static Models.DbManager.COLUMN_DATE_GOALS;
+import static java.security.AccessController.getContext;
 
 
 /**
@@ -98,8 +104,9 @@ public class addActivity extends DialogFragment {
                         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
                         stepsInput = (EditText) v.findViewById(R.id.add_steps_input);
                         String steps = stepsInput.getText().toString();
+                        Date currentDate = new Date(System.currentTimeMillis());
                         int stepInt = Integer.parseInt(steps);
-                        db.incrementSteps(stepInt); //TODO: get steps input in here
+                        db.incrementSteps(stepInt, currentDate);
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
                     }

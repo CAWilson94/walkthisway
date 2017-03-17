@@ -1,84 +1,80 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_new_goal_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateNewGoal"
-    android:id="@+id/create_new_goal_fragment"
-    >
+    tools:context=".CreateNewGoal">
 
 
     <LinearLayout
+        android:id="@+id/custom_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/custom_dialog"
         android:gravity="center"
-        android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="left"
-            >
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <TextView
-                android:text="Goal Name"
+                android:id="@+id/goal_name_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/goal_name_input" />
+                android:text="Goal Name" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textAutoComplete"
-                android:ems="10"
                 android:id="@+id/goal_form"
-                android:layout_weight="1" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textAutoComplete" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="left"
-            >
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <TextView
-                android:text="Target Steps"
+                android:id="@+id/goal_step_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/goal_step_input" />
+                android:text="Target Steps" />
 
             <EditText
+                android:id="@+id/goal_step_form"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned"
+                android:layout_weight="1"
                 android:ems="10"
-                android:id="@+id/goal_step_form"
-                android:layout_weight="1" />
+                android:inputType="numberSigned" />
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="left"
-            >
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
 
             <Switch
-                android:text="Active Goal"
+                android:id="@+id/switch_goal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch_goal"
                 android:layout_weight="0.73"
-                android:checked="true" />
+                android:checked="false"
+                android:text="Active Goal" />
 
         </LinearLayout>
 

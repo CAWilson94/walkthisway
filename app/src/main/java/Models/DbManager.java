@@ -6,9 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.sql.Date;
 
 import static android.R.attr.id;
 import static android.R.attr.value;
+import static java.security.AccessController.getContext;
 import static javax.xml.datatype.DatatypeConstants.DATETIME;
 
 /**
@@ -321,13 +325,16 @@ public class DbManager extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void incrementSteps(int steps) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("UPDATE " + TABLE_GOALS + " SET "
-                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE "
-                + COLUMN_ACTIVE + " =1");
+    public void incrementSteps(int steps, Date currentDate) {
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        int activeStep = displayActiveSteps();
+        int newStepNewMe = activeStep + steps;
+        cv.put(COLUMN_CURRENT_STEPS, newStepNewMe);
+        db.update(TABLE_GOALS, cv, COLUMN_DATE_GOALS + " = " + "DATETIME( ' " + currentDate + " ' )", null);
         db.close();
     }
+
 
     /**
      * @return
@@ -391,6 +398,7 @@ public class DbManager extends SQLiteOpenHelper {
             cursor.moveToFirst();
             field = cursor.getString(cursor.getColumnIndex(field));
         }
+        db.close();
         return field;
     }
 
