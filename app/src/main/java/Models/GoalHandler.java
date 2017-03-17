@@ -1,5 +1,6 @@
 package Models;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -22,5 +23,22 @@ public class GoalHandler {
             }
         }
         return false;
+    }
+
+    public void createRandomGoals(DbManager db) {
+
+        for (int i = 0; i < 5; i++) {
+            Goals random = new Goals();
+            int year = 2017 - 1900;
+            Date date = new Date(year, 03, i);
+            random.setDateGoal(date);
+            random.setActive(false);
+            random.setNumSteps(90);
+            random.setComplete(true);
+            random.setName("FEAR ME: " + i);
+            random.setStepTarget(100 + (i * 10));
+            db.addGoal(random);
+        }
+
     }
 }

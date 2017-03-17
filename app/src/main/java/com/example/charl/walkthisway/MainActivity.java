@@ -15,6 +15,8 @@ import android.view.MenuItem;
 
 
 import Models.DbManager;
+import Models.GoalHandler;
+import Models.Goals;
 
 import static com.example.charl.walkthisway.R.id.stats;
 
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         displaySelectedScreen(R.id.walk);
         db = new DbManager(this, null, null, 2);
-
+        
     }
 
     @Override
