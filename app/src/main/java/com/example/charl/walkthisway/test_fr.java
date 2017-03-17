@@ -11,7 +11,9 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import Models.DbManager;
 
@@ -38,6 +40,8 @@ public class test_fr extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Cursor cursor;
+    String time[] = {"Day view", "Week view", "Month View", "Custom View"};
+    String units[] = {"Steps", "Km", "Miles", "Monroes.."};
     private View v;
     private SimpleCursorAdapter myCursorAdapter;
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
@@ -80,6 +84,11 @@ public class test_fr extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_test, container, false);
         final CardView cardView = (CardView) v.findViewById(R.id.card_history);
+        Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner3);
+        Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner2);
+        Spinner spinnerSomethingView = (Spinner) v.findViewById(R.id.spinner);
+        populateSpinner(spinnerTimeView, time);
+        populateSpinner(spinnerUnitsView, units);
         populateListView();
         return v;
     }
@@ -105,9 +114,9 @@ public class test_fr extends Fragment {
     public View populateListView() {
         ListView myList;
         cursor = db.getAllRows();
-        String[] fromFieldNames = new String[]{ DbManager.COLUMN_DATE_GOALS,
-                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_CURRENT_STEPS ,DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
-        int[] toViewIDs = new int[]{R.id.date_goal_added ,R.id.goal_name, R.id.current_progress_current,R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
+        String[] fromFieldNames = new String[]{DbManager.COLUMN_DATE_GOALS,
+                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_CURRENT_STEPS, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
         myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
@@ -117,6 +126,15 @@ public class test_fr extends Fragment {
         setListViewHeightBasedOnItems(myList);
         return v;
     }
+
+    public void populateSpinner(Spinner spinner, String[] ddInfo) {
+        // Basically the same as using a listview
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(),
+                android.R.layout.simple_spinner_item, ddInfo);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
