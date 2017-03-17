@@ -155,14 +155,16 @@ public class EditGoal extends DialogFragment {
                             Toast.makeText(getContext(), "You clicked delete: well done!", Toast.LENGTH_LONG).show();
                             db.deleteGoal(tableID);
                         }
-                        if (switchState) {
+
+                        if (switchState && !deleteClicked) {
 
                             // Check there is an active goal first
                             if (db.checkActiveGoal()) {
                                 String boop = String.valueOf(db.activeGoalInit());
                                 db.updateFieldFromID(COLUMN_CURRENT_STEPS, boop, Integer.valueOf(tableID));
+                                db.sketchySetAllOthersInactive();
                             }
-                            db.sketchySetAllOthersInactive();
+
                             db.updateFieldFromID(COLUMN_ACTIVE, String.valueOf(1), Integer.valueOf(tableID));
 
 
