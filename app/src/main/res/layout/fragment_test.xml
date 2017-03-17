@@ -44,23 +44,24 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/spinner3"
+                                android:id="@+id/spinner_complete"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:spinnerMode="dropdown" />
 
                             <Spinner
-                                android:id="@+id/spinner2"
+                                android:id="@+id/spinner_time"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:spinnerMode="dropdown" />
 
                             <Spinner
-                                android:id="@+id/spinner"
+                                android:id="@+id/spinner_units"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:spinnerMode="dropdown"
                                 android:layout_weight="1" />
 
                         </LinearLayout>

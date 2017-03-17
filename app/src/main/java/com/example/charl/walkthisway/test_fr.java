@@ -42,6 +42,7 @@ public class test_fr extends Fragment {
     private Cursor cursor;
     String time[] = {"Day view", "Week view", "Month View", "Custom View"};
     String units[] = {"Steps", "Km", "Miles", "Monroes.."};
+    String complete[] = {"Complete", "All"};
     private View v;
     private SimpleCursorAdapter myCursorAdapter;
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
@@ -84,11 +85,12 @@ public class test_fr extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_test, container, false);
         final CardView cardView = (CardView) v.findViewById(R.id.card_history);
-        Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner3);
-        Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner2);
-        Spinner spinnerSomethingView = (Spinner) v.findViewById(R.id.spinner);
+        Spinner spinnerCompleteView = (Spinner) v.findViewById(R.id.spinner_complete);
+        Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner_time);
+        Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner_units  );
         populateSpinner(spinnerTimeView, time);
         populateSpinner(spinnerUnitsView, units);
+        populateSpinner(spinnerCompleteView, complete);
         populateListView();
         return v;
     }
