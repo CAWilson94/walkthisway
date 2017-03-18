@@ -1,7 +1,11 @@
 package Models;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Random;
+
+import static android.R.attr.max;
 
 /**
  * Created by Charlotte on 12/02/2017.
@@ -26,11 +30,15 @@ public class GoalHandler {
     }
 
     public void createRandomGoals(DbManager db) {
-        // TODO: set dates cos I am lazy
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (int i = 0; i < 5; i++) {
             Goals random = new Goals();
             int year = 2017 - 1900;
+            String currentDate = sdf.format(new Date(year, 03, i));
+            random.dateGoal = currentDate;
             random.setActive(false);
+            Boolean randDayPass = Math.random() < 0.5;
+            random.setDayPassed(false);
             random.setNumSteps(90);
             random.setComplete(true);
             random.setName("FEAR ME: " + i);

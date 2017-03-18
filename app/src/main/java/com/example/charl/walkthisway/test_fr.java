@@ -117,7 +117,7 @@ public class test_fr extends Fragment {
 
     public View populateListView() {
         ListView myList;
-        cursor = db.getAllRows();
+        cursor = db.simpleHistory();
         String[] fromFieldNames = new String[]{DbManager.COLUMN_DATE_GOALS,
                 DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_CURRENT_STEPS, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
         int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
