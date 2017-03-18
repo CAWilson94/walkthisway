@@ -176,12 +176,12 @@ public class DbManager extends SQLiteOpenHelper {
         return initSteps;
     }
 
-    public Boolean checkFieldExists(String field){
+    public Boolean checkFieldExists(String field) {
 
         SQLiteDatabase db = getWritableDatabase();
         String Query = "Select * from " + TABLE_GOALS + " where " + field + " IS NOT NULL ";
         Cursor cursor = db.rawQuery(Query, null);
-        if(cursor.getCount() <= 0){
+        if (cursor.getCount() <= 0) {
             cursor.close();
             return false;
         }
@@ -442,5 +442,23 @@ public class DbManager extends SQLiteOpenHelper {
                 + COLUMN_ACTIVE + " = " + 0 + " WHERE "
                 + COLUMN_ACTIVE + " =1");
         //db.close();
+    }
+
+    public void createGoalInitalizer(Boolean sw, Goals goal, String currentDate) {
+        if (sw) {
+            // Check there is an active goal first...
+            goal.setNumSteps(getDailyActivity(currentDate));
+            // Sets new goals steps to those of last active goal
+            sketchySetAllOthersInactive();
+            goal.setActive(sw);
+        } else {
+            if (!checkFieldExists(COLUMN_DATE_GOALS)) {
+                goal.setNumSteps(0);
+            }
+            if (checkFieldExists(COLUMN_DATE_GOALS)) {
+                goal.setNumSteps(getDailyActivity(currentDate));
+            }
+            goal.setActive(false);
+        }
     }
 }

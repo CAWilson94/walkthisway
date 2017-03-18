@@ -114,37 +114,7 @@ public class CreateNewGoal extends DialogFragment {
                         goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
                         // For all other active goals set incomplete
                         // now check toggle thingy
-
-                        // If switch on:
-                        if (switchState) {
-                            // Check there is an active goal first...
-                            if (db.checkActiveGoal()) {
-                                goal.setNumSteps(db.getDailyActivity(currentDate));
-                            }
-                            /**
-                             else {
-                             goal.setNumSteps(0);
-                             }
-                             **/
-
-                            // Sets new goals steps to those of last active goal
-                            db.sketchySetAllOthersInactive();
-                            goal.setActive(switchState);
-                        } else {
-
-                            if (!db.checkFieldExists(db.COLUMN_DATE_GOALS)) {
-                                goal.setNumSteps(0);
-                            }
-
-                            if (db.checkFieldExists(db.COLUMN_DATE_GOALS)) {
-                                goal.setNumSteps(db.getDailyActivity(currentDate));
-                            }
-
-                            goal.setActive(false);
-
-
-                        }
-
+                        db.createGoalInitalizer(switchState, goal, currentDate);
                         goal.setComplete(false);
                         db.addGoal(goal);
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
