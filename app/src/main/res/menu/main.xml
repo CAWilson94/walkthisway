@@ -5,9 +5,4 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings" />
-    <item
-        android:id="@+id/action_boop"
-        android:checkable="true"
-        android:orderInCategory="100"
-        android:title="TEST MODE" />
 </menu>
