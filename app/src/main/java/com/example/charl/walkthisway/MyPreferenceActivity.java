@@ -26,6 +26,9 @@ public class MyPreferenceActivity extends PreferenceActivity {
         {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
+
+
+
         }
     }
 

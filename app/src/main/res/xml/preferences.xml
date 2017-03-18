@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <EditTextPreference android:title="TEST MODE"
-        android:key="username"
-        android:summary="Please provide your username"></EditTextPreference>
     <CheckBoxPreference android:title="Application Updates"
         android:defaultValue="false"
         android:summary="This option if selected will allow the application to check for latest versions."
@@ -13,4 +10,8 @@
         android:defaultValue="1"
         android:entries="@array/listArray"
         android:entryValues="@array/listValues" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:title="TEST MODE"
+        android:key="test_mode"/>
 </PreferenceScreen>

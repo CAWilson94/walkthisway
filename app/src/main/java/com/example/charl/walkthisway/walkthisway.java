@@ -1,9 +1,11 @@
 package com.example.charl.walkthisway;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.natasa.progressviews.CircleSegmentBar;
 
@@ -95,15 +98,21 @@ public class walkthisway extends Fragment {
         //((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(R.drawable.ic_menu_camera);
         db = new DbManager(getActivity(), null, null, 2);
 
-        GoalHandler goalHandler = new GoalHandler();
-        goalHandler.createRandomGoals(db);
+        //GoalHandler goalHandler = new GoalHandler();
+        //goalHandler.createRandomGoals(db);
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the custom_row before trying to find the view
-
+        // Lets check for test mode
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Boolean testMode = pref.getBoolean("test_mode",false);
+        if(testMode){
+            Toast.makeText(getContext(), "saved pref", Toast.LENGTH_SHORT).show();
+        }
         v = inflater.inflate(R.layout.fragment_stats, container, false);
         circleProgressBar = (com.natasa.progressviews.CircleSegmentBar) v.findViewById(R.id.circle_progress);
         circleProgressBar(circleProgressBar);
