@@ -53,6 +53,7 @@ public class walkthisway extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    UsefulShit us = new UsefulShit();
     CardView cardView;
     CardView cardListView;
     com.natasa.progressviews.CircleSegmentBar circleProgressBar;
@@ -92,7 +93,8 @@ public class walkthisway extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        sharedPrefTestMode();
+        getActivity().invalidateOptionsMenu();
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -102,8 +104,6 @@ public class walkthisway extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        sharedPrefTestMode();
 
         setHasOptionsMenu(true);
         db = new DbManager(getActivity(), null, null, 2);
@@ -308,16 +308,12 @@ public class walkthisway extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         MenuItem item = menu.findItem(R.id.action_delete_history);
+        MenuItem cal_test = menu.findItem(R.id.action_date_picker);
+
+        if (us.sharedPrefTestMode(getContext()))
+            cal_test.setVisible(true);
         item.setVisible(false);
     }
 
-    public void sharedPrefTestMode() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Boolean testMode = pref.getBoolean("test_mode", false);
-
-        if (testMode) {
-            Toast.makeText(getContext(), "saved pref", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 }
