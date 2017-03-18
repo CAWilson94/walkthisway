@@ -38,14 +38,14 @@ public class Goals {
         this.dateGoal = date;
     }
 
+    public void setDayPassed(Boolean dayPassed) {
+        this.dayPassed = dayPassed;
+    }
 
     public Boolean getDayPassed() {
         return dayPassed;
     }
 
-    public void setDayPassed(Boolean dayPassed) {
-        this.dayPassed = dayPassed;
-    }
 
     public String getDateGoal() {
         return dateGoal;

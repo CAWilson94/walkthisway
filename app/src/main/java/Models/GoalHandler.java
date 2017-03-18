@@ -38,7 +38,7 @@ public class GoalHandler {
             random.dateGoal = currentDate;
             random.setActive(false);
             Boolean randDayPass = Math.random() < 0.5;
-            random.setDayPassed(false);
+            random.setDayPassed(randDayPass);
             random.setNumSteps(90);
             random.setComplete(true);
             random.setName("FEAR ME: " + i);

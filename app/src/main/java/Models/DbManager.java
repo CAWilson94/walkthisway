@@ -85,7 +85,7 @@ public class DbManager extends SQLiteOpenHelper {
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
         values.put(COLUMN_GOAL_COMPLETE, (goal.getComplete()) ? 1 : 0);
         values.put(COLUMN_DATE_GOALS, String.valueOf(goal.getDateGoal()));
-        values.put(COLUMN_DAY_PASSED, (goal.getComplete()) ? 1 : 0);
+        values.put(COLUMN_DAY_PASSED, (goal.getDayPassed()) ? 1 : 0);
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_GOALS, null, values);
         db.close();
@@ -464,8 +464,13 @@ public class DbManager extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor simpleHistory(){
-
+    /**
+     * Make only the goals where day has passed i.e. in the past, available.
+     * Day past should insinuate that it was the last goal active at that time.
+     *
+     * @return
+     */
+    public Cursor simpleHistory() {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_GOALS + " " + "WHERE " + COLUMN_DAY_PASSED + " =1"; // one means select every row ( every condition is met)
@@ -473,10 +478,8 @@ public class DbManager extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(query, null);
         // Move to first row in your results
         c.moveToFirst();
-
         while (!c.isAfterLast()) {
             if (c.getString(c.getColumnIndex("goal_name")) != null) {
-
             }
             c.moveToNext();
         }

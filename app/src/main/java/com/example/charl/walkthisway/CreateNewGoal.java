@@ -115,6 +115,7 @@ public class CreateNewGoal extends DialogFragment {
                         // For all other active goals set incomplete
                         // now check toggle thingy
                         db.createGoalInitalizer(switchState, goal, currentDate);
+                        goal.setDayPassed(true);
                         goal.setComplete(false);
                         db.addGoal(goal);
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());

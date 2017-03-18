@@ -17,6 +17,9 @@ import android.widget.Spinner;
 
 import Models.DbManager;
 
+import static Models.DbManager.COLUMN_CURRENT_STEPS;
+import static Models.DbManager.COLUMN_GOAL_NAME;
+import static Models.DbManager.COLUMN_STEP_GOALS;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
 
@@ -92,7 +95,9 @@ public class test_fr extends Fragment {
         populateSpinner(spinnerTimeView, time);
         populateSpinner(spinnerUnitsView, units);
         populateSpinner(spinnerCompleteView, complete);
+
         cardListView = (CardView) v.findViewById(R.id.card_history);
+
         populateListView();
         return v;
     }
@@ -118,13 +123,14 @@ public class test_fr extends Fragment {
     public View populateListView() {
         ListView myList;
         cursor = db.simpleHistory();
-        String[] fromFieldNames = new String[]{DbManager.COLUMN_DATE_GOALS,
-                DbManager.COLUMN_GOAL_NAME, DbManager.COLUMN_CURRENT_STEPS, DbManager.COLUMN_STEP_GOALS, DbManager.COLUMN_GOAL_COMPLETE}; // Placeholder
+        String[] fromFieldNames = new String[]{db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
+                db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS, db.COLUMN_GOAL_COMPLETE}; // Placeholder
+
         int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
         myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
-        myCursorAdapter.changeCursor(db.getAllRows());
+        myCursorAdapter.changeCursor(db.simpleHistory());
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
         setListViewHeightBasedOnItems(myList, cardListView);
