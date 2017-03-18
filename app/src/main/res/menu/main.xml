@@ -18,6 +18,6 @@
         android:icon="@android:drawable/ic_menu_delete"
         balloonberry:showAsAction="always"
         android:enabled="true"
-        android:visible="true"
+        android:visible="false"
         android:checkable="true" />
 </menu>

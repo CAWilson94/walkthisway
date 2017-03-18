@@ -170,7 +170,7 @@ public class test_fr extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.findItem(R.id.action_date_picker);
-        item.setVisible(false);
+        MenuItem item = menu.findItem(R.id.action_delete_history);
+        item.setVisible(true);
     }
 }
