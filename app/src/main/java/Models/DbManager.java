@@ -47,7 +47,7 @@ public class DbManager extends SQLiteOpenHelper {
         String query = "CREATE TABLE IF NOT EXISTS " + TABLE_GOALS + "(" +
                 COLUMN_GOAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_GOAL_NAME + " TEXT, " +
-                COLUMN_CURRENT_STEPS + " INTEGER, " +
+                COLUMN_CURRENT_STEPS + " INTEGER DEFAULT 0, " +
                 COLUMN_ACTIVE + " INTEGER DEFAULT 0, " +
                 COLUMN_GOAL_COMPLETE + " INTEGER DEFAULT 0, " +
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL, " +
@@ -114,7 +114,7 @@ public class DbManager extends SQLiteOpenHelper {
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1";
-        ; // one means select every row ( every condition is met)
+        // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         Cursor c = db.rawQuery(query, null);
         // Move to first row in your results
@@ -176,9 +176,39 @@ public class DbManager extends SQLiteOpenHelper {
         return initSteps;
     }
 
+    public Boolean checkFieldExists(String field){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String Query = "Select * from " + TABLE_GOALS + " where " + field + " IS NOT NULL ";
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
+    public int getDailyActivity(String currentDate) {
+        int activity = 0;
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " WHERE " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + currentDate + "'";
+        int activeSteps = 0;
+        Cursor c = db.rawQuery(query, null);
+        // Move to first row in your results
+        c.moveToFirst();
+
+        if (c.getString(c.getColumnIndex("current_steps")) != null) {
+            activity = c.getInt(c.getColumnIndex("current_steps"));
+        }
+
+        c.close();
+        return activity;
+    }
+
     public Boolean checkActiveGoal() {
         Boolean check = false;
-
         SQLiteDatabase db = getWritableDatabase();
         // Go to current active goal; get steps from that
         String query = "SELECT * " + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + "=1";
@@ -224,7 +254,7 @@ public class DbManager extends SQLiteOpenHelper {
         String activeGoalName = "";
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1";
-        ; // one means select every row ( every condition is met)
+        // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         Cursor c = db.rawQuery(query, null);
         // Move to first row in your results
@@ -325,7 +355,7 @@ public class DbManager extends SQLiteOpenHelper {
         int activeStep = displayActiveSteps();
         int newStepNewMe = activeStep + steps;
         cv.put(COLUMN_CURRENT_STEPS, newStepNewMe);
-        String boop = "date(" + COLUMN_DATE_GOALS+ ")" + " = " + "'" + currentDate + "'";
+        String boop = "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + currentDate + "'";
         db.update(TABLE_GOALS, cv, boop, null);
         //db.close();
     }
@@ -333,7 +363,7 @@ public class DbManager extends SQLiteOpenHelper {
     public void incrementSteps(int steps, String currentDate) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
-                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE " + "date(" + COLUMN_DATE_GOALS+ ")" + " = " + "'" + currentDate + "'");
+                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + currentDate + "'");
         //db.close();
     }
 
