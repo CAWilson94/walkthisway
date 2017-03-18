@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -95,7 +97,7 @@ public class walkthisway extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setIcon(R.drawable.ic_menu_camera);
+        setHasOptionsMenu(true);
         db = new DbManager(getActivity(), null, null, 2);
 
         //GoalHandler goalHandler = new GoalHandler();
@@ -297,6 +299,13 @@ public class walkthisway extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.action_delete_history);
+        item.setVisible(false);
     }
 
 
