@@ -3,6 +3,7 @@ package com.example.charl.walkthisway;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,18 +11,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import Models.DbManager;
-import Models.GoalHandler;
-import Models.Goals;
 
 import static com.example.charl.walkthisway.R.id.stats;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DatePickerThisway.OnCompleteListener {
 
     DbManager db;
 
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity
 
         displaySelectedScreen(R.id.walk);
         db = new DbManager(this, null, null, 2);
-        
+
     }
 
     @Override
@@ -79,8 +80,15 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             Intent i = new Intent(this, MyPreferenceActivity.class);
             startActivity(i);
-            //return true;
         }
+        if (id == R.id.action_date_picker) {
+            FragmentManager fm = getSupportFragmentManager();
+            DatePickerThisway dp = new DatePickerThisway();
+            dp.setTargetFragment(new walkthisway(), 0);
+
+            dp.show(fm, "date picker");
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -128,6 +136,12 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void onComplete(String boop) {
+        Toast.makeText(this, boop, Toast.LENGTH_LONG);
+        Log.d("filter", boop);
     }
 }
 

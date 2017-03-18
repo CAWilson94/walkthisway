@@ -127,7 +127,9 @@ public class walkthisway extends Fragment {
         checkActiveGoalCard(cardView);
         myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
         populateListView(); // populate list!
+
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.add_activity_fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
