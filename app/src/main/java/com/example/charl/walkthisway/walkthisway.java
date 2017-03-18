@@ -19,6 +19,9 @@ import android.widget.TextView;
 
 import com.natasa.progressviews.CircleSegmentBar;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import Models.DbManager;
 import Models.GoalHandler;
 
@@ -106,23 +109,10 @@ public class walkthisway extends Fragment {
         circleProgressBar(circleProgressBar);
         cardView = (CardView) v.findViewById(R.id.main_progress_card);
         cardListView = (CardView) v.findViewById(R.id.card_view_goals_list);
+        // updating card view
         checkActiveGoalCard(cardView);
-        // List shit
         myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
-
-
         populateListView(); // populate list!
-
-        cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getFragmentManager();
-                addActivity dialogFragment = new addActivity();
-                dialogFragment.setTargetFragment(walkthisway.this, 0);
-                dialogFragment.show(fm, "Add Activity");
-            }
-        });
-
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.add_activity_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,13 +155,21 @@ public class walkthisway extends Fragment {
         TextView yermaw = (TextView) cardView.findViewById(R.id.yermaw);
         CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(circle_progress);
 
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDate = sdf.format(new Date(System.currentTimeMillis()));
+
+
         if (db.checkForActiveGoal() == false) {
+            // Set clickable to false
+            //cardView.setClickable(false);
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             text.setText("pleaseEnterGoal");
             yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
         } else {
+            //cardView.setClickable(true);
             text.setText(db.getActiveGoalName());
-            yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
+            yermaw.setText(String.valueOf(db.getDailyActivity(currentDate)) + " / " + db.displayGoalSteps());
         }
 
         //db.close();
@@ -196,6 +194,21 @@ public class walkthisway extends Fragment {
      * @param cardView
      */
     public void checkActiveGoalCard(View cardView) {
+
+        // check for items in db..
+        if (db.checkActiveGoal()) {
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager fm = getFragmentManager();
+                    addActivity dialogFragment = new addActivity();
+                    dialogFragment.setTargetFragment(walkthisway.this, 0);
+                    dialogFragment.show(fm, "Add Activity");
+                }
+            });
+
+
+        }
 
         String test = "testing";
         TextView text = (TextView) cardView.findViewById(R.id.textView3);

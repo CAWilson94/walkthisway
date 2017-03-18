@@ -446,8 +446,10 @@ public class DbManager extends SQLiteOpenHelper {
 
     public void createGoalInitalizer(Boolean sw, Goals goal, String currentDate) {
         if (sw) {
-            // Check there is an active goal first...
-            goal.setNumSteps(getDailyActivity(currentDate));
+            if (checkActiveGoal())
+                // Check there is an active goal first...
+                goal.setNumSteps(activeGoalInit());
+            // else should set to default..
             // Sets new goals steps to those of last active goal
             sketchySetAllOthersInactive();
             goal.setActive(sw);
