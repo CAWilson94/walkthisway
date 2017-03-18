@@ -90,12 +90,20 @@ public class walkthisway extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        sharedPrefTestMode();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        sharedPrefTestMode();
 
         setHasOptionsMenu(true);
         db = new DbManager(getActivity(), null, null, 2);
@@ -110,11 +118,6 @@ public class walkthisway extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Lets check for test mode
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Boolean testMode = pref.getBoolean("test_mode",false);
-        if(testMode){
-            Toast.makeText(getContext(), "saved pref", Toast.LENGTH_SHORT).show();
-        }
         v = inflater.inflate(R.layout.fragment_stats, container, false);
         circleProgressBar = (com.natasa.progressviews.CircleSegmentBar) v.findViewById(R.id.circle_progress);
         circleProgressBar(circleProgressBar);
@@ -308,5 +311,13 @@ public class walkthisway extends Fragment {
         item.setVisible(false);
     }
 
+    public void sharedPrefTestMode() {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Boolean testMode = pref.getBoolean("test_mode", false);
+
+        if (testMode) {
+            Toast.makeText(getContext(), "saved pref", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
