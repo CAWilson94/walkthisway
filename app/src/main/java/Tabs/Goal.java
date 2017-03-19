@@ -20,7 +20,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.charl.walkthisway.R;
+
+import SystemDateStrategy.SystemDateManager;
 import SystemDateStrategy.SystemDatePreferenceManager;
+
 import com.natasa.progressviews.CircleSegmentBar;
 
 import java.sql.Date;
@@ -96,6 +99,8 @@ public class Goal extends Fragment {
         super.onResume();
         getActivity().invalidateOptionsMenu();
         setHasOptionsMenu(true);
+        checkActiveGoalCard();
+        populateListView();
     }
 
     @Override
@@ -125,7 +130,7 @@ public class Goal extends Fragment {
         cardView = (CardView) v.findViewById(R.id.main_progress_card);
         cardListView = (CardView) v.findViewById(R.id.card_view_goals_list);
         // updating card view
-        checkActiveGoalCard(cardView);
+        checkActiveGoalCard();
         myList = (ListView) v.findViewById(R.id.list_goals); // get list view into main activity
         populateListView(); // populate list!
 
@@ -166,31 +171,28 @@ public class Goal extends Fragment {
         this.circleProgressBar.setProgress((int) getProgress()); // Sign of weakness sue me!!
     }
 
-    private void checkActiveGoalCard() {
-        String test = "testing";
-        TextView text = (TextView) cardView.findViewById(R.id.textView3);
-        TextView yermaw = (TextView) cardView.findViewById(R.id.yermaw);
-        CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(circle_progress);
-
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String currentDate = sdf.format(new Date(System.currentTimeMillis()));
-
-
-        if (db.checkForActiveGoal() == false) {
-            // Set clickable to false
-            //cardView.setClickable(false);
-            String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
-            text.setText("pleaseEnterGoal");
-            yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
-        } else {
-            //cardView.setClickable(true);
-            text.setText(db.getActiveGoalName());
-            yermaw.setText(String.valueOf(db.getDailyActivity(currentDate)) + " / " + db.displayGoalSteps());
-        }
-
-        //db.close();
-    }
+    /**
+     * private void checkActiveGoalCard() {
+     * String test = "testing";
+     * TextView text = (TextView) cardView.findViewById(R.id.textView3);
+     * TextView yermaw = (TextView) cardView.findViewById(R.id.yermaw);
+     * CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(circle_progress);
+     * <p>
+     * if (db.checkForActiveGoal(getContext()) == false) {
+     * // Set clickable to false
+     * //cardView.setClickable(false);
+     * String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
+     * text.setText("pleaseEnterGoal");
+     * yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
+     * } else {
+     * //cardView.setClickable(true);
+     * text.setText(db.getActiveGoalName());
+     * yermaw.setText(String.valueOf(db.getDailyActivity(getContext())) + " / " + db.displayGoalSteps());
+     * }
+     * <p>
+     * //db.close();
+     * }
+     */
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -204,13 +206,8 @@ public class Goal extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    /**
-     * Check for active goal in the goal card:
-     * if there is one, display everything related to it.
-     *
-     * @param cardView
-     */
-    public void checkActiveGoalCard(View cardView) {
+
+    public void checkActiveGoalCard() {
 
         // check for items in db..
         if (db.checkActiveGoal()) {
@@ -224,7 +221,6 @@ public class Goal extends Fragment {
                 }
             });
 
-
         }
 
         String test = "testing";
@@ -232,7 +228,10 @@ public class Goal extends Fragment {
         TextView stepsActive = (TextView) cardView.findViewById(yermaw);
         CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(circle_progress);
 
-        if (!db.checkForActiveGoal()) {
+        SystemDateManager date = new SystemDateManager();
+        String systemorUserDate = date.systemDateDecider(getContext());
+
+        if (!db.checkForActiveGoal(getContext(), systemorUserDate)) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
             text.setText(pleaseEnterGoal);
@@ -240,7 +239,6 @@ public class Goal extends Fragment {
             text.setText(db.displayActiveName());
             stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
         }
-
         //csb.setVisibility(View.INVISIBLE);
         //db.close();
     }
@@ -253,7 +251,7 @@ public class Goal extends Fragment {
     }
 
     public View populateListView() {
-        cursor = db.getAllRows();
+        cursor = db.getAllRows(getContext());
 
         String[] fromFieldNames = new String[]{db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
                 db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS, db.COLUMN_GOAL_COMPLETE}; // Placeholder
@@ -283,7 +281,7 @@ public class Goal extends Fragment {
             }
         });
 
-        myCursorAdapter.changeCursor(db.getAllRows());
+        myCursorAdapter.changeCursor(db.getAllRows(getContext()));
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
 

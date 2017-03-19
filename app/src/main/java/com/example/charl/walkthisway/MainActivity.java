@@ -16,8 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import java.sql.Date;
+
 import Dialogs.DatePickerTestMode;
 import Models.DbManager;
+import SystemDateStrategy.SystemDatePreferenceManager;
 import Tabs.Goal;
 import Tabs.History;
 import Tabs.MainTabsLayout;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DatePickerTestMode.OnCompleteListener {
 
     DbManager db;
+    SystemDatePreferenceManager util = new SystemDatePreferenceManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        util.mainModeDate(this);
 
         // Nav drawer!
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -141,8 +146,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onComplete(String boop) {
-        Log.d("filter", "some date is: " + boop);
+    public void onComplete(Date boop) {
+        Log.d("filter", "some date is: " + String.valueOf(boop));
+        util.testModeDate(boop, this);
     }
 }
 

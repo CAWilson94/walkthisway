@@ -3,9 +3,12 @@ package Models;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import SystemDateStrategy.SystemDateManager;
 
 import static android.R.attr.id;
 import static android.R.attr.value;
@@ -106,14 +109,19 @@ public class DbManager extends SQLiteOpenHelper {
     /**
      * Checks the db for entries which have
      * Active Goal set to 1: if active goal, return.
+     * <p>
+     * Will need to look for active goals on todays date..
      *
      * @return
      */
-    public Boolean checkForActiveGoal() {
+    public Boolean checkForActiveGoal(Context context, String date) {
+        Boolean bool = false;
         String dbString = "";
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1";
+        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1" + " AND " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + date + "'";
+
+
         // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         Cursor c = db.rawQuery(query, null);
@@ -122,15 +130,18 @@ public class DbManager extends SQLiteOpenHelper {
 
         while (!c.isAfterLast()) {
             if (c.getString(c.getColumnIndex("is_active")) != null) {
+                Log.e("TAG", DatabaseUtils.dumpCurrentRowToString(c));
                 dbString += c.getString(c.getColumnIndex("is_active"));
                 dbString += "\n";
-                return true;
+                bool = true;
             }
             c.moveToNext();
         }
         c.close();
         db.close();
-        return false;
+        Log.e("TAG", "VALUE IS: " + bool);
+        Log.e("TAG", "DATE IS: " + date);
+        return bool;
     }
 
     /**
@@ -189,11 +200,14 @@ public class DbManager extends SQLiteOpenHelper {
         return true;
     }
 
-    public int getDailyActivity(String currentDate) {
+    public int getDailyActivity(Context context) {
+
+        SystemDateManager date = new SystemDateManager();
+        String systemorUserDate = date.systemDateDecider(context);
         int activity = 0;
 
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " WHERE " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + currentDate + "'";
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " WHERE " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + systemorUserDate + "'";
         int activeSteps = 0;
         Cursor c = db.rawQuery(query, null);
         // Move to first row in your results
@@ -301,10 +315,17 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getAllRows() {
+    /**
+     * Return only rows from todays date i.e. either system date or user specified date
+     *
+     * @return
+     */
+    public Cursor getAllRows(Context context) {
+        SystemDateManager date = new SystemDateManager();
+        String systemorUserDate = date.systemDateDecider(context);
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_GOALS + " " + "WHERE " + COLUMN_ACTIVE + " =0"; // one means select every row ( every condition is met)
+        String query = "SELECT * FROM " + TABLE_GOALS + " " + "WHERE " + COLUMN_ACTIVE + " =0" + " AND " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + systemorUserDate + "'";
         // Cursor will point to location in your results
         Cursor c = db.rawQuery(query, null);
         // Move to first row in your results
@@ -445,7 +466,7 @@ public class DbManager extends SQLiteOpenHelper {
         //db.close();
     }
 
-    public void createGoalInitalizer(Boolean sw, Goals goal, String currentDate) {
+    public void createGoalInitalizer(Boolean sw, Goals goal, String currentDate, Context context) {
         if (sw) {
             if (checkActiveGoal())
                 // Check there is an active goal first...
@@ -459,7 +480,7 @@ public class DbManager extends SQLiteOpenHelper {
                 goal.setNumSteps(0);
             }
             if (checkFieldExists(COLUMN_DATE_GOALS)) {
-                goal.setNumSteps(getDailyActivity(currentDate));
+                goal.setNumSteps(getDailyActivity(context));
             }
             goal.setActive(false);
         }

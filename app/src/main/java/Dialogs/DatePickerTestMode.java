@@ -34,6 +34,7 @@ public class DatePickerTestMode extends DialogFragment {
     private String mParam1;
     private String mParam2;
     String dateString;
+    Date someDate;
     private OnCompleteListener completeListener;
 
 
@@ -89,7 +90,8 @@ public class DatePickerTestMode extends DialogFragment {
                 new DatePicker.OnDateChangedListener() {
                     @Override
                     public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        Date someDate = new Date(year - 1900, month, dayOfMonth);
+
+                        someDate = new Date(year - 1900, month, dayOfMonth);
 
                         util.testModeDate(someDate, getContext());
 
@@ -106,7 +108,7 @@ public class DatePickerTestMode extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getContext(), dateString, Toast.LENGTH_LONG);
-                completeListener.onComplete(dateString);
+                completeListener.onComplete(someDate);
                 dismiss();
             }
         }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -121,7 +123,7 @@ public class DatePickerTestMode extends DialogFragment {
 
 
     public static interface OnCompleteListener {
-        public abstract void onComplete(String time);
+        public abstract void onComplete(Date date);
     }
 
     // make sure the Activity implemented it
