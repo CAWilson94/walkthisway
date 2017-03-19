@@ -229,9 +229,9 @@ public class Goal extends Fragment {
         CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(circle_progress);
 
         SystemDateManager date = new SystemDateManager();
-        String systemorUserDate = date.systemDateDecider(getContext());
+        String systemorUserDate = date.systemDateDecider(this.getActivity());
 
-        if (!db.checkForActiveGoal(getContext(), systemorUserDate)) {
+        if (!db.checkForActiveGoal(this.getActivity(), systemorUserDate)) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
             stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
             text.setText(pleaseEnterGoal);
@@ -251,7 +251,7 @@ public class Goal extends Fragment {
     }
 
     public View populateListView() {
-        cursor = db.getAllRows(getContext());
+        cursor = db.getAllRows(this.getActivity());
 
         String[] fromFieldNames = new String[]{db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
                 db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS, db.COLUMN_GOAL_COMPLETE}; // Placeholder

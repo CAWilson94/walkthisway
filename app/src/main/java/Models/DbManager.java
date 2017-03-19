@@ -549,7 +549,7 @@ public class DbManager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cur = db.rawQuery("SELECt MIN(" + COLUMN_CURRENT_STEPS + ") FROM " + TABLE_GOALS, null);
         if (cur.moveToFirst()) {
-            Log.d("TAG", String.valueOf(cur.getInt(0)) + ": MIN VALUE");
+            Log.d("TAG", String.valueOf(cur.getInt(0)) + ": MIN VALUE + -------------------------------------");
             return cur.getInt(0);
         }
         return 0;

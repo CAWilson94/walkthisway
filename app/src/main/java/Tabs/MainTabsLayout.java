@@ -39,6 +39,8 @@ public class MainTabsLayout extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    ViewPagerAdapter adapter;
+
     private OnFragmentInteractionListener mListener;
 
     public MainTabsLayout() {
@@ -83,10 +85,10 @@ public class MainTabsLayout extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_walk,container,false);
+        View v = inflater.inflate(R.layout.fragment_walk, container, false);
         TabLayout tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) v.findViewById(R.id.view);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new Statistics(), "Stats");
         adapter.addFragment(new Goal(), "Goal");
         adapter.addFragment(new History(), "History");
@@ -103,6 +105,12 @@ public class MainTabsLayout extends Fragment {
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onDetach() {
@@ -126,7 +134,7 @@ public class MainTabsLayout extends Fragment {
     }
 
 
-    private class ViewPagerAdapter  extends FragmentPagerAdapter  {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -149,6 +157,7 @@ public class MainTabsLayout extends Fragment {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {

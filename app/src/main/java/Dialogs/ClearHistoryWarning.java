@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.charl.walkthisway.R;
 
+import Models.DbManager;
+
 
 public class ClearHistoryWarning extends DialogFragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +31,7 @@ public class ClearHistoryWarning extends DialogFragment {
     private String mParam2;
 
     private ClearHistoryWarning.OnCompleteListener completeListener;
+    DbManager db = new DbManager(this.getActivity(), null, null, DbManager.DATABASE_VERSION);
 
     public ClearHistoryWarning() {
         // Required empty public constructor
@@ -59,6 +62,7 @@ public class ClearHistoryWarning extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        new DbManager(this.getActivity(), null, null, DbManager.DATABASE_VERSION);
     }
 
     @NonNull
@@ -75,7 +79,10 @@ public class ClearHistoryWarning extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getContext(), "YOU DELETED ME WHYYY", Toast.LENGTH_LONG);
-                completeListener.onClearHistory(true);
+                //getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
+                //completeListener.onClearHistory(true);
+                //db.clearHistory();
+                //db.minStat();
                 dismiss();
             }
         }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {

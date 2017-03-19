@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DatePickerTestMode.OnCompleteListener,
         ClearHistoryWarning.OnCompleteListener {
 
-    DbManager db;
+    DbManager db = new DbManager(this, null, null, DbManager.DATABASE_VERSION);
     SystemDatePreferenceManager util = new SystemDatePreferenceManager();
+
+    History history = new History();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_delete_history) {
             FragmentManager fm = getSupportFragmentManager();
             ClearHistoryWarning chw = new ClearHistoryWarning();
-            //dp.setTargetFragment(new Goal(), 0);
+            chw.setTargetFragment(new History(), 0);
             chw.show(fm, "date picker");
         }
 
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new Goal();
                 break;
             case R.id.test:
-                fragment = new History();
+                fragment = history;
                 break;
         }
 
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity
         Log.d("filter", "some date is: " + String.valueOf(boop));
         util.testModeDate(boop, this);
     }
+
 
     @Override
     public void onClearHistory(Boolean clearHistory) {
