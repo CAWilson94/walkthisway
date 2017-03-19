@@ -4,10 +4,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 
+import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
 
 import Models.DbManager;
@@ -28,12 +31,19 @@ public class Statistics extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     DbManager dbMan;
+    private Populate pop = new Populate();
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    View v;
+
+    String time[] = {"Day view", "Week view", "Month View", "Custom View"};
+    String units[] = {"Steps", "Km", "Miles", "Monroes.."};
+    String complete[] = {"Complete", "All"};
 
     public Statistics() {
         // Required empty public constructor
@@ -70,12 +80,19 @@ public class Statistics extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_history, container, false);
-        //TextView text = (TextView) v.findViewById(R.id.history_text);
-        //dbMan = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of
-        //String test = dbMan.checkForActiveGoal().toString();
-        //text.setText(test);
-        // Inflate the custom_row for this fragment
+        v = inflater.inflate(R.layout.fragment_history, container, false);
+        final CardView cardView = (CardView) v.findViewById(R.id.card_stats);
+
+        Spinner spinnerCompleteView = (Spinner) v.findViewById(R.id.spinner_complete_stats);
+        Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner_time_stats);
+        Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner_units_stats);
+
+
+        pop.populateSpinner(spinnerTimeView, time, getContext());
+        pop.populateSpinner(spinnerUnitsView, units, getContext());
+        pop.populateSpinner(spinnerCompleteView, complete, getContext());
+
+
         return v;
     }
 

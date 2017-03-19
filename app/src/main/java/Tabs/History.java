@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
 
 import Models.DbManager;
@@ -50,6 +51,7 @@ public class History extends Fragment {
     private View v;
     private SimpleCursorAdapter myCursorAdapter;
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
+    private Populate pop = new Populate();
 
     public History() {
         // Required empty public constructor
@@ -94,16 +96,13 @@ public class History extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_test, container, false);
-        final CardView cardView = (CardView) v.findViewById(R.id.card_history);
+        CardView cardView = (CardView) v.findViewById(R.id.card_history);
         Spinner spinnerCompleteView = (Spinner) v.findViewById(R.id.spinner_complete);
         Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner_time);
         Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner_units);
-        populateSpinner(spinnerTimeView, time);
-        populateSpinner(spinnerUnitsView, units);
-        populateSpinner(spinnerCompleteView, complete);
-
-        cardListView = (CardView) v.findViewById(R.id.card_history);
-
+        pop.populateSpinner(spinnerTimeView, time, getContext());
+        pop.populateSpinner(spinnerUnitsView, units, getContext());
+        pop.populateSpinner(spinnerCompleteView, complete, getContext());
         populateListView();
         return v;
     }
@@ -141,14 +140,6 @@ public class History extends Fragment {
         myList.setFocusable(false);
         setListViewHeightBasedOnItems(myList, cardListView);
         return v;
-    }
-
-    public void populateSpinner(Spinner spinner, String[] ddInfo) {
-        // Basically the same as using a listview
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(),
-                android.R.layout.simple_spinner_item, ddInfo);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
     }
 
 
