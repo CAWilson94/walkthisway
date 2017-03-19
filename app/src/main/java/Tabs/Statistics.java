@@ -9,11 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,7 @@ public class Statistics extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     View v;
+    TextView averageStatsText, maxStatsText, minStatsText;
 
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
@@ -85,6 +89,12 @@ public class Statistics extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        db = new DbManager(getActivity(), null, null, 2);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -93,6 +103,13 @@ public class Statistics extends Fragment {
         v = inflater.inflate(R.layout.fragment_history, container, false);
         final CardView cardView = (CardView) v.findViewById(R.id.card_stats);
         LineChart chart = (LineChart) v.findViewById(R.id.chart);
+        averageStatsText = (TextView) v.findViewById(R.id.average_stats_text);
+        maxStatsText = (TextView) v.findViewById(R.id.max_stats_text);
+        minStatsText = (TextView) v.findViewById(R.id.min_stats_text);
+
+        averageStatsText.setText("Average:  " + db.averageStat());
+        maxStatsText.setText("Max:          " + db.maxStat());
+        minStatsText.setText("Min:          " + db.minStat());
 
         Spinner spinnerCompleteView = (Spinner) v.findViewById(R.id.spinner_complete_stats);
         Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner_time_stats);
@@ -138,4 +155,5 @@ public class Statistics extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
