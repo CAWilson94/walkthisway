@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.charl.walkthisway.R;
 
+import SystemDateStrategy.SystemDatePreferenceManager;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,6 +26,8 @@ public class DatePickerTestMode extends DialogFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    SystemDatePreferenceManager util = new SystemDatePreferenceManager();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -86,8 +90,8 @@ public class DatePickerTestMode extends DialogFragment {
                     @Override
                     public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         Date someDate = new Date(year - 1900, month, dayOfMonth);
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        dateString = sdf.format(someDate);
+                        util.testModeDate(someDate, getContext());
+
                     }
                 });
 

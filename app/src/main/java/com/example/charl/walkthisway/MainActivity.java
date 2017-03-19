@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_date_picker) {
             FragmentManager fm = getSupportFragmentManager();
             DatePickerTestMode dp = new DatePickerTestMode();
-            dp.setTargetFragment(new Goal(), 0);
-
+            //dp.setTargetFragment(new Goal(), 0);
             dp.show(fm, "date picker");
         }
 

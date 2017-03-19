@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.charl.walkthisway.R;
-import com.example.charl.walkthisway.Utils;
+import SystemDateStrategy.SystemDatePreferenceManager;
 import com.natasa.progressviews.CircleSegmentBar;
 
 import java.sql.Date;
@@ -54,7 +54,7 @@ public class Goal extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Utils us = new Utils();
+    SystemDatePreferenceManager us = new SystemDatePreferenceManager();
     CardView cardView;
     CardView cardListView;
     com.natasa.progressviews.CircleSegmentBar circleProgressBar;
