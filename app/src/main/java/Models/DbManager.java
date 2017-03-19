@@ -497,16 +497,20 @@ public class DbManager extends SQLiteOpenHelper {
      */
     public Cursor simpleHistory() {
         // Reference to db
+
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_GOALS + " " + "WHERE " + COLUMN_DAY_PASSED + " =1"; // one means select every row ( every condition is met)
         // Cursor will point to location in your results
         Cursor c = db.rawQuery(query, null);
-        // Move to first row in your results
-        c.moveToFirst();
-        while (!c.isAfterLast()) {
-            if (c.getString(c.getColumnIndex("goal_name")) != null) {
+        if (c.getCount() != 0) {
+
+            // Move to first row in your results
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                //if (c.getString(c.getColumnIndex("goal_name")) != null) {
+                //}
+                c.moveToNext();
             }
-            c.moveToNext();
         }
         //db.close();
         //c.close();

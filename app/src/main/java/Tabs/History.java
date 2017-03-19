@@ -80,10 +80,14 @@ public class History extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
         setHasOptionsMenu(true);
-
         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateListView();
     }
 
     @Override
@@ -136,8 +140,6 @@ public class History extends Fragment {
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
         setListViewHeightBasedOnItems(myList, cardListView);
-
-
         return v;
     }
 

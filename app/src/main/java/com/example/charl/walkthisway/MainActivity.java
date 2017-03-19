@@ -18,6 +18,7 @@ import android.view.MenuItem;
 
 import java.sql.Date;
 
+import Dialogs.ClearHistoryWarning;
 import Dialogs.DatePickerTestMode;
 import Models.DbManager;
 import SystemDateStrategy.SystemDatePreferenceManager;
@@ -28,7 +29,8 @@ import Tabs.MainTabsLayout;
 import static com.example.charl.walkthisway.R.id.stats;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DatePickerTestMode.OnCompleteListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DatePickerTestMode.OnCompleteListener,
+        ClearHistoryWarning.OnCompleteListener {
 
     DbManager db;
     SystemDatePreferenceManager util = new SystemDatePreferenceManager();
@@ -95,6 +97,12 @@ public class MainActivity extends AppCompatActivity
             //dp.setTargetFragment(new Goal(), 0);
             dp.show(fm, "date picker");
         }
+        if (id == R.id.action_delete_history) {
+            FragmentManager fm = getSupportFragmentManager();
+            ClearHistoryWarning chw = new ClearHistoryWarning();
+            //dp.setTargetFragment(new Goal(), 0);
+            chw.show(fm, "date picker");
+        }
 
 
         return super.onOptionsItemSelected(item);
@@ -149,6 +157,14 @@ public class MainActivity extends AppCompatActivity
     public void onComplete(Date boop) {
         Log.d("filter", "some date is: " + String.valueOf(boop));
         util.testModeDate(boop, this);
+    }
+
+    @Override
+    public void onClearHistory(Boolean clearHistory) {
+        if (clearHistory) {
+            db.clearHistory();
+            clearHistory = false;
+        }
     }
 }
 
