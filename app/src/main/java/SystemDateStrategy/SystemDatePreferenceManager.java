@@ -13,11 +13,8 @@ import java.text.SimpleDateFormat;
 
 public class SystemDatePreferenceManager {
 
-    SharedPreferences pref;
-
-
     public Boolean sharedPrefTestMode(Context context) {
-        pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         Boolean testMode = pref.getBoolean("test_mode", false);
         if (testMode)
             return true;
@@ -25,18 +22,21 @@ public class SystemDatePreferenceManager {
     }
 
     public void testModeDate(Date testDate, Context context) {
-        pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences pr = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(testDate);
         editor.putString("test_date", date);
+        editor.apply();
     }
 
     public void mainModeDate(Context context) {
-        pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date(System.currentTimeMillis()));
         editor.putString("main_date", date);
+        editor.apply();
     }
 }

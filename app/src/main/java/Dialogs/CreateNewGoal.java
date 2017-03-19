@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 
 import Models.DbManager;
 import Models.Goals;
+import SystemDateStrategy.SystemDateManager;
+import SystemDateStrategy.SystemDatePreferenceManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +41,7 @@ public class CreateNewGoal extends DialogFragment {
     private String mParam2;
 
     CreateNewGoalDialogListener mcallBack;
+    SystemDatePreferenceManager util = new SystemDatePreferenceManager();
 
     // Custom Dialog fields
     View v;
@@ -103,14 +106,20 @@ public class CreateNewGoal extends DialogFragment {
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
                         Boolean switchState = checkedActive.isChecked(); // Check current state of switch
                         Goals goal = new Goals();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        String currentDate = sdf.format(new Date(System.currentTimeMillis()));
-                        goal.setDateGoal(currentDate);
+
+                        // Set date of main system.. should probably do this at the start of the app... TODO: MOVE THIS YA TIT
+                        util.mainModeDate(getContext());
+
+                        // test or main mode here
+                        SystemDateManager date = new SystemDateManager();
+                        String systemorUserDate = date.systemDateDecider(getContext());
+
+                        goal.setDateGoal(systemorUserDate);
                         goal.setName(goalNameInput.getText().toString());
                         goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
                         // For all other active goals set incomplete
                         // now check toggle thingy
-                        db.createGoalInitalizer(switchState, goal, currentDate);
+                        db.createGoalInitalizer(switchState, goal, systemorUserDate);
                         goal.setDayPassed(true);
                         goal.setComplete(false);
                         db.addGoal(goal);

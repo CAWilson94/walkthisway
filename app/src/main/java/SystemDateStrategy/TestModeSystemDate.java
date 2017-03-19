@@ -18,6 +18,6 @@ public class TestModeSystemDate implements SystemDate {
     public String setSystemDate(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String date = pref.getString("test_date", "help me...");
-        return null;
+        return date;
     }
 }

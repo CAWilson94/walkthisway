@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.charl.walkthisway.R;
 
+import SystemDateStrategy.SystemDateManager;
 import SystemDateStrategy.SystemDatePreferenceManager;
 
 import java.sql.Date;
@@ -86,12 +87,16 @@ public class DatePickerTestMode extends DialogFragment {
         datePicker.init(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
                 new DatePicker.OnDateChangedListener() {
-
                     @Override
                     public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
                         Date someDate = new Date(year - 1900, month, dayOfMonth);
+
                         util.testModeDate(someDate, getContext());
 
+                        SystemDateManager date = new SystemDateManager();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        // dateString = sdf.format(someDate);
+                        dateString = date.systemDateDecider(getContext());
                     }
                 });
 

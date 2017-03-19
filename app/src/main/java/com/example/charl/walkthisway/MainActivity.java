@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onComplete(String boop) {
-        Log.d("filter", boop);
+        Log.d("filter", "some date is: " + boop);
     }
 }
 
