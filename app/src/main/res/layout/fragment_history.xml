@@ -81,7 +81,8 @@
                                     android:layout_height="0dp"
                                     android:layout_gravity="center"
                                     android:layout_weight="1"
-                                    android:text="Average: " />
+                                    android:text="Average: "
+                                    android:textSize="25dp" />
 
                                 <TextView
                                     android:id="@+id/max_stats_text"
@@ -90,7 +91,8 @@
                                     android:layout_gravity="center"
                                     android:layout_marginTop="10dp"
                                     android:layout_weight="1"
-                                    android:text="Max: " />
+                                    android:text="Max: "
+                                    android:textSize="25dp" />
 
                                 <TextView
                                     android:id="@+id/min_stats_text"
@@ -99,7 +101,8 @@
                                     android:layout_gravity="center"
                                     android:layout_marginTop="10dp"
                                     android:layout_weight="1"
-                                    android:text="Min: " />
+                                    android:text="Min: "
+                                    android:textSize="25dp" />
                             </LinearLayout>
                         </FrameLayout>
 
