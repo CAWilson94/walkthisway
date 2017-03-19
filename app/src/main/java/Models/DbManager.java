@@ -459,10 +459,13 @@ public class DbManager extends SQLiteOpenHelper {
 
 
     public void sketchySetAllOthersInactive() {
+
+
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
                 + COLUMN_ACTIVE + " = " + 0 + " WHERE "
                 + COLUMN_ACTIVE + " =1");
+        ;
         //db.close();
     }
 
