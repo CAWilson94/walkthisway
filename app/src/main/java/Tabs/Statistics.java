@@ -12,6 +12,11 @@ import android.widget.Spinner;
 
 import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import Models.DbManager;
 
@@ -41,9 +46,14 @@ public class Statistics extends Fragment {
     private OnFragmentInteractionListener mListener;
     View v;
 
+    DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
+
     String time[] = {"Day view", "Week view", "Month View", "Custom View"};
     String units[] = {"Steps", "Km", "Miles", "Monroes.."};
     String complete[] = {"Complete", "All"};
+
+    // line chart shit
+    List<Entry> entries = new ArrayList<Entry>();
 
     public Statistics() {
         // Required empty public constructor
@@ -82,6 +92,7 @@ public class Statistics extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_history, container, false);
         final CardView cardView = (CardView) v.findViewById(R.id.card_stats);
+        LineChart chart = (LineChart) v.findViewById(R.id.chart);
 
         Spinner spinnerCompleteView = (Spinner) v.findViewById(R.id.spinner_complete_stats);
         Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner_time_stats);
@@ -91,7 +102,6 @@ public class Statistics extends Fragment {
         pop.populateSpinner(spinnerTimeView, time, getContext());
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
-
 
         return v;
     }

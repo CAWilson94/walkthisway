@@ -104,6 +104,10 @@ public class History extends Fragment {
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
         populateListView();
+        db.averageStat();
+        db.maxStat();
+        db.minStat();
+
         return v;
     }
 

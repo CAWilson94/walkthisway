@@ -207,7 +207,7 @@ public class DbManager extends SQLiteOpenHelper {
         int activity = 0;
 
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " WHERE " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + systemorUserDate + "'";
+        String query = "SELECT " + COLUMN_CURRENT_STEPS + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + "=1";
         int activeSteps = 0;
         Cursor c = db.rawQuery(query, null);
         // Move to first row in your results
@@ -523,5 +523,35 @@ public class DbManager extends SQLiteOpenHelper {
     public void clearHistory() {
         SQLiteDatabase db = getWritableDatabase();
         db.delete("goals", "day_passed =?", new String[]{"1"});
+    }
+
+    public int averageStat() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cur = db.rawQuery("SELECt AVG(" + COLUMN_CURRENT_STEPS + ") FROM " + TABLE_GOALS, null);
+        if (cur.moveToFirst()) {
+            Log.d("TAG", String.valueOf(cur.getInt(0)) + ": AVERAGE VALUE");
+            return cur.getInt(0);
+        }
+        return 0;
+    }
+
+    public int maxStat() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cur = db.rawQuery("SELECt MAX(" + COLUMN_CURRENT_STEPS + ") FROM " + TABLE_GOALS, null);
+        if (cur.moveToFirst()) {
+            Log.d("TAG", String.valueOf(cur.getInt(0)) + ": MAX VALUE");
+            return cur.getInt(0);
+        }
+        return 0;
+    }
+
+    public int minStat() {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cur = db.rawQuery("SELECt MIN(" + COLUMN_CURRENT_STEPS + ") FROM " + TABLE_GOALS, null);
+        if (cur.moveToFirst()) {
+            Log.d("TAG", String.valueOf(cur.getInt(0)) + ": MIN VALUE");
+            return cur.getInt(0);
+        }
+        return 0;
     }
 }
