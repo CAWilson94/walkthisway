@@ -512,4 +512,12 @@ public class DbManager extends SQLiteOpenHelper {
         //c.close();
         return c;
     }
+
+    /**
+     * Delete all in history
+     */
+    public void clearHistory() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("goals", "day_passed =?", new String[]{"1"});
+    }
 }
