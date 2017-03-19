@@ -1,31 +1,25 @@
-package com.example.charl.walkthisway;
+package Dialogs;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.Toast;
+
+import com.example.charl.walkthisway.R;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-public class DatePickerThisway extends DialogFragment {
+public class DatePickerTestMode extends DialogFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,7 +32,7 @@ public class DatePickerThisway extends DialogFragment {
     private OnCompleteListener completeListener;
 
 
-    public DatePickerThisway() {
+    public DatePickerTestMode() {
         // Required empty public constructor
     }
 
@@ -48,11 +42,11 @@ public class DatePickerThisway extends DialogFragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DatePickerThisway.
+     * @return A new instance of fragment DatePickerTestMode.
      */
     // TODO: Rename and change types and number of parameters
-    public static DatePickerThisway newInstance(String param1, String param2) {
-        DatePickerThisway fragment = new DatePickerThisway();
+    public static DatePickerTestMode newInstance(String param1, String param2) {
+        DatePickerTestMode fragment = new DatePickerTestMode();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

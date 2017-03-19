@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.charl.walkthisway.test_fr">
+    tools:context="com.example.charl.walkthisway.Tabs.History">
 
     <!-- TODO: Update blank fragment custom_row -->
 

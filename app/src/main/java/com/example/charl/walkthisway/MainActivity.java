@@ -14,15 +14,18 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
+import Dialogs.DatePickerTestMode;
 import Models.DbManager;
+import Tabs.Goal;
+import Tabs.History;
+import Tabs.MainTabsLayout;
 
 import static com.example.charl.walkthisway.R.id.stats;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DatePickerThisway.OnCompleteListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DatePickerTestMode.OnCompleteListener {
 
     DbManager db;
 
@@ -78,13 +81,13 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, MyPreferenceActivity.class);
+            Intent i = new Intent(this, SettingsPreferences.class);
             startActivity(i);
         }
         if (id == R.id.action_date_picker) {
             FragmentManager fm = getSupportFragmentManager();
-            DatePickerThisway dp = new DatePickerThisway();
-            dp.setTargetFragment(new walkthisway(), 0);
+            DatePickerTestMode dp = new DatePickerTestMode();
+            dp.setTargetFragment(new Goal(), 0);
 
             dp.show(fm, "date picker");
         }
@@ -109,17 +112,17 @@ public class MainActivity extends AppCompatActivity
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.Settings:
-                Intent i = new Intent(this, MyPreferenceActivity.class);
+                Intent i = new Intent(this, SettingsPreferences.class);
                 startActivity(i);
                 break;
             case R.id.walk:
-                fragment = new walk();
+                fragment = new MainTabsLayout();
                 break;
             case stats:
-                fragment = new walkthisway();
+                fragment = new Goal();
                 break;
             case R.id.test:
-                fragment = new test_fr();
+                fragment = new History();
                 break;
         }
 
@@ -140,7 +143,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onComplete(String boop) {
-        Toast.makeText(this, boop, Toast.LENGTH_LONG);
         Log.d("filter", boop);
     }
 }

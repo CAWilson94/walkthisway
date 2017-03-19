@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
  * Created by Charlotte on 18/03/2017.
  */
 
-public class UsefulShit {
+public class Utils {
 
 
     public Boolean sharedPrefTestMode(Context context) {

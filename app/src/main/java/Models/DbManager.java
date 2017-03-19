@@ -19,9 +19,9 @@ import static javax.xml.datatype.DatatypeConstants.DATETIME;
 public class DbManager extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 7; //update version when database update
-    private static final String DATABASE_NAME = "walkthisway.db";
+    private static final String DATABASE_NAME = "Goal.db";
     public static final String TABLE_GOALS = "goals";
-    // Names of your columns for Goals Table
+    // Names of your columns for Goal Table
     public static final String COLUMN_GOAL_ID = "_id";
     public static final String COLUMN_GOAL_NAME = "goal_name";
     public static final String COLUMN_ACTIVE = "is_active";
@@ -92,7 +92,7 @@ public class DbManager extends SQLiteOpenHelper {
     }
 
     /**
-     * Delete Goals from data base
+     * Delete Goal from data base
      * Remembering you can only delete it if it is non active!
      *
      * @param goalID
@@ -201,8 +201,9 @@ public class DbManager extends SQLiteOpenHelper {
 
         if (c.getString(c.getColumnIndex("current_steps")) != null) {
             activity = c.getInt(c.getColumnIndex("current_steps"));
+        } else if (c.getString(c.getColumnIndex("current_steps")) == null) {
+            activity = c.getInt(0);
         }
-
         c.close();
         return activity;
     }
