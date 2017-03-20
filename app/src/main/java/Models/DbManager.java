@@ -604,4 +604,18 @@ public class DbManager extends SQLiteOpenHelper {
         int boop = db.update(TABLE_GOALS, cv, COLUMN_ACTIVE + " =?", new String[]{"1"});
     }
 
+    public String displayUnitsFromActiveStatus() {
+
+        String units = "steps";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT " + COLUMN_GOAL_UNITS + " FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + "=1";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            units = cursor.getString(cursor.getColumnIndex("units"));
+        }
+        cursor.close();
+        return units;
+    }
+
 }

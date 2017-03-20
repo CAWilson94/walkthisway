@@ -258,7 +258,7 @@ public class Goal extends Fragment {
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());
-            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
+            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps() + db.displayUnitsFromActiveStatus());
         }
         //csb.setVisibility(View.INVISIBLE);
         //db.close();

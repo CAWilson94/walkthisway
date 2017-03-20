@@ -193,7 +193,7 @@ public class History extends Fragment {
                                                   String stepGoal = cursor.getString(acolumnIndex);
                                                   TextView textView = (TextView) v;
                                                   double stepConvertGoal = calulations.fromStepsToUnits(spinnerUnits, Double.parseDouble(stepGoal));
-                                                  Toast.makeText(getContext(), "hello: " + spinnerUnits, Toast.LENGTH_LONG).show();
+                                                  //Toast.makeText(getContext(), "hello: " + spinnerUnits, Toast.LENGTH_LONG).show();
                                                   // Convert from those units to whatever was asked for.
                                                   textView.setText(String.valueOf(stepConvertGoal));
                                                   return true;
