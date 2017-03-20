@@ -22,12 +22,11 @@ import static javax.xml.datatype.DatatypeConstants.DATETIME;
 
 public class DbManager extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 7; //update version when database update
+    public static final int DATABASE_VERSION = 8; //update version when database update
     private static final String DATABASE_NAME = "Goal.db";
     public static final String TABLE_GOALS = "goals";
     // Names of your columns for Goal Table
     public static final String COLUMN_GOAL_ID = "_id";
-    public static final String COLUMN_GOAL_UNITS = "units";
     public static final String COLUMN_GOAL_NAME = "goal_name";
     public static final String COLUMN_ACTIVE = "is_active";
     public static final String COLUMN_CURRENT_STEPS = "current_steps";
@@ -35,6 +34,7 @@ public class DbManager extends SQLiteOpenHelper {
     public static final String COLUMN_GOAL_COMPLETE = "goal_complete";
     public static final String COLUMN_DATE_GOALS = "goal_date";
     public static final String COLUMN_DAY_PASSED = "day_passed";
+    public static final String COLUMN_GOAL_UNITS = "units";
 
 
     public DbManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -58,7 +58,7 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL, " +
                 COLUMN_DATE_GOALS + " DATE DEFAULT CURRENT_TIMESTAMP, " +
                 COLUMN_DAY_PASSED + " INTEGER DEFAULT 0, " +
-                COLUMN_GOAL_UNITS + "TEXT" +
+                COLUMN_GOAL_UNITS + " TEXT " +
                 ")";
         db.execSQL(query);
     }

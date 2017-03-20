@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:focusable="false"
+    android:layout_height="fill_parent"
     android:descendantFocusability="blocksDescendants"
-    android:layout_height="fill_parent">
+    android:focusable="false">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="116dp"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -52,7 +51,7 @@
 
             <com.natasa.progressviews.LineProgressBar
                 android:id="@+id/line_progressbar"
-                android:layout_width="match_parent"
+                android:layout_width="154dp"
                 android:layout_height="42dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/line_progress"
@@ -71,10 +70,10 @@
 
 
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
 
                     >
 
@@ -82,28 +81,36 @@
                         android:id="@+id/current_progress_current"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="CURRENT"
                         android:textSize="10sp"
-                        android:layout_weight="2"
-                        tools:text="CURRENT"
-                         />
+                        tools:text="CURRENT" />
 
                     <TextView
-                        android:text="/"
+                        android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView5"
+                        android:text="/"
                         tools:text="slash" />
 
                     <TextView
                         android:id="@+id/current_progress_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TOTAL"
                         android:layout_weight="2"
+                        android:text="TOTAL"
                         android:textAlignment="viewStart"
                         android:textSize="10sp"
                         tools:text="TOTAL" />
+
+                    <TextView
+                        android:id="@+id/unit_goals_list"
+                        android:layout_width="37dp"
+                        android:layout_height="wrap_content"
+                        android:text="TOTAL"
+                        android:textAlignment="viewStart"
+                        android:textSize="10sp"
+                        tools:text=" Steps" />
                 </LinearLayout>
 
             </LinearLayout>

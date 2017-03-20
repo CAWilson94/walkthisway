@@ -116,7 +116,7 @@ public class CreateNewGoal extends DialogFragment {
                         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of params
                         goalNameInput = (EditText) v.findViewById(R.id.goal_form);
                         stepsInput = (EditText) v.findViewById(R.id.goal_step_form);
-                        
+
                         String unitSelected = spinnerGoalUnits.getSelectedItem().toString();
 
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
@@ -140,7 +140,7 @@ public class CreateNewGoal extends DialogFragment {
                             // For all other active goals set incomplete
                             // now check toggle thingy
                             db.createGoalInitalizer(switchState, goal, systemorUserDate, getContext());
-                            goal.setDayPassed(false);
+                            goal.setDayPassed(true);  //TODO: change this back to false
                             goal.setComplete(false);
                             db.addGoal(goal);
                             getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());

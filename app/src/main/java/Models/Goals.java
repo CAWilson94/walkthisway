@@ -17,7 +17,7 @@ public class Goals {
     Boolean complete;
     String dateGoal;
     Boolean dayPassed;
-    private String units;
+   String units;
 
     /**
      * int myInt = (myBoolean) ? 1 : 0

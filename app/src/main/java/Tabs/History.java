@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.charl.walkthisway.MainActivity;
 import com.example.charl.walkthisway.Populate;
@@ -29,6 +30,8 @@ import Dialogs.CreateNewGoal;
 import Models.DbManager;
 
 import static android.R.attr.name;
+import static com.example.charl.walkthisway.R.id.test;
+import static com.example.charl.walkthisway.R.id.view;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
 
@@ -136,30 +139,40 @@ public class History extends Fragment {
 
     public View populateListView() {
         ListView myList;
-        DbManager db = new DbManager(this.getActivity(), null, null, DbManager.DATABASE_VERSION);
+
+        DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
         cursor = db.simpleHistory();
-        String[] fromFieldNames = new String[]{db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
+        String[] fromFieldNames = new String[]{db.COLUMN_GOAL_UNITS, db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
                 db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS, db.COLUMN_GOAL_COMPLETE}; // Placeholder
-        
-        int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
+
+        int[] toViewIDs = new int[]{R.id.unit_goals_list, R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
 
         // Set up the adapter
-        myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
+        myCursorAdapter = new SimpleCursorAdapter(getContext(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
+
+
+        myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
+        myCursorAdapter.changeCursor(db.simpleHistory());
 
         myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
-            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+            public boolean setViewValue(View v, Cursor cursor, int acolumnIndex) {
+
+                if (acolumnIndex == 8) {
+                    String createDate = cursor.getString(acolumnIndex);
+                    TextView textView = (TextView) v;
+                    textView.setText("Create date: " + createDate);
+                    return true;
+                }
                 return false;
             }
         });
-        
-        myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
-        myCursorAdapter.changeCursor(db.simpleHistory());
+
         myList.setAdapter(myCursorAdapter);
+
+
         myList.setFocusable(false);
         setListViewHeightBasedOnItems(myList, cardListView);
-
-
 
 
         return v;

@@ -117,7 +117,8 @@ public class Goal extends Fragment {
 
         EndOfDay endOfDay = new EndOfDay();
         IntentFilter filter = new IntentFilter("CONTENTS_NOTIFICATION");
-        getContext().registerReceiver(endOfDay, filter);
+        // getContext().registerReceiver(endOfDay, filter); TODO: unregister
+        //getContext()//.unregisterReceiver(endOfDay,filter);
 
         getActivity().invalidateOptionsMenu();
         setHasOptionsMenu(true);
