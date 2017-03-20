@@ -513,7 +513,7 @@ public class DbManager extends SQLiteOpenHelper {
             }
         }
         //db.close();
-        //c.close();
+        c.close();
         return c;
     }
 
