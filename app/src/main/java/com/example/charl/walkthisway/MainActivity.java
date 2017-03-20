@@ -99,12 +99,7 @@ public class MainActivity extends AppCompatActivity
             //dp.setTargetFragment(new Goal(), 0);
             dp.show(fm, "date picker");
         }
-        if (id == R.id.action_delete_history) {
-            FragmentManager fm = getSupportFragmentManager();
-            ClearHistoryWarning chw = new ClearHistoryWarning();
-            chw.setTargetFragment(new History(), 0);
-            chw.show(fm, "date picker");
-        }
+
 
 
         return super.onOptionsItemSelected(item);
@@ -166,6 +161,7 @@ public class MainActivity extends AppCompatActivity
     public void onClearHistory(Boolean clearHistory) {
         if (clearHistory) {
             db.clearHistory();
+
             clearHistory = false;
         }
     }

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -23,10 +24,10 @@ import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
 
 import Dialogs.ClearHistoryWarning;
+import Dialogs.CreateNewGoal;
 import Models.DbManager;
 
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
-
 
 
 public class History extends Fragment {
@@ -34,6 +35,9 @@ public class History extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+
+    DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -148,5 +152,29 @@ public class History extends Fragment {
         super.onPrepareOptionsMenu(menu);
         MenuItem item = menu.findItem(R.id.action_delete_history);
         item.setVisible(true);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 0) {
+            DbManager dbd = new DbManager(this.getActivity().getApplicationContext(), null, null, DbManager.DATABASE_VERSION);
+            dbd.clearHistory();
+            populateListView();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_delete_history) {
+
+            FragmentManager fm = getFragmentManager();
+            ClearHistoryWarning clear = new ClearHistoryWarning();
+            clear.setTargetFragment(History.this, 0);
+            clear.show(fm, "Add New Goal");
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -37,7 +37,7 @@ public class DatePickerTestMode extends DialogFragment {
     String dateString;
     Date someDate;
     private OnCompleteListener completeListener;
-    DbManager db = new DbManager(this.getActivity().getApplicationContext(), null, null, DbManager.DATABASE_VERSION);
+    //DbManager db = new DbManager(this.getActivity().getApplicationContext(), null, null, DbManager.DATABASE_VERSION);
 
     public DatePickerTestMode() {
         // Required empty public constructor
@@ -68,8 +68,6 @@ public class DatePickerTestMode extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
-
         setHasOptionsMenu(true);
 
     }
@@ -104,7 +102,7 @@ public class DatePickerTestMode extends DialogFragment {
                     }
                 });
 
-        db.minStat();
+        //db.minStat();
 
 
         builder.setView(v).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
