@@ -385,7 +385,7 @@ public class DbManager extends SQLiteOpenHelper {
     public void incrementSteps(int steps, String currentDate) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("UPDATE " + TABLE_GOALS + " SET "
-                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + currentDate + "'");
+                + COLUMN_CURRENT_STEPS + " = " + COLUMN_CURRENT_STEPS + " + " + steps + " WHERE " + COLUMN_ACTIVE + "=1");
         //db.close();
     }
 
@@ -513,7 +513,7 @@ public class DbManager extends SQLiteOpenHelper {
             }
         }
         //db.close();
-        c.close();
+        //c.close();
         return c;
     }
 

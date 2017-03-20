@@ -97,7 +97,6 @@ public class History extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("TAG", "on RESUME HAS BEEN CALLED -------------------------------");
-        String[] fromFieldNames;
         populateListView();
     }
 
@@ -138,8 +137,6 @@ public class History extends Fragment {
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
         myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
-        myCursorAdapter.changeCursor(db.simpleHistory());
-        myCursorAdapter.notifyDataSetChanged();
         myCursorAdapter.changeCursor(db.simpleHistory());
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
