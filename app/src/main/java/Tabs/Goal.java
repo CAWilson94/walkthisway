@@ -101,6 +101,7 @@ public class Goal extends Fragment {
         setHasOptionsMenu(true);
         checkActiveGoalCard();
         populateListView();
+        circleProgressBar();
     }
 
     @Override
@@ -126,7 +127,7 @@ public class Goal extends Fragment {
         // Lets check for test mode
         v = inflater.inflate(R.layout.fragment_stats, container, false);
         circleProgressBar = (com.natasa.progressviews.CircleSegmentBar) v.findViewById(R.id.circle_progress);
-        circleProgressBar(circleProgressBar);
+        circleProgressBar();
         cardView = (CardView) v.findViewById(R.id.main_progress_card);
         cardListView = (CardView) v.findViewById(R.id.card_view_goals_list);
         // updating card view
@@ -153,7 +154,7 @@ public class Goal extends Fragment {
         if (resultCode == 0) {
             populateListView();
             checkActiveGoalCard();
-            circleProgressBar(circleProgressBar);
+            circleProgressBar();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -167,7 +168,7 @@ public class Goal extends Fragment {
         return (int) progress;
     }
 
-    private void circleProgressBar(CircleSegmentBar circleProgressBar) {
+    private void circleProgressBar() {
         this.circleProgressBar.setProgress((int) getProgress()); // Sign of weakness sue me!!
     }
 
