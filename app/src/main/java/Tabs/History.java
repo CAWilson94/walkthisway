@@ -101,7 +101,7 @@ public class History extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("TAG", "on RESUME HAS BEEN CALLED -------------------------------");
+        //Log.d("TAG", "on RESUME HAS BEEN CALLED -------------------------------");
         populateListView();
     }
 
@@ -120,7 +120,8 @@ public class History extends Fragment {
 
         //spinnerCompleteView.getOnItemSelectedListener(new AdapterView.OnItemSelectedListener()})
 
-        String text = spinnerCompleteView.getSelectedItem().toString();
+        String completeOrAll = spinnerCompleteView.getSelectedItem().toString();
+        String spinnerUnits = spinnerCompleteView.getSelectedItem().toString();
 
         populateListView();
         return v;
@@ -155,18 +156,35 @@ public class History extends Fragment {
         myCursorAdapter.changeCursor(db.simpleHistory());
 
         myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-            @Override
-            public boolean setViewValue(View v, Cursor cursor, int acolumnIndex) {
+                                          @Override
+                                          public boolean setViewValue(View v, Cursor cursor, int acolumnIndex) {
 
-                if (acolumnIndex == 8) {
-                    String createDate = cursor.getString(acolumnIndex);
-                    TextView textView = (TextView) v;
-                    textView.setText("YALDI: " + createDate);
-                    return true;
-                }
-                return false;
-            }
-        });
+
+                                              if (acolumnIndex == 8) { // Will need to update not only the string output but, the numbers
+                                                  Log.d("COLUMN THREE PLEASE: ", cursor.getString(acolumnIndex));
+                                                  String createDate = cursor.getString(acolumnIndex);
+                                                  TextView textView = (TextView) v;
+                                                  // Convert from those units to whatever was asked for.
+                                                  textView.setText("YALDI: " + createDate);
+                                                  return true;
+                                              }
+
+                                              if (acolumnIndex == 2) { // Will need to update not only the string output but, the numbers
+                                                  Log.d("COLUMN FOUR PLEASE: ", String.valueOf(acolumnIndex));
+                                                  String step = cursor.getString(acolumnIndex);
+                                                  TextView textView = (TextView) v;
+                                                  // Convert from those units to whatever was asked for.
+                                                  textView.setText("convert: " + step);
+                                                  return true;
+                                              }
+                                              return false;
+                                          }
+
+                                      }
+
+
+        );
+
 
         myList.setAdapter(myCursorAdapter);
 
