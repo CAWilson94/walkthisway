@@ -109,8 +109,6 @@ public class EditGoal extends DialogFragment {
         deleteButton = (Button) v.findViewById(R.id.delete_goal_button);
         editActive = (Switch) v.findViewById(R.id.switch_goal_edit);
 
-        final Boolean switchState = editActive.isChecked();
-
         Bundle boop = getArguments();
         final String tableID = boop.getString("IDYAS");
 
@@ -150,16 +148,17 @@ public class EditGoal extends DialogFragment {
                             db.deleteGoal(tableID);
                         }
 
-                        if (switchState && !deleteClicked) {
+                        Boolean switchState = editActive.isChecked();
+
+                        if (switchState) {
 
                             // Check there is an active goal first
                             if (db.checkActiveGoal()) {
                                 String boop = String.valueOf(db.activeGoalInit());
                                 db.updateFieldFromID(COLUMN_CURRENT_STEPS, boop, Integer.valueOf(tableID));
                                 db.sketchySetAllOthersInactive();
+                                db.updateFieldFromID(COLUMN_ACTIVE, String.valueOf(1), Integer.valueOf(tableID));
                             }
-
-                            db.updateFieldFromID(COLUMN_ACTIVE, String.valueOf(1), Integer.valueOf(tableID));
 
 
                         }

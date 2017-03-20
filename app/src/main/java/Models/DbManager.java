@@ -554,4 +554,29 @@ public class DbManager extends SQLiteOpenHelper {
         }
         return 0;
     }
+
+    /**
+     * Show history where complete was a thing
+     */
+    public Cursor CursorHistoryCompleteGoals() {
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_GOALS + " " + "WHERE " + COLUMN_DAY_PASSED + " =1" + COLUMN_GOAL_COMPLETE + "=1"; // one means select every row ( every condition is met)
+        // Cursor will point to location in your results
+        Cursor c = db.rawQuery(query, null);
+        if (c.getCount() != 0) {
+
+            // Move to first row in your results
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                //if (c.getString(c.getColumnIndex("goal_name")) != null) {
+                //}
+                c.moveToNext();
+            }
+        }
+        //db.close();
+        //c.close();
+        return c;
+
+    }
 }

@@ -36,6 +36,7 @@ public class DatePickerTestMode extends DialogFragment {
     private String mParam2;
     String dateString;
     Date someDate;
+    Boolean datePicked = false;
     private OnCompleteListener completeListener;
     //DbManager db = new DbManager(this.getActivity().getApplicationContext(), null, null, DbManager.DATABASE_VERSION);
 
@@ -82,8 +83,9 @@ public class DatePickerTestMode extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.fragment_date_picker, null);
 
-        DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
+        final DatePicker datePicker = (DatePicker) v.findViewById(R.id.datePicker);
         Calendar calendar = Calendar.getInstance();
+
 
         datePicker.init(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
@@ -91,14 +93,18 @@ public class DatePickerTestMode extends DialogFragment {
                     @Override
                     public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
 
-                        someDate = new Date(year - 1900, month, dayOfMonth);
+                        if (!datePicker.equals(null)) {
+                            someDate = new Date(year - 1900, month, dayOfMonth);
 
-                        util.testModeDate(someDate, getContext());
+                            util.testModeDate(someDate, getContext());
 
-                        SystemDateManager date = new SystemDateManager();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        // dateString = sdf.format(someDate);
-                        dateString = date.systemDateDecider(getContext());
+                            SystemDateManager date = new SystemDateManager();
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            // dateString = sdf.format(someDate);
+                            dateString = date.systemDateDecider(getContext());
+                            datePicked = true;
+
+                        }
                     }
                 });
 
@@ -112,7 +118,13 @@ public class DatePickerTestMode extends DialogFragment {
                 Toast.makeText(getContext(), dateString, Toast.LENGTH_LONG);
                 //DbManager db = new DbManager(getContext().getApplicationContext(), null, null, DbManager.DATABASE_VERSION);
                 //db.minStat();
-                completeListener.onComplete(someDate);
+                if (datePicked) {
+                    completeListener.onComplete(someDate);
+                    datePicked = false;
+                } else {
+                    Toast.makeText(getContext(), "If no date is picked... can you really call this a date picker?", Toast.LENGTH_LONG).show();
+                }
+
                 dismiss();
             }
         }).setNegativeButton("cancel", new DialogInterface.OnClickListener() {

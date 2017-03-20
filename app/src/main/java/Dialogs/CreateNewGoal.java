@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.charl.walkthisway.R;
 
@@ -103,27 +104,34 @@ public class CreateNewGoal extends DialogFragment {
                         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of params
                         goalNameInput = (EditText) v.findViewById(R.id.goal_form);
                         stepsInput = (EditText) v.findViewById(R.id.goal_step_form);
+
+
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
-                        Boolean switchState = checkedActive.isChecked(); // Check current state of switch
-                        Goals goal = new Goals();
 
-                        // Set date of main system.. should probably do this at the start of the app... TODO: MOVE THIS YA TIT
-                        util.mainModeDate(getContext());
+                        if ((!goalNameInput.getText().toString().equals("")) & !(stepsInput.getText().toString().equals(""))) {
+                            Boolean switchState = checkedActive.isChecked(); // Check current state of switch
+                            Goals goal = new Goals();
 
-                        // test or main mode here
-                        SystemDateManager date = new SystemDateManager();
-                        String systemorUserDate = date.systemDateDecider(getContext());
+                            // Set date of main system.. should probably do this at the start of the app... TODO: MOVE THIS YA TIT
+                            util.mainModeDate(getContext());
 
-                        goal.setDateGoal(systemorUserDate);
-                        goal.setName(goalNameInput.getText().toString());
-                        goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
-                        // For all other active goals set incomplete
-                        // now check toggle thingy
-                        db.createGoalInitalizer(switchState, goal, systemorUserDate, getContext());
-                        goal.setDayPassed(true);
-                        goal.setComplete(false);
-                        db.addGoal(goal);
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
+                            // test or main mode here
+                            SystemDateManager date = new SystemDateManager();
+                            String systemorUserDate = date.systemDateDecider(getContext());
+
+                            goal.setDateGoal(systemorUserDate);
+                            goal.setName(goalNameInput.getText().toString());
+                            goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
+                            // For all other active goals set incomplete
+                            // now check toggle thingy
+                            db.createGoalInitalizer(switchState, goal, systemorUserDate, getContext());
+                            goal.setDayPassed(true);
+                            goal.setComplete(false);
+                            db.addGoal(goal);
+                            getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
+                        } else {
+                            Toast.makeText(getContext(), "No goal was entered:  WHY ARE YOU LIKE THIS", Toast.LENGTH_SHORT).show();
+                        }
                         dismiss();
                     }
                 })

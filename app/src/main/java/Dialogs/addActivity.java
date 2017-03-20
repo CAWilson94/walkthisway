@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.charl.walkthisway.R;
 
@@ -97,12 +98,18 @@ public class AddActivity extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         stepsInput = (EditText) v.findViewById(R.id.add_steps_input);
-                        String steps = stepsInput.getText().toString();
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        String currentDate = sdf.format(new Date(System.currentTimeMillis()));
-                        int stepInt = Integer.parseInt(steps);
-                        db.incrementSteps(stepInt,currentDate);
-                        getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
+                        if (!stepsInput.getText().toString().equals("")) {
+                            String steps = stepsInput.getText().toString();
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            String currentDate = sdf.format(new Date(System.currentTimeMillis()));
+                            int stepInt = Integer.parseInt(steps);
+                            db.incrementSteps(stepInt, currentDate);
+                            getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
+                        }
+                        if (stepsInput.getText().toString().equals("")) {
+                            Toast.makeText(getContext(), "You don't do much do you?", Toast.LENGTH_SHORT).show();
+
+                        }
                         dismiss();
                     }
                 })

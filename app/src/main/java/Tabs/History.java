@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -111,6 +112,11 @@ public class History extends Fragment {
         pop.populateSpinner(spinnerTimeView, time, getContext());
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
+
+        //spinnerCompleteView.getOnItemSelectedListener(new AdapterView.OnItemSelectedListener()})
+
+        String text = spinnerCompleteView.getSelectedItem().toString();
+
         populateListView();
         return v;
     }
