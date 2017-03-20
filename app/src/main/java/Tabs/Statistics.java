@@ -120,14 +120,6 @@ public class Statistics extends Fragment {
         pop.populateSpinner(spinnerTimeView, time, getContext());
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
-
-        String Text = spinnerCompleteView.getSelectedItem().toString();
-
-        //spinnerCompleteView.getOnItemSelectedListener()
-
-        Toast.makeText(getContext(), Text, Toast.LENGTH_LONG).show();
-
-
         return v;
     }
 

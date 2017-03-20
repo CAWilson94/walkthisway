@@ -11,9 +11,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
 
 import java.sql.Date;
@@ -40,6 +42,12 @@ public class CreateNewGoal extends DialogFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    Spinner spinnerGoalUnits;
+
+    String units[] = {"Steps", "Km", "Miles", "Yards", "Metres"};
+
+    Populate populate = new Populate();
 
     CreateNewGoalDialogListener mcallBack;
     SystemDatePreferenceManager util = new SystemDatePreferenceManager();
@@ -95,6 +103,10 @@ public class CreateNewGoal extends DialogFragment {
 
         builder.setMessage("Input Goal Info");
 
+        spinnerGoalUnits = (Spinner) v.findViewById(R.id.spinner_goal_units);
+
+        populate.populateSpinner(spinnerGoalUnits, units, getContext());
+
         builder.setView(v)
                 // Action Buttons
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -105,6 +117,10 @@ public class CreateNewGoal extends DialogFragment {
                         goalNameInput = (EditText) v.findViewById(R.id.goal_form);
                         stepsInput = (EditText) v.findViewById(R.id.goal_step_form);
 
+
+                        String unitSelected = spinnerGoalUnits.getSelectedItem().toString();
+
+                        Toast.makeText(getContext(), unitSelected, Toast.LENGTH_LONG).show();
 
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);

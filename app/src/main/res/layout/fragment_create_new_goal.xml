@@ -14,13 +14,6 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            ans
-
-            ></LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -41,6 +34,13 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textAutoComplete" />
+
+            <Spinner
+                android:id="@+id/spinner_goal_units"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
         <LinearLayout
