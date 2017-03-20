@@ -117,19 +117,18 @@ public class History extends Fragment {
         CardView cardView = (CardView) v.findViewById(R.id.card_history);
         Spinner spinnerCompleteView = (Spinner) v.findViewById(R.id.spinner_complete);
         Spinner spinnerTimeView = (Spinner) v.findViewById(R.id.spinner_time);
-        Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner_units);
+        final Spinner spinnerUnitsView = (Spinner) v.findViewById(R.id.spinner_units);
         pop.populateSpinner(spinnerTimeView, time, getContext());
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
 
         String completeOrAll = spinnerCompleteView.getSelectedItem().toString();
-        spinnerUnits = spinnerUnitsView.getSelectedItem().toString();
 
         spinnerUnitsView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 populateListView();
-                //Toast.makeText(getContext(), "HELLO THERE", Toast.LENGTH_LONG).;
+                spinnerUnits = spinnerUnitsView.getItemAtPosition(position).toString();
             }
 
             @Override

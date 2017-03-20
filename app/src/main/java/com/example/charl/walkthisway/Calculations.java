@@ -6,6 +6,12 @@ package com.example.charl.walkthisway;
 
 public class Calculations {
 
+
+    public final String KM = "km";
+    public final String STEPS = "steps";
+    public final String MILES = "miles";
+    public final String YARDS = "yards";
+    public final String METRES = "metres";
     /**
      * Users stride length calculation
      *
@@ -22,7 +28,7 @@ public class Calculations {
      *
      * @return
      */
-    public double stepsToKM(int steps) {
+    public double stepsToKM(double steps) {
         // steps * stride length / 1000
         double km = 0;
         km = ((steps * strideLength() / 1000));
@@ -34,7 +40,7 @@ public class Calculations {
      *
      * @return
      */
-    public double stepsToMiles(int steps) {
+    public double stepsToMiles(double steps) {
         // steps * stride length / 1000
         double miles = 0;
         miles = ((steps * strideLength() * 0.000621371));
@@ -47,10 +53,10 @@ public class Calculations {
      *
      * @return
      */
-    public double stepsToYards(int steps) {
+    public double stepsToYards(double steps) {
         // steps * stride length / 1000
         double yards = 0;
-        yards = (((double) steps * strideLength() * 1.09361));
+        yards = ((steps * strideLength() * 1.09361));
         return yards;
     }
 
@@ -59,10 +65,10 @@ public class Calculations {
      *
      * @return
      */
-    public double stepsToMetres(int steps) {
+    public double stepsToMetres(double steps) {
         // steps * stride length / 1000
         double yards = 0;
-        yards = (((double) steps * strideLength()));
+        yards = (( steps * strideLength()));
         return yards;
     }
 
@@ -119,15 +125,15 @@ public class Calculations {
         double steps = 0;
 
         switch (units) {
-            case "km":
+            case KM:
                 return KMToSteps(num);
-            case "miles":
+            case MILES:
                 return milesToSteps(num);
-            case "yards":
+            case YARDS:
                 return yardsToSteps(num);
-            case "metres":
+            case METRES:
                 return metresToSteps(num);
-            case "steps":
+            case STEPS:
                 return num;
             default:
                 return 0.0;
@@ -138,15 +144,15 @@ public class Calculations {
     public double fromStepsToUnits(String units, double num) {
 
         switch (units) {
-            case "km":
-                return KMToSteps(num);
-            case "miles":
-                return milesToSteps(num);
-            case "yards":
-                return yardsToSteps(num);
-            case "metres":
-                return metresToSteps(num);
-            case "steps":
+            case KM:
+                return stepsToKM(num);
+            case MILES:
+                return stepsToMiles(num);
+            case YARDS:
+                return stepsToYards(num);
+            case METRES:
+                return stepsToMetres(num);
+            case STEPS:
                 return num;
             default:
                 return 0.0;
