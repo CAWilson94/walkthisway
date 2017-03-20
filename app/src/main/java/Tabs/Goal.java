@@ -120,8 +120,8 @@ public class Goal extends Fragment {
 
         EndOfDay endOfDay = new EndOfDay();
         IntentFilter filter = new IntentFilter("CONTENTS_NOTIFICATION");
-        // getContext().registerReceiver(endOfDay, filter); TODO: unregister
-        //getContext()//.unregisterReceiver(endOfDay,filter);
+        getContext().registerReceiver(endOfDay, filter);
+
 
         getActivity().invalidateOptionsMenu();
         setHasOptionsMenu(true);
@@ -349,6 +349,10 @@ public class Goal extends Fragment {
         if (us.sharedPrefTestMode(getContext())) {
             cal_test.setVisible(true);
             test_mode.setVisible(true);
+        }
+        if (!us.sharedPrefTestMode(getContext())) {
+            cal_test.setVisible(false);
+            test_mode.setVisible(false);
         }
         item.setVisible(false);
     }

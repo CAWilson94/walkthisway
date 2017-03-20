@@ -38,7 +38,8 @@ public class DatePickerTestMode extends DialogFragment {
     Date someDate;
     Boolean datePicked = false;
     private OnCompleteListener completeListener;
-    //DbManager db = new DbManager(this.getActivity().getApplicationContext(), null, null, DbManager.DATABASE_VERSION);
+    DbManager db;
+
 
     public DatePickerTestMode() {
         // Required empty public constructor
@@ -70,6 +71,7 @@ public class DatePickerTestMode extends DialogFragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         setHasOptionsMenu(true);
+        db = new DbManager(this.getActivity().getApplicationContext(), null, null, DbManager.DATABASE_VERSION);
 
     }
 
@@ -120,6 +122,8 @@ public class DatePickerTestMode extends DialogFragment {
                 //db.minStat();
                 if (datePicked) {
                     completeListener.onComplete(someDate);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
+                    db.dayPassed();
                     datePicked = false;
                 } else {
                     Toast.makeText(getContext(), "If no date is picked... can you really call this a date picker?", Toast.LENGTH_LONG).show();

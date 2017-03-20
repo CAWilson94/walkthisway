@@ -109,6 +109,7 @@ public class History extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        setHasOptionsMenu(true);
         //Log.d("TAG", "on RESUME HAS BEEN CALLED -------------------------------");
         //populateListView();
     }
@@ -240,6 +241,10 @@ public class History extends Fragment {
         if (us.sharedPrefTestMode(getContext())) {
             cal_test.setVisible(true);
             test_mode.setVisible(true);
+        }
+        if (!us.sharedPrefTestMode(getContext())) {
+            cal_test.setVisible(false);
+            test_mode.setVisible(false);
         }
         item.setVisible(true);
     }

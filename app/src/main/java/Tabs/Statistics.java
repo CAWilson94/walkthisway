@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.DbManager;
+import SystemDateStrategy.SystemDatePreferenceManager;
 
 
 /**
@@ -46,6 +49,7 @@ public class Statistics extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    SystemDatePreferenceManager us = new SystemDatePreferenceManager();
 
     private OnFragmentInteractionListener mListener;
     View v;
@@ -96,6 +100,7 @@ public class Statistics extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -154,6 +159,21 @@ public class Statistics extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem cal_test = menu.findItem(R.id.action_date_picker);
+        MenuItem test_mode = menu.findItem(R.id.test_mode_menu);
+        if (us.sharedPrefTestMode(getContext())) {
+            cal_test.setVisible(true);
+            test_mode.setVisible(true);
+        }
+        if (!us.sharedPrefTestMode(getContext())) {
+            cal_test.setVisible(false);
+            test_mode.setVisible(false);
+        }
     }
 
 }

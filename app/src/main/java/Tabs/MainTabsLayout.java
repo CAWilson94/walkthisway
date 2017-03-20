@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,6 +18,8 @@ import com.example.charl.walkthisway.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import SystemDateStrategy.SystemDatePreferenceManager;
 
 
 /**
@@ -40,6 +44,7 @@ public class MainTabsLayout extends Fragment {
     private String mParam2;
 
     ViewPagerAdapter adapter;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -164,4 +169,7 @@ public class MainTabsLayout extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
+
+
+
 }
