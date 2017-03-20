@@ -1,5 +1,8 @@
 package Tabs;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,6 +22,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.charl.walkthisway.AlarmHandler;
+import com.example.charl.walkthisway.EndOfDay;
 import com.example.charl.walkthisway.R;
 
 import SystemDateStrategy.SystemDateManager;
@@ -28,12 +33,14 @@ import com.natasa.progressviews.CircleSegmentBar;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import Dialogs.AddActivity;
 import Dialogs.CreateNewGoal;
 import Dialogs.EditGoal;
 import Models.DbManager;
 
+import static android.content.Context.ALARM_SERVICE;
 import static com.example.charl.walkthisway.R.id.circle_progress;
 import static com.example.charl.walkthisway.R.id.yermaw;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
@@ -56,6 +63,8 @@ public class Goal extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    AlarmHandler ah = new AlarmHandler();
+
 
     SystemDatePreferenceManager us = new SystemDatePreferenceManager();
     CardView cardView;
@@ -123,6 +132,8 @@ public class Goal extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ah.alarmRepeat(getContext());
         // Lets check for test mode
         v = inflater.inflate(R.layout.fragment_stats, container, false);
         circleProgressBar = (com.natasa.progressviews.CircleSegmentBar) v.findViewById(R.id.circle_progress);
@@ -145,6 +156,8 @@ public class Goal extends Fragment {
                 newGoal.show(fm, "Add New Goal");
             }
         });
+
+
         return v;
     }
 

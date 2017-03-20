@@ -104,6 +104,7 @@ public class History extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         v = inflater.inflate(R.layout.fragment_test, container, false);
         CardView cardView = (CardView) v.findViewById(R.id.card_history);
         Spinner spinnerCompleteView = (Spinner) v.findViewById(R.id.spinner_complete);

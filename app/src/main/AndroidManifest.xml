@@ -8,6 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -21,9 +23,20 @@
         <activity
             android:name=".SettingsPreferences"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
+        <receiver
+            android:name=".Bootup"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".EndOfDay"
+            android:enabled="true"></receiver>
+        
     </application>
 
 </manifest>
