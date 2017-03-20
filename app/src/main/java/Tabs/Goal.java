@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.charl.walkthisway.AlarmHandler;
+import com.example.charl.walkthisway.Calculations;
 import com.example.charl.walkthisway.EndOfDay;
 import com.example.charl.walkthisway.R;
 
@@ -70,6 +71,8 @@ public class Goal extends Fragment {
     private String mParam1;
     private String mParam2;
     AlarmHandler ah = new AlarmHandler();
+
+    Calculations calculations = new Calculations();
 
     private SharedPreferences.OnSharedPreferenceChangeListener prefListner;
 
@@ -258,7 +261,15 @@ public class Goal extends Fragment {
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());
-            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps() + db.displayUnitsFromActiveStatus());
+
+            Calculations calculations = new Calculations();
+            int currentSteps = db.displayActiveSteps();
+            int goalSteps = db.displayGoalSteps();
+            double current = calculations.doConversion(db.displayUnitsFromActiveStatus(), (double) currentSteps);
+            double goal = calculations.doConversion(db.displayUnitsFromActiveStatus(), (double) goalSteps);
+
+
+            stepsActive.setText(String.valueOf(current) + " / " + goal + "\n        " + db.displayUnitsFromActiveStatus());
         }
         //csb.setVisibility(View.INVISIBLE);
         //db.close();

@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.charl.walkthisway.Calculations;
 import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
 
@@ -44,8 +45,9 @@ public class CreateNewGoal extends DialogFragment {
     private String mParam2;
 
     Spinner spinnerGoalUnits;
+    Calculations calculations = new Calculations();
 
-    String units[] = {"Steps", "Km", "Miles", "Yards", "Metres"};
+    String units[] = {calculations.STEPS, calculations.KM, calculations.METRES, calculations.MILES, calculations.YARDS};
 
     Populate populate = new Populate();
 

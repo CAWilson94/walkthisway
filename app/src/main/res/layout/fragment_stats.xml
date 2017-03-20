@@ -91,7 +91,7 @@
                                 android:layout_gravity="center"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:lines="1"/>
+                                android:lines="2"/>
 
 
                         </RelativeLayout>

@@ -417,6 +417,7 @@ public class DbManager extends SQLiteOpenHelper {
         return activeSteps;
     }
 
+
     /**
      * @return
      */

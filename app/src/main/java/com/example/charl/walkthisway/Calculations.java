@@ -12,6 +12,7 @@ public class Calculations {
     public final String MILES = "miles";
     public final String YARDS = "yards";
     public final String METRES = "metres";
+
     /**
      * Users stride length calculation
      *
@@ -68,7 +69,7 @@ public class Calculations {
     public double stepsToMetres(double steps) {
         // steps * stride length / 1000
         double yards = 0;
-        yards = (( steps * strideLength()));
+        yards = ((steps * strideLength()));
         return yards;
     }
 
@@ -139,6 +140,16 @@ public class Calculations {
                 return 0.0;
         }
 
+    }
+
+    public double doConversion(String unitOrSteps, double num) {
+        double stepConversion = 0;
+        if (unitOrSteps == STEPS) {
+            stepConversion = fromUnitsToSteps(unitOrSteps, num);
+        } else {
+            stepConversion = fromStepsToUnits(unitOrSteps, num);
+        }
+        return stepConversion;
     }
 
     public double fromStepsToUnits(String units, double num) {
