@@ -17,6 +17,7 @@ public class Goals {
     Boolean complete;
     String dateGoal;
     Boolean dayPassed;
+    private String units;
 
     /**
      * int myInt = (myBoolean) ? 1 : 0
@@ -98,4 +99,11 @@ public class Goals {
     }
 
 
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
+    }
 }

@@ -27,6 +27,7 @@ public class DbManager extends SQLiteOpenHelper {
     public static final String TABLE_GOALS = "goals";
     // Names of your columns for Goal Table
     public static final String COLUMN_GOAL_ID = "_id";
+    public static final String COLUMN_GOAL_UNITS = "units";
     public static final String COLUMN_GOAL_NAME = "goal_name";
     public static final String COLUMN_ACTIVE = "is_active";
     public static final String COLUMN_CURRENT_STEPS = "current_steps";
@@ -56,7 +57,8 @@ public class DbManager extends SQLiteOpenHelper {
                 COLUMN_GOAL_COMPLETE + " INTEGER DEFAULT 0, " +
                 COLUMN_STEP_GOALS + " INTEGER NOT NULL, " +
                 COLUMN_DATE_GOALS + " DATE DEFAULT CURRENT_TIMESTAMP, " +
-                COLUMN_DAY_PASSED + " INTEGER DEFAULT 0 " +
+                COLUMN_DAY_PASSED + " INTEGER DEFAULT 0, " +
+                COLUMN_GOAL_UNITS + "TEXT" +
                 ")";
         db.execSQL(query);
     }
@@ -84,6 +86,7 @@ public class DbManager extends SQLiteOpenHelper {
         // Basically a list of values
         ContentValues values = new ContentValues();
         values.put(COLUMN_GOAL_NAME, goal.getName());
+        values.put(COLUMN_GOAL_UNITS, goal.getUnits());
         values.put(COLUMN_ACTIVE, (goal.getActive()) ? 1 : 0);
         values.put(COLUMN_STEP_GOALS, goal.getStepTarget());
         values.put(COLUMN_CURRENT_STEPS, goal.getNumSteps());
