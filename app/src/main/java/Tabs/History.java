@@ -56,6 +56,7 @@ public class History extends Fragment {
     String complete[] = {"Complete", "All"};
     private View v;
     private SimpleCursorAdapter myCursorAdapter;
+    String spinnerUnits;
 
     private Populate pop = new Populate();
 
@@ -121,9 +122,9 @@ public class History extends Fragment {
         //spinnerCompleteView.getOnItemSelectedListener(new AdapterView.OnItemSelectedListener()})
 
         String completeOrAll = spinnerCompleteView.getSelectedItem().toString();
-        String spinnerUnits = spinnerCompleteView.getSelectedItem().toString();
+        spinnerUnits = spinnerUnitsView.getSelectedItem().toString();
 
-        populateListView();
+
         return v;
     }
 
@@ -162,10 +163,10 @@ public class History extends Fragment {
 
                                               if (acolumnIndex == 8) { // Will need to update not only the string output but, the numbers
                                                   Log.d("COLUMN THREE PLEASE: ", cursor.getString(acolumnIndex));
-                                                  String createDate = cursor.getString(acolumnIndex);
+                                                  //String units= cursor.getString(acolumnIndex);
                                                   TextView textView = (TextView) v;
                                                   // Convert from those units to whatever was asked for.
-                                                  textView.setText("YALDI: " + createDate);
+                                                  textView.setText(spinnerUnits);
                                                   return true;
                                               }
 
