@@ -52,10 +52,13 @@ public class History extends Fragment {
     private String mParam2;
 
 
+    Calculations calulations = new Calculations();
+
     private Cursor cursor;
+    ListView myList;
     CardView cardListView;
     String time[] = {"Day view", "Week view", "Month View", "Custom View"};
-    String units[] = {"Steps", "Km", "Miles", "Monroes.."};
+    String units[] = {calulations.STEPS, calulations.KM, calulations.METRES, calulations.MILES, calulations.YARDS};
     String complete[] = {"Complete", "All"};
     private View v;
     private SimpleCursorAdapter myCursorAdapter;
@@ -93,12 +96,12 @@ public class History extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         setHasOptionsMenu(true);
-        DbManager db = new DbManager(this.getActivity(), null, null, DbManager.DATABASE_VERSION);
+        db = new DbManager(getActivity(), null, null, 2);
     }
 
     @Override
     public void onPause() {
-        populateListView();
+        //populateListView();
         super.onPause();
     }
 
@@ -106,12 +109,13 @@ public class History extends Fragment {
     public void onResume() {
         super.onResume();
         //Log.d("TAG", "on RESUME HAS BEEN CALLED -------------------------------");
-        populateListView();
+        //populateListView();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 
         v = inflater.inflate(R.layout.fragment_test, container, false);
         CardView cardView = (CardView) v.findViewById(R.id.card_history);
@@ -122,13 +126,16 @@ public class History extends Fragment {
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
 
+        myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
+
+
         String completeOrAll = spinnerCompleteView.getSelectedItem().toString();
 
         spinnerUnitsView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                populateListView();
                 spinnerUnits = spinnerUnitsView.getItemAtPosition(position).toString();
+                populateListView();
             }
 
             @Override
@@ -136,7 +143,6 @@ public class History extends Fragment {
                 return;
             }
         });
-
 
         return v;
     }
@@ -153,7 +159,7 @@ public class History extends Fragment {
     }
 
     public View populateListView() {
-        ListView myList;
+
 
         DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
         cursor = db.simpleHistory();
@@ -166,7 +172,6 @@ public class History extends Fragment {
         myCursorAdapter = new SimpleCursorAdapter(getContext(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
 
 
-        myList = (ListView) v.findViewById(R.id.history_list); // get list view into main activity
         myCursorAdapter.changeCursor(db.simpleHistory());
 
         myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
@@ -187,11 +192,10 @@ public class History extends Fragment {
                                                   Log.d("COLUMN FOUR PLEASE: ", String.valueOf(acolumnIndex));
                                                   String step = cursor.getString(acolumnIndex);
                                                   TextView textView = (TextView) v;
-                                                  Calculations c = new Calculations();
-                                                  double stepConvert = c.fromStepsToUnits(spinnerUnits, Double.parseDouble(step));
+                                                  double stepConvert = calulations.fromStepsToUnits(spinnerUnits, Double.parseDouble(step));
                                                   Toast.makeText(getContext(), "hello: " + spinnerUnits, Toast.LENGTH_LONG).show();
                                                   // Convert from those units to whatever was asked for.
-                                                  textView.setText("convert: " + stepConvert);
+                                                  textView.setText(String.valueOf(stepConvert));
                                                   return true;
                                               }
                                               return false;
