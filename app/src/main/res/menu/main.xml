@@ -2,10 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:balloonberry="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="TEST MODE"
+        balloonberry:showAsAction="always"
+        android:enabled="true"
+        android:id="@+id/test_mode_menu" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings" />
+
     <item android:title="Date Picker"
         android:id="@+id/action_date_picker"
         android:icon="@android:drawable/ic_menu_my_calendar"
@@ -13,6 +19,7 @@
         android:enabled="true"
         android:visible="false"
         android:checkable="true" />
+
     <item android:title="Delete History"
         android:id="@+id/action_delete_history"
         android:icon="@android:drawable/ic_menu_delete"
@@ -20,4 +27,5 @@
         android:enabled="true"
         android:visible="false"
         android:checkable="true" />
+
 </menu>

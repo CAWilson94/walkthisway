@@ -138,6 +138,7 @@ public class Goal extends Fragment {
         prefListner = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                // Somehow check if date actually changed..
                 db.carriageToPumpkin();
                 checkActiveGoalCard();
                 populateListView();
@@ -288,7 +289,7 @@ public class Goal extends Fragment {
         String[] fromFieldNames = new String[]{db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
                 db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS}; // Placeholder
 
-        int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, }; // Placeholder
+        int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total,}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
 
@@ -342,9 +343,13 @@ public class Goal extends Fragment {
         super.onPrepareOptionsMenu(menu);
         MenuItem item = menu.findItem(R.id.action_delete_history);
         MenuItem cal_test = menu.findItem(R.id.action_date_picker);
+        MenuItem test_mode = menu.findItem(R.id.test_mode_menu);
 
-        if (us.sharedPrefTestMode(getContext()))
+
+        if (us.sharedPrefTestMode(getContext())) {
             cal_test.setVisible(true);
+            test_mode.setVisible(true);
+        }
         item.setVisible(false);
     }
 

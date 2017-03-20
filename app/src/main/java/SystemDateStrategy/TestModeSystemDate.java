@@ -23,6 +23,7 @@ public class TestModeSystemDate implements SystemDate {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String defaultdate = sdf.format(new Date(System.currentTimeMillis()));
         String date = pref.getString("test_date", defaultdate);
+
         return date;
     }
 }

@@ -31,6 +31,7 @@ import com.example.charl.walkthisway.R;
 import Dialogs.ClearHistoryWarning;
 import Dialogs.CreateNewGoal;
 import Models.DbManager;
+import SystemDateStrategy.SystemDatePreferenceManager;
 
 import static android.R.attr.name;
 import static com.example.charl.walkthisway.R.id.test;
@@ -51,7 +52,7 @@ public class History extends Fragment {
     private String mParam1;
     private String mParam2;
 
-
+    SystemDatePreferenceManager us = new SystemDatePreferenceManager();
     Calculations calulations = new Calculations();
 
     private Cursor cursor;
@@ -234,6 +235,12 @@ public class History extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         MenuItem item = menu.findItem(R.id.action_delete_history);
+        MenuItem cal_test = menu.findItem(R.id.action_date_picker);
+        MenuItem test_mode = menu.findItem(R.id.test_mode_menu);
+        if (us.sharedPrefTestMode(getContext())) {
+            cal_test.setVisible(true);
+            test_mode.setVisible(true);
+        }
         item.setVisible(true);
     }
 
