@@ -107,6 +107,7 @@ public class CreateNewGoal extends DialogFragment {
 
 
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
+                        checkedActive = (Switch) v.findViewById(R.id.switch_goal);
 
                         if ((!goalNameInput.getText().toString().equals("")) & !(stepsInput.getText().toString().equals(""))) {
                             Boolean switchState = checkedActive.isChecked(); // Check current state of switch
@@ -125,7 +126,7 @@ public class CreateNewGoal extends DialogFragment {
                             // For all other active goals set incomplete
                             // now check toggle thingy
                             db.createGoalInitalizer(switchState, goal, systemorUserDate, getContext());
-                            goal.setDayPassed(true);
+                            goal.setDayPassed(false);
                             goal.setComplete(false);
                             db.addGoal(goal);
                             getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());

@@ -591,4 +591,14 @@ public class DbManager extends SQLiteOpenHelper {
         int boop = db.update(TABLE_GOALS, cv, COLUMN_ACTIVE + " =?", new String[]{"1"});
     }
 
+    /**
+     * When alarm manager called change the active goal column to day passed
+     */
+    public void dayPassed() {
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_DAY_PASSED, String.valueOf(1));
+        int boop = db.update(TABLE_GOALS, cv, COLUMN_ACTIVE + " =?", new String[]{"1"});
+    }
+
 }
