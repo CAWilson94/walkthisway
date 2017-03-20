@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.renderscript.Double2;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +21,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.charl.walkthisway.Calculations;
 import com.example.charl.walkthisway.MainActivity;
 import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
@@ -119,10 +122,21 @@ public class History extends Fragment {
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
 
-        //spinnerCompleteView.getOnItemSelectedListener(new AdapterView.OnItemSelectedListener()})
-
         String completeOrAll = spinnerCompleteView.getSelectedItem().toString();
         spinnerUnits = spinnerUnitsView.getSelectedItem().toString();
+
+        spinnerUnitsView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                populateListView();
+                //Toast.makeText(getContext(), "HELLO THERE", Toast.LENGTH_LONG).;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
 
 
         return v;
@@ -174,8 +188,11 @@ public class History extends Fragment {
                                                   Log.d("COLUMN FOUR PLEASE: ", String.valueOf(acolumnIndex));
                                                   String step = cursor.getString(acolumnIndex);
                                                   TextView textView = (TextView) v;
+                                                  Calculations c = new Calculations();
+                                                  double stepConvert = c.fromStepsToUnits(spinnerUnits, Double.parseDouble(step));
+                                                  Toast.makeText(getContext(), "hello: " + spinnerUnits, Toast.LENGTH_LONG).show();
                                                   // Convert from those units to whatever was asked for.
-                                                  textView.setText("convert: " + step);
+                                                  textView.setText("convert: " + stepConvert);
                                                   return true;
                                               }
                                               return false;
