@@ -116,11 +116,8 @@ public class CreateNewGoal extends DialogFragment {
                         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION); // let the dbmanager take care of params
                         goalNameInput = (EditText) v.findViewById(R.id.goal_form);
                         stepsInput = (EditText) v.findViewById(R.id.goal_step_form);
-
-
+                        
                         String unitSelected = spinnerGoalUnits.getSelectedItem().toString();
-
-                        Toast.makeText(getContext(), unitSelected, Toast.LENGTH_LONG).show();
 
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
                         checkedActive = (Switch) v.findViewById(R.id.switch_goal);
@@ -137,7 +134,7 @@ public class CreateNewGoal extends DialogFragment {
                             String systemorUserDate = date.systemDateDecider(getContext());
 
                             goal.setDateGoal(systemorUserDate);
-                            goal.setUnits("Steps");
+                            goal.setUnits(unitSelected);
                             goal.setName(goalNameInput.getText().toString());
                             goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
                             // For all other active goals set incomplete

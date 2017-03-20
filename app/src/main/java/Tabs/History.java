@@ -149,6 +149,8 @@ public class History extends Fragment {
         myList.setAdapter(myCursorAdapter);
         myList.setFocusable(false);
         setListViewHeightBasedOnItems(myList, cardListView);
+
+
         return v;
     }
 
