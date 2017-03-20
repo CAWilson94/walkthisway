@@ -121,6 +121,7 @@ public class CreateNewGoal extends DialogFragment {
                             String systemorUserDate = date.systemDateDecider(getContext());
 
                             goal.setDateGoal(systemorUserDate);
+                            goal.setUnits("Steps");
                             goal.setName(goalNameInput.getText().toString());
                             goal.setStepTarget(Integer.valueOf(stepsInput.getText().toString()));
                             // For all other active goals set incomplete

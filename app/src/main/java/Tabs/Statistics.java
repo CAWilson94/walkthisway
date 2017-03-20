@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.charl.walkthisway.Populate;
 import com.example.charl.walkthisway.R;
@@ -120,6 +121,11 @@ public class Statistics extends Fragment {
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
 
+        String Text = spinnerCompleteView.getSelectedItem().toString();
+
+        //spinnerCompleteView.getOnItemSelectedListener()
+
+        Toast.makeText(getContext(), Text, Toast.LENGTH_LONG).show();
 
 
         return v;
