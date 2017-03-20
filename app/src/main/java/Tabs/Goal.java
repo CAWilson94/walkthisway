@@ -134,8 +134,9 @@ public class Goal extends Fragment {
         prefListner = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                db.carriageToPumpkin();
                 checkActiveGoalCard();
-                circleProgressBar();
+                populateListView();
             }
         };
 
@@ -160,7 +161,7 @@ public class Goal extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ah.alarmRepeat(getContext());
+        ah.alarmRepeat(getContext()); // will this schedule it on every open ??
         // Lets check for test mode
         v = inflater.inflate(R.layout.fragment_stats, container, false);
         circleProgressBar = (com.natasa.progressviews.CircleSegmentBar) v.findViewById(R.id.circle_progress);
@@ -210,7 +211,7 @@ public class Goal extends Fragment {
     private void circleProgressBar() {
         this.circleProgressBar.setProgress((int) getProgress()); // Sign of weakness sue me!!
     }
-    
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -251,7 +252,8 @@ public class Goal extends Fragment {
 
         if (!db.checkForActiveGoal(this.getActivity(), systemorUserDate)) {
             String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
-            stepsActive.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
+            stepsActive.setText(String.valueOf("0" + " / " + "0"));
+            this.circleProgressBar.setProgress(0);
             text.setText(pleaseEnterGoal);
         } else {
             text.setText(db.displayActiveName());

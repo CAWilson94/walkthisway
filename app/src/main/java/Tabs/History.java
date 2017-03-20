@@ -28,6 +28,7 @@ import Dialogs.ClearHistoryWarning;
 import Dialogs.CreateNewGoal;
 import Models.DbManager;
 
+import static android.R.attr.name;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 
 
@@ -139,7 +140,7 @@ public class History extends Fragment {
         cursor = db.simpleHistory();
         String[] fromFieldNames = new String[]{db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
                 db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS, db.COLUMN_GOAL_COMPLETE}; // Placeholder
-
+        
         int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);

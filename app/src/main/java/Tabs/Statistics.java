@@ -120,6 +120,8 @@ public class Statistics extends Fragment {
         pop.populateSpinner(spinnerUnitsView, units, getContext());
         pop.populateSpinner(spinnerCompleteView, complete, getContext());
 
+
+
         return v;
     }
 

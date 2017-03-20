@@ -33,7 +33,7 @@ public class AlarmHandler {
         Calendar calendar = Calendar.getInstance();
         // Calendar.set(int year, int month, int day, int hourOfDay, int minute, int second)
         calendar.set(2017, Calendar.MARCH, 20, 12, 10, 3);
-
+        alarmMgr.cancel(alarmIntent); // hopefully this works...
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, alarmIntent);
 

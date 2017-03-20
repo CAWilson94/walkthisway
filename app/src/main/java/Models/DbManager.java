@@ -120,7 +120,7 @@ public class DbManager extends SQLiteOpenHelper {
         String dbString = "";
         // Reference to db
         SQLiteDatabase db = getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1" + " AND " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + date + "'";
+        String query = "SELECT * FROM " + TABLE_GOALS + " WHERE " + COLUMN_ACTIVE + " = 1"; // + " AND " + "date(" + COLUMN_DATE_GOALS + ")" + " = " + "'" + date + "'";
 
 
         // one means select every row ( every condition is met)
