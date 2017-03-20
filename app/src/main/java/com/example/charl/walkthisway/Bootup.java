@@ -22,6 +22,7 @@ public class Bootup extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
 
             // Set the alarm to start at approximately 2:00 p.m.

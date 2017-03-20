@@ -107,7 +107,6 @@
                         android:id="@+id/unit_goals_list"
                         android:layout_width="37dp"
                         android:layout_height="wrap_content"
-                        android:text="TOTAL"
                         android:textAlignment="viewStart"
                         android:textSize="10sp"
                         tools:text=" Steps" />
@@ -140,15 +139,6 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/goal_complete_check"
-                style="@style/Widget.AppCompat.CompoundButton.CheckBox"
-                android:layout_width="53dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
-                android:layout_weight="1"
-                android:checked="true"
-                android:duplicateParentState="false" />
         </LinearLayout>
 
     </LinearLayout>

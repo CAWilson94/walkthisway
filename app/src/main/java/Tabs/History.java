@@ -164,9 +164,9 @@ public class History extends Fragment {
         DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
         cursor = db.simpleHistory();
         String[] fromFieldNames = new String[]{db.COLUMN_GOAL_UNITS, db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
-                db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS, db.COLUMN_GOAL_COMPLETE}; // Placeholder
+                db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS}; // Placeholder
 
-        int[] toViewIDs = new int[]{R.id.unit_goals_list, R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total, R.id.goal_complete_check}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.unit_goals_list, R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total}; // Placeholder
 
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getContext(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
@@ -192,7 +192,10 @@ public class History extends Fragment {
                                                   Log.d("COLUMN FOUR PLEASE: ", String.valueOf(acolumnIndex));
                                                   String stepGoal = cursor.getString(acolumnIndex);
                                                   TextView textView = (TextView) v;
-                                                  double stepConvertGoal = calulations.fromStepsToUnits(spinnerUnits, Double.parseDouble(stepGoal));
+
+                                                  double stepConvertGoal = calulations.doConversion(spinnerUnits, Double.parseDouble(stepGoal));
+
+
                                                   //Toast.makeText(getContext(), "hello: " + spinnerUnits, Toast.LENGTH_LONG).show();
                                                   // Convert from those units to whatever was asked for.
                                                   textView.setText(String.valueOf(stepConvertGoal));
@@ -202,7 +205,7 @@ public class History extends Fragment {
                                               if (acolumnIndex == 2) { // Will need to update not only the string output but, the numbers
                                                   String step = cursor.getString(acolumnIndex);
                                                   TextView textView = (TextView) v;
-                                                  double stepConvert = calulations.fromStepsToUnits(spinnerUnits, Double.parseDouble(step));
+                                                  double stepConvert = calulations.doConversion(spinnerUnits, Double.parseDouble(step));
                                                   //Toast.makeText(getContext(), "hello: " + spinnerUnits, Toast.LENGTH_LONG).show();
                                                   // Convert from those units to whatever was asked for.
                                                   textView.setText(String.valueOf(stepConvert));
