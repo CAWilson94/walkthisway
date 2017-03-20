@@ -1,13 +1,21 @@
 package Tabs;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -19,6 +27,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.charl.walkthisway.AlarmHandler;
+import com.example.charl.walkthisway.EndOfDay;
 import com.example.charl.walkthisway.R;
 
 import SystemDateStrategy.SystemDateManager;
@@ -28,12 +38,15 @@ import com.natasa.progressviews.CircleSegmentBar;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import Dialogs.AddActivity;
 import Dialogs.CreateNewGoal;
 import Dialogs.EditGoal;
 import Models.DbManager;
 
+import static android.R.attr.filter;
+import static android.content.Context.ALARM_SERVICE;
 import static com.example.charl.walkthisway.R.id.circle_progress;
 import static com.example.charl.walkthisway.R.id.yermaw;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
@@ -56,6 +69,10 @@ public class Goal extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    AlarmHandler ah = new AlarmHandler();
+
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListner;
+
 
     SystemDatePreferenceManager us = new SystemDatePreferenceManager();
     CardView cardView;
@@ -97,6 +114,11 @@ public class Goal extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        EndOfDay endOfDay = new EndOfDay();
+        IntentFilter filter = new IntentFilter("CONTENTS_NOTIFICATION");
+        getContext().registerReceiver(endOfDay, filter);
+
         getActivity().invalidateOptionsMenu();
         setHasOptionsMenu(true);
         checkActiveGoalCard();
@@ -106,6 +128,19 @@ public class Goal extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        prefListner = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                checkActiveGoalCard();
+                circleProgressBar();
+            }
+        };
+
+        pref.registerOnSharedPreferenceChangeListener(prefListner); // Otherwise garbage collection.. :(
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -124,6 +159,8 @@ public class Goal extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ah.alarmRepeat(getContext());
         // Lets check for test mode
         v = inflater.inflate(R.layout.fragment_stats, container, false);
         circleProgressBar = (com.natasa.progressviews.CircleSegmentBar) v.findViewById(R.id.circle_progress);
@@ -146,6 +183,8 @@ public class Goal extends Fragment {
                 newGoal.show(fm, "Add New Goal");
             }
         });
+
+
         return v;
     }
 
@@ -171,30 +210,7 @@ public class Goal extends Fragment {
     private void circleProgressBar() {
         this.circleProgressBar.setProgress((int) getProgress()); // Sign of weakness sue me!!
     }
-
-    /**
-     * private void checkActiveGoalCard() {
-     * String test = "testing";
-     * TextView text = (TextView) cardView.findViewById(R.id.textView3);
-     * TextView yermaw = (TextView) cardView.findViewById(R.id.yermaw);
-     * CircleSegmentBar csb = (CircleSegmentBar) cardView.findViewById(circle_progress);
-     * <p>
-     * if (db.checkForActiveGoal(getContext()) == false) {
-     * // Set clickable to false
-     * //cardView.setClickable(false);
-     * String pleaseEnterGoal = "There is no active goal, please pick one from the list or click here to create a goal";
-     * text.setText("pleaseEnterGoal");
-     * yermaw.setText(String.valueOf(db.displayActiveSteps()) + " / " + db.displayGoalSteps());
-     * } else {
-     * //cardView.setClickable(true);
-     * text.setText(db.getActiveGoalName());
-     * yermaw.setText(String.valueOf(db.getDailyActivity(getContext())) + " / " + db.displayGoalSteps());
-     * }
-     * <p>
-     * //db.close();
-     * }
-     */
-
+    
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -209,6 +225,7 @@ public class Goal extends Fragment {
 
 
     public void checkActiveGoalCard() {
+
 
         // check for items in db..
         if (db.checkActiveGoal()) {

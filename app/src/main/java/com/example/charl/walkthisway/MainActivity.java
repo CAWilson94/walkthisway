@@ -1,5 +1,6 @@
 package com.example.charl.walkthisway;
 
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 
 
 import java.sql.Date;
+import java.util.Calendar;
 
 import Dialogs.ClearHistoryWarning;
 import Dialogs.DatePickerTestMode;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         displaySelectedScreen(R.id.walk);
         db = new DbManager(this, null, null, 2);
+
 
     }
 
