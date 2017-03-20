@@ -157,10 +157,8 @@ public class EditGoal extends DialogFragment {
                                 String boop = String.valueOf(db.activeGoalInit());
                                 db.updateFieldFromID(COLUMN_CURRENT_STEPS, boop, Integer.valueOf(tableID));
                                 db.sketchySetAllOthersInactive();
-                                db.updateFieldFromID(COLUMN_ACTIVE, String.valueOf(1), Integer.valueOf(tableID));
                             }
-
-
+                            db.updateFieldFromID(COLUMN_ACTIVE, String.valueOf(1), Integer.valueOf(tableID));
                         }
                         getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
                         dismiss();
