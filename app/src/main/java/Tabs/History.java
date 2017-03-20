@@ -188,8 +188,18 @@ public class History extends Fragment {
                                                   return true;
                                               }
 
-                                              if (acolumnIndex == 2) { // Will need to update not only the string output but, the numbers
+                                              if (acolumnIndex == 5) { // Will need to update not only the string output but, the numbers
                                                   Log.d("COLUMN FOUR PLEASE: ", String.valueOf(acolumnIndex));
+                                                  String stepGoal = cursor.getString(acolumnIndex);
+                                                  TextView textView = (TextView) v;
+                                                  double stepConvertGoal = calulations.fromStepsToUnits(spinnerUnits, Double.parseDouble(stepGoal));
+                                                  Toast.makeText(getContext(), "hello: " + spinnerUnits, Toast.LENGTH_LONG).show();
+                                                  // Convert from those units to whatever was asked for.
+                                                  textView.setText(String.valueOf(stepConvertGoal));
+                                                  return true;
+                                              }
+
+                                              if (acolumnIndex == 2) { // Will need to update not only the string output but, the numbers
                                                   String step = cursor.getString(acolumnIndex);
                                                   TextView textView = (TextView) v;
                                                   double stepConvert = calulations.fromStepsToUnits(spinnerUnits, Double.parseDouble(step));
