@@ -161,7 +161,7 @@ public class History extends Fragment {
                 if (acolumnIndex == 8) {
                     String createDate = cursor.getString(acolumnIndex);
                     TextView textView = (TextView) v;
-                    textView.setText("Create date: " + createDate);
+                    textView.setText("YALDI: " + createDate);
                     return true;
                 }
                 return false;
