@@ -1,9 +1,11 @@
 package Tabs;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.renderscript.Double2;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -48,6 +50,7 @@ public class History extends Fragment {
 
     DbManager db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListner;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -64,6 +67,7 @@ public class History extends Fragment {
     private View v;
     private SimpleCursorAdapter myCursorAdapter;
     String spinnerUnits;
+    String spinnerComplete;
 
     private Populate pop = new Populate();
 
@@ -96,6 +100,20 @@ public class History extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        prefListner = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                // Somehow check if date actually changed..
+                db.dayPassed();
+                db.carriageToPumpkin();
+                populateListView();
+            }
+        };
+
+        pref.registerOnSharedPreferenceChangeListener(prefListner); // Otherwise garbage collection.. :(
         setHasOptionsMenu(true);
         db = new DbManager(getActivity(), null, null, 2);
     }

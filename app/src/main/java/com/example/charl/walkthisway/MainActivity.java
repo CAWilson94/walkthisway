@@ -154,8 +154,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onComplete(Date boop) {
+        db.dayPassed();
         Log.d("filter", "some date is: " + String.valueOf(boop));
         util.testModeDate(boop, this);
+
+
     }
 
 

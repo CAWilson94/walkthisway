@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.example.charl.walkthisway.EndOfDay;
 import com.example.charl.walkthisway.R;
 
 import Models.DbManager;
@@ -122,8 +124,6 @@ public class DatePickerTestMode extends DialogFragment {
                 //db.minStat();
                 if (datePicked) {
                     completeListener.onComplete(someDate);
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), 0, getActivity().getIntent());
-                    db.dayPassed();
                     datePicked = false;
                 } else {
                     Toast.makeText(getContext(), "If no date is picked... can you really call this a date picker?", Toast.LENGTH_LONG).show();

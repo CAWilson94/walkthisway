@@ -584,6 +584,7 @@ public class DbManager extends SQLiteOpenHelper {
         return c;
     }
 
+
     /**
      * In this glorious method, we turn our goals carriage back into a pumpkin
      * The active goal is no longer.. current daily steps are nil.
