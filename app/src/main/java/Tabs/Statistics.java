@@ -113,6 +113,10 @@ public class Statistics extends Fragment {
         maxStatsText = (TextView) v.findViewById(R.id.max_stats_text);
         minStatsText = (TextView) v.findViewById(R.id.min_stats_text);
 
+        /**
+         * Show different units based on units spinner..
+         */
+        
         averageStatsText.setText("Average:  " + db.averageStat());
         maxStatsText.setText("Max:          " + db.maxStat());
         minStatsText.setText("Min:          " + db.minStat());
