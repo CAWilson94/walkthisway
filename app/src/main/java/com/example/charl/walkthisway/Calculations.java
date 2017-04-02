@@ -123,19 +123,18 @@ public class Calculations {
     }
 
     public double fromUnitsToSteps(String units, double num) {
-        double steps = 0;
-
+        double roundNum = Math.round(num*100.0)/100.0;
         switch (units) {
             case KM:
-                return KMToSteps(num);
+                return KMToSteps(roundNum);
             case MILES:
-                return milesToSteps(num);
+                return milesToSteps(roundNum);
             case YARDS:
-                return yardsToSteps(num);
+                return yardsToSteps(roundNum);
             case METRES:
-                return metresToSteps(num);
+                return metresToSteps(roundNum);
             case STEPS:
-                return num;
+                return roundNum;
             default:
                 return 0.0;
         }
@@ -149,22 +148,24 @@ public class Calculations {
         } else {
             stepConversion = fromStepsToUnits(unitOrSteps, num);
         }
-        return stepConversion;
+
+        double roundNum = Math.round(stepConversion*100.0)/100.0;
+        return roundNum;
     }
 
     public double fromStepsToUnits(String units, double num) {
-
+        double roundNum = Math.round(num*100.0)/100.0;
         switch (units) {
             case KM:
-                return stepsToKM(num);
+                return stepsToKM(roundNum);
             case MILES:
-                return stepsToMiles(num);
+                return stepsToMiles(roundNum);
             case YARDS:
-                return stepsToYards(num);
+                return stepsToYards(roundNum);
             case METRES:
-                return stepsToMetres(num);
+                return stepsToMetres(roundNum);
             case STEPS:
-                return num;
+                return roundNum;
             default:
                 return 0.0;
         }

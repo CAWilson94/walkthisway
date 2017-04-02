@@ -270,7 +270,7 @@ public class Goal extends Fragment {
             double goal = calculations.doConversion(db.displayUnitsFromActiveStatus(), (double) goalSteps);
 
 
-            stepsActive.setText(String.valueOf(current) + " / " + goal + "\n        " + db.displayUnitsFromActiveStatus());
+            stepsActive.setText(String.valueOf(current) + " / " + goalSteps + "\n        " + db.displayUnitsFromActiveStatus());
         }
         //csb.setVisibility(View.INVISIBLE);
         //db.close();
