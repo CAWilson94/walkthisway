@@ -36,7 +36,6 @@ import Models.DbManager;
 import SystemDateStrategy.SystemDatePreferenceManager;
 
 import static android.R.attr.name;
-import static com.example.charl.walkthisway.R.id.test;
 import static com.example.charl.walkthisway.R.id.view;
 import static com.example.charl.walkthisway.UIUtils.setListViewHeightBasedOnItems;
 

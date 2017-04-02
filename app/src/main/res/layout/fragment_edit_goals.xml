@@ -53,7 +53,7 @@
                 android:id="@+id/goal_step_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit Target Steps" />
+                android:text="Edit Target   " />
 
             <EditText
                 android:id="@+id/step_edit__form"

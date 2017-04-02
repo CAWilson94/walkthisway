@@ -10,24 +10,9 @@
             android:id="@+id/walk"
             android:icon="@drawable/ic_menu_gallery"
             android:title="walk" />
-        <item
-            android:id="@+id/stats"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="stats" />
-        <item
-            android:id="@+id/test2"
-            android:icon="@android:drawable/ic_menu_preferences"
-            android:title="test" />
 
     </group>
 
-    <item android:title="Tools">
-        <menu>
-            <item
-                android:id="@+id/test"
-                android:icon="@android:drawable/ic_menu_preferences"
-                android:title="test" />
-        </menu>
-    </item>
+
 
 </menu>

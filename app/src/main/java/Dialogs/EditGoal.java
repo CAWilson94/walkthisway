@@ -102,7 +102,7 @@ public class EditGoal extends DialogFragment {
         DbManager db;
         db = new DbManager(getActivity(), null, null, DbManager.DATABASE_VERSION);
 
-        builder.setMessage("Edit yer goal fatty!");
+        builder.setMessage("Edit Goal!");
 
         goalNameEdit = (EditText) v.findViewById(R.id.goal_form_edit);
         goalStepEdit = (EditText) v.findViewById(R.id.step_edit__form);

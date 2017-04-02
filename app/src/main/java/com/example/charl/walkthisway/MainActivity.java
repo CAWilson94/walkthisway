@@ -28,7 +28,7 @@ import Tabs.Goal;
 import Tabs.History;
 import Tabs.MainTabsLayout;
 
-import static com.example.charl.walkthisway.R.id.stats;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DatePickerTestMode.OnCompleteListener,
@@ -128,12 +128,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.walk:
                 fragment = new MainTabsLayout();
-                break;
-            case stats:
-                fragment = new Goal();
-                break;
-            case R.id.test:
-                fragment = history;
                 break;
         }
 
