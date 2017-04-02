@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -286,10 +287,10 @@ public class Goal extends Fragment {
     public View populateListView() {
         cursor = db.getAllRows(this.getActivity());
 
-        String[] fromFieldNames = new String[]{db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
+        String[] fromFieldNames = new String[]{db.COLUMN_GOAL_UNITS,db.COLUMN_DATE_GOALS, db.COLUMN_GOAL_NAME,
                 db.COLUMN_CURRENT_STEPS, db.COLUMN_STEP_GOALS}; // Placeholder
 
-        int[] toViewIDs = new int[]{R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total,}; // Placeholder
+        int[] toViewIDs = new int[]{R.id.unit_goals_list,R.id.date_goal_added, R.id.goal_name, R.id.current_progress_current, R.id.current_progress_total,}; // Placeholder
         // Set up the adapter
         myCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.custom_row, cursor, fromFieldNames, toViewIDs, 0);
 
@@ -313,6 +314,27 @@ public class Goal extends Fragment {
 
             }
         });
+
+        /**
+        myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+                                          @Override
+                                          public boolean setViewValue(View v, Cursor cursor, int acolumnIndex) {
+
+
+                                              if (acolumnIndex == 8) { // Will need to update not only the string output but, the numbers
+                                                  Log.d("COLUMN THREE PLEASE: ", cursor.getString(acolumnIndex));
+                                                  //String units= cursor.getString(acolumnIndex);
+                                                  TextView textView = (TextView) v;
+                                                  // Convert from those units to whatever was asked for.
+                                                  textView.setText(spinnerUnits);
+                                                  return true;
+                                              }
+
+                                              return false;
+                                          }
+
+        });
+         **/
 
         myCursorAdapter.changeCursor(db.getAllRows(getContext()));
         myList.setAdapter(myCursorAdapter);
